@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head th:include="layout :: htmlhead">
+    	<meta charset="UTF-8">
+    </head>
+    <body>
+        <div class="container">
+            <nav th:replace="layout :: menu">(menu)</nav>
+            <a href="user-report.html" th:href="@{/report/user}" class="btn btn-primary btn-lg" role="button">Criar relatório de usuários</a>
+	        <div th:include="layout :: footer" id="footer">(footer)</div>
+	    </div>
+    </body>
+</html>

@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head th:include="layout :: htmlhead">
+    	<meta charset="UTF-8">
+    </head>
+    <body>
+        <div class="container">
+            <nav th:replace="layout :: menu">(menu)</nav>
+            
+			<h1>Gerar relatório de usuário!</h1>
+
+	        <div th:include="layout :: footer" id="footer">(footer)</div>
+	    </div>
+    </body>
+</html>
