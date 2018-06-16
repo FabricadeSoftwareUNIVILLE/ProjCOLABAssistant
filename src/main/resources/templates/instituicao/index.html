@@ -7,15 +7,17 @@
     <body>
      <div class="container">
             <nav th:replace="layout :: menu">(menu)</nav>
+            <a href="#" class="btn btn-primary btn-lg" role="button">Nova Instituicao</a>
             <div class="border border-dark">
                 <table class="table">
                     <thead class="thead-light"> 
                 <tr>
-                  <th scope="col">name</th>
-                  <th scope="col">description</th>
-                  <th scope="col">address</th>
-                  <th scope="col">phone</th>
-                  <th scope="col">email</th>
+                  <th scope="col">Name</th>
+                  <th scope="col">Description</th>
+                  <th scope="col">Address</th>
+                  <th scope="col">Phone</th>
+                  <th scope="col">Email</th>
+                  <th scope="col"></th>
                 </tr>
             </thead>
             <tbody>
@@ -25,6 +27,10 @@
                     <td th:text="${uminst.address}"></td>
                     <td th:text="${uminst.phone}"></td>
                      <td th:text="${uminst.email}"></td>
+                    <td>
+                                <a href="#" class="btn btn-secondary btn-lg" role="button">Alterar</a>
+                                <a href="#" class="btn btn-warning btn-lg" role="button">Excluir</a>
+                    </td>
                 </tr>
                  </div>
                  </div>
