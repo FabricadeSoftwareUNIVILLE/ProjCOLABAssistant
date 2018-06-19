@@ -4,6 +4,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,17 +20,18 @@ public class UserReportServiceImpl implements UserReportService {
 	private UserRepository userRepository;
 	
 	@Override
-	public File generateUserReport() {
-		String resultReportPath = "result_report.csv";
+	public File generateUserReport(String emailFilter, String nameFilter, String typeFilter) {
+		UUID uniqueFileId = UUID.randomUUID();
+		
+		String resultReportPath = "user_" + uniqueFileId.toString().replaceAll("-", "_") + ".csv";
 
 		try (BufferedWriter writer = new BufferedWriter(new FileWriter(resultReportPath))) {
-			List<User> users = this.userRepository.findAll();
+			List<User> users = this.userRepository.searchWithFilters(nameFilter, emailFilter, typeFilter);
 			
 			writer.write("id;name;email;type;phone;address;enabled\n");
 			
 			for(User user : users) {
-				writer.write(user.getId() + ";" + user.getName() + ";" + user.getEmail() + ";" + user.getType() + ";" + user.getPhone() + ";" + user.getAddress() + ";" + user.isEnabled());
-				writer.write("\n");
+				writer.write(String.format("%s;%s;%s;%s;%s;%s;%s\n", user.getId(), user.getName(), user.getEmail(), user.getType(), user.getPhone(), user.getAddress(), user.isEnabled()));
 			}
 		}
 		catch (Exception ex) {

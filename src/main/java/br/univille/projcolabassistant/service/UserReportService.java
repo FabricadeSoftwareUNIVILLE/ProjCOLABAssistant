@@ -4,6 +4,6 @@ import java.io.File;
 
 public interface UserReportService {
 	
-	File generateUserReport();
+	File generateUserReport(String nameFilter, String emailFilter, String typeFilter);
 	
 }

@@ -10,29 +10,21 @@
             
             <form action="/report/download/user" method="GET">
 			  <div class="form-group">
-			    <label for="emailFilter">Email com:</label>
-			    <input type="text" name="emailWith" class="form-control" id="emailFilter"/>
+			    <label for="nameFilter">Nome com:</label>
+			    <input type="text" name="nameFilter" class="form-control" id="nameFilter" value=""/>
 			  </div>
 			  
 			  <div class="form-group">
-			    <label for="nameFilter">Nome com:</label>
-			    <input type="text" name="nameWith" class="form-control" id="nameFilter"/>
+			    <label for="emailFilter">Email com:</label>
+			    <input type="text" name="emailFilter" class="form-control" id="emailFilter" value=""/>
 			  </div>
 			  
 			  <div class="form-group">
 			    <label for="typeFilter">Tipo com:</label>
-			    <input type="text" name="typeWith" class="form-control" id="typeFilter"/>
+			    <input type="text" name="typeFilter" class="form-control" id="typeFilter" value=""/>
 			  </div>
-			  
-			  <!-- 
-			  
-			  		TODO: MANDAR ESTES INPUT COMO PARÂMETRO DE URL NO report/download
-			  
-			  		OU AVALIAR UMA FORMA MELHOR DE BAIXAR RELATÓRIO
-			  	
-			  -->
-			  
-			  <input type="submit" value="Criar relatório">
+
+			  <input type="submit" value="Baixar relatório">
 			</form>
 			
 			<a th:href="@{|/report/download/user|}" download="relatorio_usuarios.csv"><button class="btn btn-primary">Baixar relatório de usuários</button></a>
