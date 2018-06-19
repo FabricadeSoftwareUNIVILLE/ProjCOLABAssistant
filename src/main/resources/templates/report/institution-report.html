@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head th:include="layout :: htmlhead">
+    	<meta charset="UTF-8">
+    </head>
+    <body>
+        <div class="container">
+            <nav th:replace="layout :: menu">(menu)</nav>
+            <hr>
+			<button class="btn btn-link">
+				<a th:href="@{|/report/download/institution|}" download="relatorio_instituição.csv"><span>Baixar relatório de instituição</span></a>
+			</button>
+	        <div th:include="layout :: footer" id="footer">(footer)</div>
+	    </div>
+    </body>
+</html>
