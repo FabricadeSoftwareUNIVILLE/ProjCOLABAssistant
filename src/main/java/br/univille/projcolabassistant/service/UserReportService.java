@@ -1,7 +1,9 @@
 package br.univille.projcolabassistant.service;
 
+import java.io.File;
+
 public interface UserReportService {
 	
-	boolean generateUserReport();
+	File generateUserReport();
 	
 }

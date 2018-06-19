@@ -6,6 +6,7 @@
     <body>
         <div class="container">
             <nav th:replace="layout :: menu">(menu)</nav>
+            <hr>
             <a href="user-report.html" th:href="@{/report/user}" class="btn btn-primary btn-lg" role="button">Criar relatório de usuários</a>
 	        <div th:include="layout :: footer" id="footer">(footer)</div>
 	    </div>

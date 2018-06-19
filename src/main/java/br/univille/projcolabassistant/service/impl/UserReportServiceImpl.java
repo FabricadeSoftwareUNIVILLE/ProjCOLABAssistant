@@ -1,6 +1,7 @@
 package br.univille.projcolabassistant.service.impl;
 
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileWriter;
 import java.util.List;
 
@@ -18,8 +19,8 @@ public class UserReportServiceImpl implements UserReportService {
 	private UserRepository userRepository;
 	
 	@Override
-	public boolean generateUserReport() {
-		String resultReportPath = "C:\\Users\\1144002001\\Downloads\\result_report.csv";
+	public File generateUserReport() {
+		String resultReportPath = "result_report.csv";
 
 		try (BufferedWriter writer = new BufferedWriter(new FileWriter(resultReportPath))) {
 			List<User> users = this.userRepository.findAll();
@@ -30,14 +31,14 @@ public class UserReportServiceImpl implements UserReportService {
 				writer.write(user.getId() + ";" + user.getName() + ";" + user.getEmail() + ";" + user.getType() + ";" + user.getPhone() + ";" + user.getAddress() + ";" + user.isEnabled());
 				writer.write("\n");
 			}
-			
-			return true;
 		}
 		catch (Exception ex) {
 			ex.printStackTrace();
 			
-			return false;
+			return null;
 		}
+		
+		return new File(resultReportPath);
 	}
 	
 }

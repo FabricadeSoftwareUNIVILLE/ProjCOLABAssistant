@@ -6,9 +6,37 @@
     <body>
         <div class="container">
             <nav th:replace="layout :: menu">(menu)</nav>
+            <hr>
             
-			<h1>Gerar relatório de usuário!</h1>
-
+            <form action="/report/download/user" method="GET">
+			  <div class="form-group">
+			    <label for="emailFilter">Email com:</label>
+			    <input type="text" name="emailWith" class="form-control" id="emailFilter"/>
+			  </div>
+			  
+			  <div class="form-group">
+			    <label for="nameFilter">Nome com:</label>
+			    <input type="text" name="nameWith" class="form-control" id="nameFilter"/>
+			  </div>
+			  
+			  <div class="form-group">
+			    <label for="typeFilter">Tipo com:</label>
+			    <input type="text" name="typeWith" class="form-control" id="typeFilter"/>
+			  </div>
+			  
+			  <!-- 
+			  
+			  		TODO: MANDAR ESTES INPUT COMO PARÂMETRO DE URL NO report/download
+			  
+			  		OU AVALIAR UMA FORMA MELHOR DE BAIXAR RELATÓRIO
+			  	
+			  -->
+			  
+			  <input type="submit" value="Criar relatório">
+			</form>
+			
+			<a th:href="@{|/report/download/user|}" download="relatorio_usuarios.csv"><button class="btn btn-primary">Baixar relatório de usuários</button></a>
+			
 	        <div th:include="layout :: footer" id="footer">(footer)</div>
 	    </div>
     </body>
