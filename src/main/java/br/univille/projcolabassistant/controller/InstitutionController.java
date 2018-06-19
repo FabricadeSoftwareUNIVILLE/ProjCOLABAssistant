@@ -12,28 +12,24 @@ import org.springframework.web.servlet.ModelAndView;
 
 import br.univille.projcolabassistant.model.Institution;
 import br.univille.projcolabassistant.repository.InstitutionRepository;
-
+@RequestMapping("/Institution")
 @Controller
-public class InstituicaoController {
+public class InstitutionController {
 	@Autowired
-	private InstitutionRepository InstituicaoRepository;
-	List<Institution> listaInstituicao = new ArrayList<Institution>();
-	@RequestMapping("/instituicao")
+	private InstitutionRepository InstitutionRepository;
+	List<Institution> listInstitution = new ArrayList<Institution>();
+	
 
 	@GetMapping("")
 	public ModelAndView index() {
+		List<Institution> listInstitution = this.InstitutionRepository.findAll();
 
-
-		List<Institution> listaInstituicao = this.InstituicaoRepository.findAll();
-
-		return new ModelAndView("instituicao/index","listainst",listaInstituicao);
+		return new ModelAndView("Institution/index","listainst",listInstitution);
 	}
 	
 	@GetMapping("/novo")
-    public String createForm(@ModelAttribute Institution  instituicao) {
-        return "instituicao/form";
+    public String createForm(@ModelAttribute Institution Institution) {
+		return "Institution/form";
     }
-	
-
 
 }
