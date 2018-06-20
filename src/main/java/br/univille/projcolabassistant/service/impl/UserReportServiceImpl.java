@@ -15,15 +15,14 @@ import br.univille.projcolabassistant.service.UserReportService;
 
 @Service
 public class UserReportServiceImpl implements UserReportService {
+	private final String REPORTS_PATH = "/src/main/resources/temporary-persistent-reports/";
 	
 	@Autowired
 	private UserRepository userRepository;
 	
 	@Override
 	public File generateUserReport(String emailFilter, String nameFilter, String typeFilter) {
-		UUID uniqueFileId = UUID.randomUUID();
-		
-		String resultReportPath = "user_" + uniqueFileId.toString().replaceAll("-", "_") + ".csv";
+		String resultReportPath = REPORTS_PATH + "user_" + randomId() + ".csv";
 
 		try (BufferedWriter writer = new BufferedWriter(new FileWriter(resultReportPath))) {
 			List<User> users = this.userRepository.searchWithFilters(nameFilter, emailFilter, typeFilter);
@@ -33,14 +32,18 @@ public class UserReportServiceImpl implements UserReportService {
 			for(User user : users) {
 				writer.write(String.format("%s;%s;%s;%s;%s;%s;%s\n", user.getId(), user.getName(), user.getEmail(), user.getType(), user.getPhone(), user.getAddress(), user.isEnabled()));
 			}
+			
+			return new File(resultReportPath);
 		}
 		catch (Exception ex) {
 			ex.printStackTrace();
 			
 			return null;
 		}
-		
-		return new File(resultReportPath);
+	}
+	
+	private String randomId() {
+		return UUID.randomUUID().toString();
 	}
 	
 }

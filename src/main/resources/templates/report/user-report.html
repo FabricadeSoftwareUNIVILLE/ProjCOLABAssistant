@@ -9,26 +9,31 @@
             <hr>
             
             <form action="/report/download/user" method="GET">
-			  <div class="form-group">
-			    <label for="nameFilter">Nome com:</label>
-			    <input type="text" name="nameFilter" class="form-control" id="nameFilter" value=""/>
+              <div class="row">
+			    <div class="form-group col">
+				  <label for="nameFilter">Nome:</label>
+				  <input type="text" name="nameFilter" class="form-control" id="nameFilter" value=""/>
+				</div>
+				  
+			  	<div class="form-group col">
+			      <label for="emailFilter">Email:</label>
+			      <input type="text" name="emailFilter" class="form-control" id="emailFilter" value=""/>
+			  	</div>
+				  
+				<div class="form-group col">
+				  <label for="typeFilter">Tipo:</label>
+				  <input type="text" name="typeFilter" class="form-control" id="typeFilter" value=""/>
+				</div>
 			  </div>
-			  
-			  <div class="form-group">
-			    <label for="emailFilter">Email com:</label>
-			    <input type="text" name="emailFilter" class="form-control" id="emailFilter" value=""/>
+			  <div class="row">
+			  	<div class="col"></div>
+			  	<div class="col-2.3">
+			  		<input class="btn btn-primary" type="submit" value="Gerar relatório">
+			  	</div>
+			  	<div class="col"></div>
 			  </div>
-			  
-			  <div class="form-group">
-			    <label for="typeFilter">Tipo com:</label>
-			    <input type="text" name="typeFilter" class="form-control" id="typeFilter" value=""/>
-			  </div>
-
-			  <input type="submit" value="Baixar relatório">
 			</form>
-			
-			<a th:href="@{|/report/download/user|}" download="relatorio_usuarios.csv"><button class="btn btn-primary">Baixar relatório de usuários</button></a>
-			
+						
 	        <div th:include="layout :: footer" id="footer">(footer)</div>
 	    </div>
     </body>
