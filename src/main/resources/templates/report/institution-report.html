@@ -8,7 +8,7 @@
             <nav th:replace="layout :: menu">(menu)</nav>
             <hr>
 			<button class="btn btn-link">
-				<a th:href="@{|/report/download/institution|}" download="relatorio_instituição.csv"><span>Baixar relatório de instituição</span></a>
+				<a th:href="@{|/report/download/pdf/institution|}" download="ri.pdf"><span>Baixar relatório de instituição</span></a>
 			</button>
 	        <div th:include="layout :: footer" id="footer">(footer)</div>
 	    </div>
