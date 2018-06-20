@@ -82,6 +82,8 @@ public class ProjColabAssistantApplicationTests {
 		String returnedContent = readFile(returnedFile.getPath(), StandardCharsets.UTF_8);
 		String expectedContent = readFile(expectedFile.getPath(), StandardCharsets.UTF_8);
 		
+		System.out.println("EQUALS: " + returnedContent.equals(expectedContent));
+		
 		assertEquals(expectedContent, returnedContent);
 		
 		returnedFile.delete();
