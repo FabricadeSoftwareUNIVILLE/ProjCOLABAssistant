@@ -15,13 +15,13 @@ import br.univille.projcolabassistant.service.UserReportService;
 
 @Service
 public class UserReportServiceImpl implements UserReportService {
-	private final String REPORTS_PATH = "/src/main/resources/temporary-persistent-reports/";
+	private final String REPORTS_PATH = "src/main/resources/temporary-persistent-reports/";
 	
 	@Autowired
 	private UserRepository userRepository;
 	
 	@Override
-	public File generateUserReport(String emailFilter, String nameFilter, String typeFilter) {
+	public File generateUserReport(String nameFilter, String emailFilter, String typeFilter) {
 		String resultReportPath = REPORTS_PATH + "user_" + randomId() + ".csv";
 
 		try (BufferedWriter writer = new BufferedWriter(new FileWriter(resultReportPath))) {
