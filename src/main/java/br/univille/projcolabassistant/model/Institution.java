@@ -21,8 +21,8 @@ public class Institution {
 	private String address;
 	private String phone;
 	private String email;
-	@ManyToOne(cascade={CascadeType.MERGE,CascadeType.REFRESH})
-	private City city = new City();
+    @ManyToOne(cascade= {CascadeType.REFRESH,CascadeType.MERGE})
+    private City city = new City();
 	public long getId() {
 		return id;
 	}

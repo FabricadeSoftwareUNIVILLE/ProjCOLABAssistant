@@ -5,18 +5,34 @@
         <div class="container">
             <nav th:replace="layout :: menu">(menu)</nav>
             <div class="border border-dark">
-                  <form th:action="@{/Institution/(form)}" th:object="${Institution}" action="#" method="post">
+                  <form th:action="@{/Institution/(form)}" th:object="${institution}" action="#" method="post">
                     <input type="hidden" id="txtid" th:field="*{id}" />
                     <div class="form-group">
                         <label for="txtnome">Nome Instituicao</label>
-                        <input type="text" class="form-control" id="txtnome" placeholder="Nome">
                         <input type="text" th:field="*{name}" class="form-control" id="txtnome" placeholder="Nome">
                     </div>
                     <div class="form-group">
                         <label for="slcdescricao">Descricao</label>
-						<input type="text" class="form-control" id="txtdescricao" placeholder="Descricao">
 						 <input type="text" th:field="*{description}" class="form-control" id="txtdescricao" placeholder="descricao">
                     </div>
+                    <div class="form-group">
+                        <label for="slcaddress">Endereco</label>
+						 <input type="text" th:field="*{address}" class="form-control" id="txtaddress" placeholder="endereco">
+                    </div>
+                    <div class="form-group">
+                        <label for="slcphone">Telefone</label>
+						 <input type="text" th:field="*{phone}" class="form-control" id="txtphone" placeholder="telefone">
+                    </div>
+                    <div class="form-group">
+                        <label for="slcemail">Email</label>
+						 <input type="text" th:field="*{email}" class="form-control" id="txtemail" placeholder="email">
+                    </div>
+                    <!-- 
+                    <div class="form-group">
+                        <label for="slccity">Cidade</label>
+						 <input type="text" th:field="*{city}" class="form-control" id="txtcity" placeholder="cidade">
+                    </div>
+                     -->
                     <button type="submit" class="btn btn-primary">Enviar</button>
                 </form>
             </div>
