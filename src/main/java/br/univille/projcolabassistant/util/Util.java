@@ -8,6 +8,10 @@ import java.util.UUID;
 public class Util {
 	
 	public static Date toDate(String dateString) {
+		if(dateString.isEmpty()) {
+			return null;
+		}
+		
 		try {
 			DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 			

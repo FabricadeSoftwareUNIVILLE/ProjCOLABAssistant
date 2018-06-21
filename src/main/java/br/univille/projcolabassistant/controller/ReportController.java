@@ -73,24 +73,13 @@ public class ReportController {
     				method=RequestMethod.GET,
     				produces=MediaType.APPLICATION_OCTET_STREAM_VALUE)
 	public void generateAndDownloadOrderReport(
-			@RequestParam("creationDateStart") String creationDateStart, 
-			@RequestParam("creationDateEnd") String creationDateEnd, 
-			@RequestParam("finishedDateStart") String finishedDateStart,
-			@RequestParam("finishedDateEnd") String finishedDateEnd, 
-			@RequestParam("status") Integer status, 
-			HttpServletResponse response) {		
-		try {
-			System.out.println("=====================================");
-			System.out.println("creationDateStart: " + creationDateStart);
-			System.out.println("creationDateEnd: " + creationDateEnd);
-			System.out.println("finishedDateStart: " + finishedDateStart);
-			System.out.println("finishedDateEnd: " + finishedDateEnd);
-			System.out.println("status: " + status);
-			System.out.println("=====================================");
-			
-			
-			//File file = this.orderReportService.generateOrderReport(creationDateStart, creationDateEnd, finishedDateStart, finishedDateEnd, status);
-			
+											   @RequestParam("creationDateStart") String creationDateStart, 
+											   @RequestParam("creationDateEnd") String creationDateEnd, 
+											   @RequestParam("finishedDateStart") String finishedDateStart,
+											   @RequestParam("finishedDateEnd") String finishedDateEnd, 
+											   @RequestParam("status") Integer status, 
+			                                   HttpServletResponse response) {		
+		try {		
 			File file = this.orderReportService.generateOrderReport(toDate(creationDateStart), toDate(creationDateEnd), toDate(finishedDateStart), toDate(finishedDateEnd), status);
 			
 			response.setContentType("application/csv");   

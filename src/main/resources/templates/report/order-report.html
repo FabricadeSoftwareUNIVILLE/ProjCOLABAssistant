@@ -7,47 +7,76 @@
         <div class="container">
             <nav th:replace="layout :: menu">(menu)</nav>
             <hr>
+            
+            <h1>Relatório de Pedidos</h1>
+            
             <form action="/report/download/order" method="GET">
-       			<div class="row">
-	       			<div class="form-group">
-					  <label for="creationDateStart" class="col-12 col-form-label">Data de Criação do Pedido (Início)</label>
-					  <div class="col-12">
-					    <input class="form-control" type="date" name="creationDateStart" id="creationDateStart">
-					  </div>
-					</div>
-					
-					<div class="form-group">
-					  <label for="creationDateEnd" class="col-12 col-form-label">Data de Criação do Pedido (Fim)</label>
-					  <div class="col-12">
-					    <input class="form-control" type="date" name="creationDateEnd" id="creationDateEnd">
-					  </div>
-					</div>
+            	<div class="border p-3 m-3">
+	            	<div class="row">
+	            		<p class="col">Escolha o período da data de criação dos pedidos:</p>
+	            	</div>
+	            	
+	       			<div class="row">
+		       			<div class="form-group">
+						  <label for="creationDateStart" class="col col-form-label">De:</label>
+						  <div class="col">
+						    <input class="form-control" type="date" name="creationDateStart" id="creationDateStart">
+						  </div>
+						</div>
+						
+						<div class="form-group">
+						  <label for="creationDateEnd" class="col col-form-label">Até:</label>
+						  <div class="col">
+						    <input class="form-control" type="date" name="creationDateEnd" id="creationDateEnd">
+						  </div>
+						</div>
+	       			</div>
+	       			
+	       			<small class="form-text text-muted">Para buscar por todos os períodos deixe em branco.</small>
        			</div>
-       			<div class="row">
-	       			<div class="form-group">
-					  <label for="finishedDateStart" class="col-12 col-form-label">Data de Conclusão do Pedido (Início)</label>
-					  <div class="col-12">
-					    <input class="form-control" type="date" name="finishedDateStart" id="finishedDateStart">
-					  </div>
-					</div>
-					
-					<div class="form-group">
-					  <label for="finishedDateEnd" class="col-12 col-form-label">Data de Conclusão do Pedido (Início)</label>
-					  <div class="col-12">
-					    <input class="form-control" type="date" name="finishedDateEnd" id="finishedDateEnd">
-					  </div>
-					</div>
+       			
+       			<div class="border p-3 m-3">
+	       			<div class="row">
+	            		<p class="col">Escolha o período da data de conclusão dos pedidos:</p>
+	            	</div>
+	       			
+	       			<div class="row">
+		       			<div class="form-group">
+						  <label for="finishedDateStart" class="col col-form-label">De:</label>
+						  <div class="col">
+						    <input class="form-control" type="date" name="finishedDateStart" id="finishedDateStart">
+						  </div>
+						</div>
+						
+						<div class="form-group">
+						  <label for="finishedDateEnd" class="col col-form-label">Até:</label>
+						  <div class="col">
+						    <input class="form-control" type="date" name="finishedDateEnd" id="finishedDateEnd">
+						  </div>
+						</div>
+	       			</div>
+	       			
+	       			<small class="form-text text-muted">Para buscar por todos os períodos deixe em branco.</small>
        			</div>
-       			<div class="row">
-	       			<div class="form-group">
-					  <label for="status" class="col-12 col-form-label">Status do pedido</label>
-					  <div class="col-12">
-					    <input class="form-control" type="number" name="status" id="status">
-					  </div>
-					</div>
+       			
+       			<div class="border p-3 m-3">
+	       			<div class="row">
+		       			<div class="form-group">
+						  <label for="status" class="col col-form-label">Status do pedido</label>
+						  <div class="col">
+						    <input class="form-control" type="number" name="status" id="status">
+						  </div>
+						</div>
+	       			</div>
+	       			
+	       			<small class="form-text text-muted">Para buscar por todos os status deixe em branco.</small>
        			</div>
-       			<input class="btn btn-primary" type="submit" value="Gerar relatório">
+       			
+       			<div class="p-3 m-3">
+       				<input class="btn btn-primary" type="submit" value="Gerar relatório">
+       			</div>
 			</form>	
+			
 	        <div th:include="layout :: footer" id="footer">(footer)</div>
 	    </div>
     </body>
