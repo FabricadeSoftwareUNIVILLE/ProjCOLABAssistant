@@ -4,7 +4,6 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.util.List;
-import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,6 +11,7 @@ import org.springframework.stereotype.Service;
 import br.univille.projcolabassistant.model.User;
 import br.univille.projcolabassistant.repository.UserRepository;
 import br.univille.projcolabassistant.service.UserReportService;
+import static br.univille.projcolabassistant.util.Util.randomId;
 
 @Service
 public class UserReportServiceImpl implements UserReportService {
@@ -41,9 +41,4 @@ public class UserReportServiceImpl implements UserReportService {
 			return null;
 		}
 	}
-	
-	private String randomId() {
-		return UUID.randomUUID().toString();
-	}
-	
 }
