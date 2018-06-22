@@ -1,5 +1,7 @@
 package br.univille.projcolabassistant.service.impl;
 
+import static br.univille.projcolabassistant.util.Util.randomId;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -11,7 +13,6 @@ import org.springframework.stereotype.Service;
 import br.univille.projcolabassistant.model.User;
 import br.univille.projcolabassistant.repository.UserRepository;
 import br.univille.projcolabassistant.service.UserReportService;
-import static br.univille.projcolabassistant.util.Util.randomId;
 
 @Service
 public class UserReportServiceImpl implements UserReportService {
@@ -25,7 +26,14 @@ public class UserReportServiceImpl implements UserReportService {
 		String resultReportPath = REPORTS_PATH + "user_" + randomId() + ".csv";
 
 		try (BufferedWriter writer = new BufferedWriter(new FileWriter(resultReportPath))) {
-			List<User> users = this.userRepository.searchWithFilters(nameFilter, emailFilter, typeFilter);
+			List<User> users;
+			
+			if(typeFilter.isEmpty()) {
+				users = this.userRepository.searchWithFilters(nameFilter, emailFilter);
+			}
+			else {
+				users = this.userRepository.searchWithFiltersWithStatus(nameFilter, emailFilter, typeFilter);
+			}
 			
 			writer.write("id;name;email;type;phone;address;enabled\n");
 			

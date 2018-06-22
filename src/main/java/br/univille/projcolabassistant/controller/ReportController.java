@@ -1,5 +1,7 @@
 package br.univille.projcolabassistant.controller;
 
+import static br.univille.projcolabassistant.util.Util.toDate;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.OutputStream;
@@ -15,23 +17,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import br.univille.projcolabassistant.service.OrderReportService;
-import br.univille.projcolabassistant.service.UserReportService;
-import static br.univille.projcolabassistant.util.Util.toDate;
+import br.univille.projcolabassistant.service.ReportService;
 
 @Controller
 @RequestMapping("/report")
 public class ReportController {
 	
 	@Autowired
-	private UserReportService userReportService;
-	
-	@Autowired
-	private OrderReportService orderReportService;
+	private ReportService reportService;
 	
 	@GetMapping("")
     public String showReportOptionsPage() {
-        return "report/index";
+        return "report/choose-report-type";
     }
 	
 	@GetMapping("/user")
@@ -44,15 +41,20 @@ public class ReportController {
         return "report/order-report";
     }
 	
+	@GetMapping("/institution")
+    public String createUserReport() {
+        return "report/institution-report";
+    }
+	
 	@RequestMapping(value="/download/user", 
             		method=RequestMethod.GET,
             		produces=MediaType.APPLICATION_OCTET_STREAM_VALUE)
 	public void generateAndDownloadUserReport(String nameFilter, String emailFilter, String typeFilter, HttpServletResponse response) {
 		try {
-			File file = this.userReportService.generateUserReport(emailFilter, nameFilter, typeFilter);
+			File file = this.reportService.generateUserReport(nameFilter, emailFilter, typeFilter);
 
-			response.setContentType("application/csv");   
-			response.setHeader("Content-Disposition", "filename = relatorio_usuario.csv");
+			response.setContentType("application/pdf");   
+			response.setHeader("Content-Disposition", "attachment; filename = relatorio_usuario.pdf");
 			
 			OutputStream responseOutput = response.getOutputStream();
 			FileInputStream fileInput = new FileInputStream(file);
@@ -80,10 +82,38 @@ public class ReportController {
 											   @RequestParam("status") Integer status, 
 			                                   HttpServletResponse response) {		
 		try {		
-			File file = this.orderReportService.generateOrderReport(toDate(creationDateStart), toDate(creationDateEnd), toDate(finishedDateStart), toDate(finishedDateEnd), status);
+			File file = this.reportService.generateOrderReport(toDate(creationDateStart), toDate(creationDateEnd), toDate(finishedDateStart), toDate(finishedDateEnd), status);
 			
-			response.setContentType("application/csv");   
-			response.setHeader("Content-Disposition", "filename = relatorio_pedidos.csv");
+			response.setContentType("application/pdf");   
+			response.setHeader("Content-Disposition", "attachment; filename = relatorio_pedidos.pdf");
+			
+			OutputStream responseOutput = response.getOutputStream();
+			FileInputStream fileInput = new FileInputStream(file);
+			
+			IOUtils.copy(fileInput, responseOutput); //enviando o response, contendo o arquivo, para o client
+			
+			responseOutput.close();
+			fileInput.close();
+			
+			file.delete();
+		}
+		catch (Exception ex) {
+			ex.printStackTrace();
+		}
+	}
+	
+	@RequestMapping(value="/download/institution", 
+    				method=RequestMethod.GET,
+    				produces=MediaType.APPLICATION_OCTET_STREAM_VALUE)
+	public void generateAndDownloadInstitutionReport(@RequestParam("nameFilter") String nameFilter, 
+													 @RequestParam("emailFilter") String emailFilter, 
+													 @RequestParam("cityFilter") String cityFilter,
+													 HttpServletResponse response) {		
+		try {		
+			File file = this.reportService.generateInstitutionReport(nameFilter, emailFilter, cityFilter);
+			
+			response.setContentType("application/pdf");   
+			response.setHeader("Content-Disposition", "attachment; filename = relatorio_instituicoes.pdf");
 			
 			OutputStream responseOutput = response.getOutputStream();
 			FileInputStream fileInput = new FileInputStream(file);

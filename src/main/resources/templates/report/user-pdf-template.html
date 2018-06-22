@@ -1,0 +1,53 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<style>
+		#users {
+		    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+		    border-collapse: collapse;
+		    width: 100%;
+		}
+		
+		#users td, #users th {
+		    border: 1px solid #ddd;
+		    padding: 8px;
+		}
+		
+		#users tr:nth-child(even){background-color: #f2f2f2;}
+		
+		#users tr:hover {background-color: #ddd;}
+		
+		#users th {
+		    padding-top: 12px;
+		    padding-bottom: 12px;
+		    text-align: left;
+		    background-color: #4CAF50;
+		    color: white;
+		}
+	</style>
+</head>
+<body>
+	<table id="users">
+		<tr>
+			<th>id</th>
+			<th>name</th>
+			<th>email</th>
+			<th>type</th>
+			<th>phone</th>
+			<th>address</th>
+			<th>enabled</th>
+		</tr>
+		<th:block th:each="user : ${users}">
+			<tr>
+				<td th:text="${user.id}"></td>
+				<td th:text="${user.name}"></td>
+				<td th:text="${user.email}"></td>
+				<td th:text="${user.type}"></td>
+				<td th:text="${user.phone}"></td>
+				<td th:text="${user.address}"></td>
+				<td th:text="${user.enabled}"></td>
+			</tr>
+		</th:block>
+	</table>
+</body>
+</html>

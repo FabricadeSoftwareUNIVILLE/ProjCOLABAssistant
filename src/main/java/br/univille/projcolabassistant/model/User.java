@@ -13,7 +13,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
 @Entity
-public class User {	
+public class User extends AbstractReportObject {	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private long id;
@@ -30,6 +30,12 @@ public class User {
 	private City city = new City();
 	@ManyToMany(cascade= {CascadeType.MERGE, CascadeType.REFRESH})
 	private List<Institution> institutionList = new ArrayList<Institution>();
+	
+	public User() {
+		this.setReportType("users");
+		this.setTemplatePath("report/user-pdf-template");
+	}
+	
 	public long getId() {
 		return id;
 	}

@@ -14,10 +14,16 @@ public interface UserRepository extends JpaRepository<User, Long>{
 	
 	@Query("SELECT u FROM User u WHERE "
 			+ "u.name  LIKE %:nameFilter% AND "
-			+ "u.email LIKE %:emailFilter% AND "
-			+ "u.type  LIKE %:typeFilter%")
+			+ "u.email LIKE %:emailFilter%")
     public List<User> searchWithFilters(@Param("nameFilter") String nameFilter, 
-    		                            @Param("emailFilter") String emailFilter,
-    		                            @Param("typeFilter") String typeFilter);
+    		                            @Param("emailFilter") String emailFilter);
+	
+	@Query("SELECT u FROM User u WHERE "
+			+ "u.name  LIKE %:nameFilter% AND "
+			+ "u.email LIKE %:emailFilter% AND "
+			+ "u.type = :typeFilter")
+    public List<User> searchWithFiltersWithStatus(@Param("nameFilter") String nameFilter, 
+    		                                      @Param("emailFilter") String emailFilter,
+    		                                      @Param("typeFilter") String typeFilter);
 	
 }

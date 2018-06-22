@@ -16,7 +16,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-public class OrderRequest {
+public class OrderRequest extends AbstractReportObject {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private long id;
@@ -39,6 +39,11 @@ public class OrderRequest {
 	@JoinColumn(name="orderitems_id")
 	private List<OrderItems> itensList = new ArrayList<OrderItems>();
 
+	public OrderRequest() {
+		this.setReportType("orders");
+		this.setTemplatePath("report/order-pdf-template");
+	}
+	
 	public long getId() {
 		return id;
 	}

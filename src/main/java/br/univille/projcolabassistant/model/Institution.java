@@ -9,7 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 @Entity
-public class Institution {
+public class Institution extends AbstractReportObject {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private long id;
@@ -23,6 +23,12 @@ public class Institution {
 	private String email;
 	@ManyToOne(cascade={CascadeType.MERGE,CascadeType.REFRESH})
 	private City city = new City();
+	
+	public Institution() {
+		this.setReportType("institutions");
+		this.setTemplatePath("report/institution-pdf-template");
+	}
+	
 	public long getId() {
 		return id;
 	}
