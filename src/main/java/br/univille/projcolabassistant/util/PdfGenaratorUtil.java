@@ -2,60 +2,49 @@ package br.univille.projcolabassistant.util;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.UUID;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.util.Assert;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 import org.xhtmlrenderer.pdf.ITextRenderer;
+
+import br.univille.projcolabassistant.model.Institution;
 
 @Component
 public class PdfGenaratorUtil {
 	@Autowired
 	private TemplateEngine templateEngine;
 	
-	@Autowired
-	private PdfGenaratorUtil pdfGenaratorUtil;
+	private final String REPORTS_PATH = "src/main/resources/temporary-persistent-reports/";
 
-	public File createPdf(String templateName, Map map) throws Exception {
-		Assert.notNull(templateName, "The templateName can not be null");
-		Context ctx = new Context();
-		if (map != null) {
-			Iterator itMap = map.entrySet().iterator();
-			while (itMap.hasNext()) {
-				Map.Entry pair = (Map.Entry) itMap.next();
-				ctx.setVariable(pair.getKey().toString(), pair.getValue());
-			}
-		}
-
-		String processedHtml = templateEngine.process(templateName, ctx);
-		FileOutputStream os = null;
-		String fileName = "relatório_instituição";
+	public File createPdf(String templateName, List<Institution> institutions) {
 		try {
-			final File outputFile = File.createTempFile(fileName, ".pdf");
-			os = new FileOutputStream(outputFile);
-
+			Context context = new Context();
+			context.setVariable("institutions", institutions);
+			
+			String processedHtml = templateEngine.process(templateName, context);
+			
+			File outputFile = new File(REPORTS_PATH + "relatorio_instituicao_");
+			FileOutputStream outputStream = new FileOutputStream(outputFile);
+	
 			ITextRenderer renderer = new ITextRenderer();
 			renderer.setDocumentFromString(processedHtml);
 			renderer.layout();
-			renderer.createPDF(os, false);
+			renderer.createPDF(outputStream, false);
 			renderer.finishPDF();
+			
 			System.out.println("PDF created successfully");
+			
+			outputStream.close();
+			
 			return outputFile;
-		} finally {
-			if (os != null) {
-				try {
-					os.close();
-				} catch (IOException e) {
-					/* ignore */
-				}
-			}
+		}
+		catch (Exception ex) {
+			ex.printStackTrace();
+			
+			return null;
 		}
 	}
 }

@@ -1,43 +1,30 @@
 package br.univille.projcolabassistant.service.impl;
 
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileWriter;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.google.gson.Gson;
-
 import br.univille.projcolabassistant.model.Institution;
 import br.univille.projcolabassistant.repository.InstitutionRepository;
 import br.univille.projcolabassistant.service.InstitutionReportService;
+import br.univille.projcolabassistant.util.PdfGenaratorUtil;
 
 @Service
 public class InstitutionReportServiceImpl implements InstitutionReportService {
 	@Autowired
 	private InstitutionRepository institutionRepository;
 	
-	@Override
-	public File generateInstitutionReport() { return null; }
-	
-	@Override
-	public String generatePDFInstitutionReport() {
-		String resultReportPath = "result_report.csv";
+	@Autowired
+	private PdfGenaratorUtil pdfGenaratorUtil;
 
-		try (BufferedWriter writer = new BufferedWriter(new FileWriter(resultReportPath))) {
-			List<Institution> institutions = this.institutionRepository.findAll();
-			
-			Gson gson = new Gson();
-			
-			System.out.println(gson.toJson(institutions));
-			
-			return gson.toJson(institutions);
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
+	@Override
+	public File generateInstitutionReport(String nameFilter, String emailFilter, String cityFilter) {
+		List<Institution> institutions = this.institutionRepository.searchWithFilters(nameFilter, emailFilter, cityFilter);
+
+	    File file = pdfGenaratorUtil.createPdf("report/institution-pdf-template", institutions);
 		
-		return null;
+		return file;
 	}
 }
