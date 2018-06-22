@@ -21,7 +21,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import br.univille.projcolabassistant.model.User;
 import br.univille.projcolabassistant.repository.UserRepository;
-import br.univille.projcolabassistant.service.impl.UserReportServiceImpl;
 
 @SuppressWarnings("unused")
 @RunWith(SpringRunner.class)
