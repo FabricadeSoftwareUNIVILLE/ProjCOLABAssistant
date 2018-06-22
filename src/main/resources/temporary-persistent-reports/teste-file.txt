@@ -1,0 +1,3 @@
+A pasta temporary-persistent-reports não está indo para o commit do git por algum motivo.
+
+Estou colocando este arquivo nesta pasta para testar se com isso será commitado corretamente.

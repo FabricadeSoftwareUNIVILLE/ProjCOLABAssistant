@@ -6,7 +6,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.thymeleaf.TemplateEngine;
+import org.thymeleaf.ITemplateEngine;
 import org.thymeleaf.context.Context;
 import org.xhtmlrenderer.pdf.ITextRenderer;
 
@@ -15,7 +15,7 @@ import br.univille.projcolabassistant.model.Institution;
 @Component
 public class PdfGenaratorUtil {
 	@Autowired
-	private TemplateEngine templateEngine;
+	private ITemplateEngine templateEngine;
 	
 	private final String REPORTS_PATH = "src/main/resources/temporary-persistent-reports/";
 
@@ -34,8 +34,6 @@ public class PdfGenaratorUtil {
 			renderer.layout();
 			renderer.createPDF(outputStream, false);
 			renderer.finishPDF();
-			
-			System.out.println("PDF created successfully");
 			
 			outputStream.close();
 			
