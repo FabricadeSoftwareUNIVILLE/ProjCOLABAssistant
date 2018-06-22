@@ -78,11 +78,12 @@ public class ReportController {
 											   @RequestParam("creationDateStart") String creationDateStart, 
 											   @RequestParam("creationDateEnd") String creationDateEnd, 
 											   @RequestParam("finishedDateStart") String finishedDateStart,
-											   @RequestParam("finishedDateEnd") String finishedDateEnd, 
+											   @RequestParam("finishedDateEnd") String finishedDateEnd,
+											   @RequestParam("userName") String userName, 
 											   @RequestParam("status") Integer status, 
 			                                   HttpServletResponse response) {		
 		try {		
-			File file = this.reportService.generateOrderReport(toDate(creationDateStart), toDate(creationDateEnd), toDate(finishedDateStart), toDate(finishedDateEnd), status);
+			File file = this.reportService.generateOrderReport(toDate(creationDateStart), toDate(creationDateEnd), toDate(finishedDateStart), toDate(finishedDateEnd), userName, status);
 			
 			response.setContentType("application/pdf");   
 			response.setHeader("Content-Disposition", "attachment; filename = relatorio_pedidos.pdf");

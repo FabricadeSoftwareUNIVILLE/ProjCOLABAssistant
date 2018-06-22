@@ -14,23 +14,27 @@ import br.univille.projcolabassistant.model.OrderRequest;
 public interface OrderRequestRepository extends JpaRepository<OrderRequest, Long>{
 	
 	@Query("SELECT x FROM OrderRequest x WHERE x.orderDate >= :creationDateStart AND "
-			                                + "x.orderDate <= :creationDateEnd AND "
-			                                + "x.orderFinshDate >= :finishedDateStart AND "
-						 					+ "x.orderFinshDate <= :finishedDateEnd")
-	public List<OrderRequest> searchBetween(@Param("creationDateStart") Date creationDateStart,
-            								@Param("creationDateEnd") Date creationDateEnd,
-            								@Param("finishedDateStart") Date finishedDateStart,
-                                            @Param("finishedDateEnd") Date finishedDateEnd);
+		        + "x.orderDate <= :creationDateEnd AND "
+		        + "x.orderFinshDate >= :finishedDateStart AND "
+				+ "x.orderFinshDate <= :finishedDateEnd AND "
+				+ "x.status = :status AND "
+				+ "x.userRequest.name LIKE %:userName%")
+	public List<OrderRequest> searchBetweenWithStatus(@Param("creationDateStart") Date creationDateStart,
+													        @Param("creationDateEnd") Date creationDateEnd,
+													        @Param("finishedDateStart") Date finishedDateStart,
+										                    @Param("finishedDateEnd") Date finishedDateEnd,
+										                    @Param("userName") String userName,
+										                    @Param("status") int status);
 	
 	@Query("SELECT x FROM OrderRequest x WHERE x.orderDate >= :creationDateStart AND "
-									        + "x.orderDate <= :creationDateEnd AND "
-									        + "x.orderFinshDate >= :finishedDateStart AND "
-											+ "x.orderFinshDate <= :finishedDateEnd AND "
-											+ "x.status = :status")
-	public List<OrderRequest> searchBetweenWithStatus(@Param("creationDateStart") Date creationDateStart,
-											          @Param("creationDateEnd") Date creationDateEnd,
-											          @Param("finishedDateStart") Date finishedDateStart,
-								                      @Param("finishedDateEnd") Date finishedDateEnd,
-								                      @Param("status") int status);
+		        + "x.orderDate <= :creationDateEnd AND "
+		        + "x.orderFinshDate >= :finishedDateStart AND "
+				+ "x.orderFinshDate <= :finishedDateEnd AND "
+				+ "x.userRequest.name LIKE %:userName%")
+	public List<OrderRequest> searchBetween(@Param("creationDateStart") Date creationDateStart,
+											      @Param("creationDateEnd") Date creationDateEnd,
+											      @Param("finishedDateStart") Date finishedDateStart,
+								                  @Param("finishedDateEnd") Date finishedDateEnd,
+								                  @Param("userName") String userName);
 
 }

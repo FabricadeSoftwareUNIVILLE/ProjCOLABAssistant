@@ -29,12 +29,12 @@
 <body>
 	<table id="orders">
 		<tr>
-			<th>id</th>
-			<th>orderDate&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-			<th>orderFinshDate</th>
-			<th>status</th>
-			<th>user.email</th>
-			<th>userRequest.email</th>
+			<th>Código</th>
+			<th>Data do Pedido&nbsp;</th>
+			<th>Data de Conclusão</th>
+			<th>Status</th>
+			<th>Usuário Responsável</th>
+			<th>Usuário Requisitante</th>
 		</tr>
 		<th:block th:each="order : ${orders}">
 			<tr>
@@ -42,8 +42,8 @@
 				<td th:text="${#dates.format(order.orderDate, 'dd-MMM-yyyy')}"></td>
 				<td th:text="${#dates.format(order.orderFinshDate, 'dd-MMM-yyyy')}"></td>
 				<td th:text="${order.status}"></td>
-				<td th:text="${order.user.email}"></td>
-				<td th:text="${order.userRequest.email}"></td>
+				<td th:text="${order.userRequest.name}"></td>
+				<td th:text="${order.user.name}"></td>
 			</tr>
 		</th:block>
 	</table>
