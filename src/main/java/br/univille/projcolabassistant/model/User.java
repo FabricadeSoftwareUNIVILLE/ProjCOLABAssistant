@@ -36,6 +36,19 @@ public class User extends AbstractReportObject {
 		this.setTemplatePath("report/user-pdf-template");
 	}
 	
+	public User(long id, String name, String email, String type, String phone, String address, boolean enabled) {
+		this.id = id;
+		this.name = name;
+		this.email = email;
+		this.type = type;
+		this.phone = phone;
+		this.address = address;
+		this.enabled = enabled;
+		
+		this.setReportType("users");
+		this.setTemplatePath("report/user-pdf-template");
+	}
+
 	public long getId() {
 		return id;
 	}

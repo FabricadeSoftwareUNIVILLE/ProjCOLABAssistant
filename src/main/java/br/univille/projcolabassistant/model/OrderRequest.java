@@ -44,6 +44,20 @@ public class OrderRequest extends AbstractReportObject {
 		this.setTemplatePath("report/order-pdf-template");
 	}
 	
+	public OrderRequest(long id, Date orderDate, Date orderFinshDate, int status, Institution institution, User user,
+			User userRequest) {
+		this.id = id;
+		this.orderDate = orderDate;
+		this.orderFinshDate = orderFinshDate;
+		this.status = status;
+		this.institution = institution;
+		this.user = user;
+		this.userRequest = userRequest;
+		
+		this.setReportType("orders");
+		this.setTemplatePath("report/order-pdf-template");
+	}
+
 	public long getId() {
 		return id;
 	}

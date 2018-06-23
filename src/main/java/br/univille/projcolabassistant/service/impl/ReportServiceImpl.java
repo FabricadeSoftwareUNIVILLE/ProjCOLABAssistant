@@ -1,5 +1,10 @@
 package br.univille.projcolabassistant.service.impl;
 
+import static br.univille.projcolabassistant.constants.Constants.ANY_END_DATE;
+import static br.univille.projcolabassistant.constants.Constants.ANY_START_DATE;
+import static br.univille.projcolabassistant.constants.Constants.ANY_STATUS;
+import static br.univille.projcolabassistant.constants.Constants.REPORTS_PATH;
+import static br.univille.projcolabassistant.constants.Constants.RESULT_NOT_FOUND_FILE;
 import static br.univille.projcolabassistant.util.Util.randomId;
 
 import java.io.File;
@@ -24,13 +29,6 @@ import br.univille.projcolabassistant.service.ReportService;
 
 @Service
 public class ReportServiceImpl implements ReportService {
-
-	private final String REPORTS_PATH = "src/main/resources/temporary-persistent-reports/";
-	private final String RESULT_NOT_FOUND_FILE = "src/main/resources/templates/report/not-found-result.pdf";
-	private final Date ANY_END_DATE = new Date(253402221600000L);   //<= 9999-12-31
-	private final Date ANY_START_DATE = new Date(-30610212812000L); //>= 1000-01-01
-	private final Integer ANY_STATUS = null;
-	
 	@Autowired
 	private UserRepository userRepository;
 	
@@ -42,7 +40,7 @@ public class ReportServiceImpl implements ReportService {
 	
 	@Autowired
 	private ITemplateEngine templateEngine;
-	
+
 	@Override
 	public File generateUserReport(String nameFilter, String emailFilter, String typeFilter) {
 		List<User> users;
@@ -118,5 +116,9 @@ public class ReportServiceImpl implements ReportService {
 			
 			return null;
 		}
+	}
+	
+	public void setTemplateEngine(ITemplateEngine templateEngine) {
+		this.templateEngine = templateEngine;
 	}
 }

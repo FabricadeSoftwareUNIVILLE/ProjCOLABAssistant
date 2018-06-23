@@ -45,7 +45,8 @@
 				<td th:text="${user.type}"></td>
 				<td th:text="${user.phone}"></td>
 				<td th:text="${user.address}"></td>
-				<td th:text="${user.enabled}"></td>
+				<td th:if="${user.enabled} == true">Sim</td>
+				<td th:if="${user.enabled} == false">Não</td>
 			</tr>
 		</th:block>
 	</table>

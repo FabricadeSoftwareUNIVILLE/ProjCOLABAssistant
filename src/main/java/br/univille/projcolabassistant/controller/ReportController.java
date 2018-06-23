@@ -1,6 +1,7 @@
 package br.univille.projcolabassistant.controller;
 
 import static br.univille.projcolabassistant.util.Util.toDate;
+import static br.univille.projcolabassistant.constants.Constants.DEFAULT_NOT_FOUND_FILE;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -22,7 +23,6 @@ import br.univille.projcolabassistant.service.ReportService;
 @Controller
 @RequestMapping("/report")
 public class ReportController {
-	
 	@Autowired
 	private ReportService reportService;
 	
@@ -64,7 +64,9 @@ public class ReportController {
 			responseOutput.close();
 			fileInput.close();
 			
-			file.delete();
+			if(!file.getName().equals(DEFAULT_NOT_FOUND_FILE)) {
+				file.delete();
+			}
 		}
 		catch (Exception ex) {
 			ex.printStackTrace();
@@ -96,7 +98,9 @@ public class ReportController {
 			responseOutput.close();
 			fileInput.close();
 			
-			file.delete();
+			if(!file.getName().equals(DEFAULT_NOT_FOUND_FILE)) {
+				file.delete();
+			}
 		}
 		catch (Exception ex) {
 			ex.printStackTrace();
@@ -124,7 +128,11 @@ public class ReportController {
 			responseOutput.close();
 			fileInput.close();
 			
-			file.delete();
+			System.out.println("file.getName() = " + file.getName());
+			
+			if(!file.getName().equals(DEFAULT_NOT_FOUND_FILE)) {
+				file.delete();
+			}
 		}
 		catch (Exception ex) {
 			ex.printStackTrace();
