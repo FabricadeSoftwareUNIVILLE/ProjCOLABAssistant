@@ -7,11 +7,13 @@
         <div class="container">
             <nav th:replace="layout :: menu">(menu)</nav>
             <hr>
-            <a href="user-report.html" th:href="@{/report/user}" class="btn btn-primary btn-lg" role="button">Criar relatório de usuários</a>
+            <a th:href="@{/report/user}" class="btn btn-primary btn-lg" role="button">Criar relatório de usuários</a>
 	        <hr>
-            <a href="order-report.html" th:href="@{/report/order}" class="btn btn-primary btn-lg" role="button">Criar relatório de pedidos</a>
+            <a th:href="@{/report/order}" class="btn btn-primary btn-lg" role="button">Criar relatório de pedidos</a>
 	        <hr>
-	        <a href="user-report.html" th:href="@{/report/institution}" class="btn btn-primary btn-lg" role="button">Criar relatório de instituição</a>
+	        <a th:href="@{/report/institution}" class="btn btn-primary btn-lg" role="button">Criar relatório de instituição</a>
+	        <hr>
+	        <a th:href="@{/report/accessory}" class="btn btn-primary btn-lg" role="button">Criar relatório de acessórios</a>
 	        <div th:include="layout :: footer" id="footer">(footer)</div>
 	    </div>
     </body>

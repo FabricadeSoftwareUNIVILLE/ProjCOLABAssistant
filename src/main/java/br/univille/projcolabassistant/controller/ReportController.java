@@ -46,6 +46,11 @@ public class ReportController {
         return "report/institution-report";
     }
 	
+	@GetMapping("/accessory")
+    public String createAccessoryReport() {
+        return "report/accessory-report";
+    }
+	
 	@RequestMapping(value="/download/user", 
             		method=RequestMethod.GET,
             		produces=MediaType.APPLICATION_OCTET_STREAM_VALUE)
@@ -128,7 +133,32 @@ public class ReportController {
 			responseOutput.close();
 			fileInput.close();
 			
-			System.out.println("file.getName() = " + file.getName());
+			if(!file.getName().equals(DEFAULT_NOT_FOUND_FILE)) {
+				file.delete();
+			}
+		}
+		catch (Exception ex) {
+			ex.printStackTrace();
+		}
+	}
+	@RequestMapping(value="/download/accessory", 
+			        method=RequestMethod.GET,
+			        produces=MediaType.APPLICATION_OCTET_STREAM_VALUE)
+	public void generateAndDownloadAccessoryReport(@RequestParam("categoryFilter") String categoryFilter,
+												   HttpServletResponse response) {		
+		try {		
+			File file = this.reportService.generateAccessoryReport(categoryFilter);
+			
+			response.setContentType("application/pdf");   
+			response.setHeader("Content-Disposition", "attachment; filename = relatorio_acessorios.pdf");
+			
+			OutputStream responseOutput = response.getOutputStream();
+			FileInputStream fileInput = new FileInputStream(file);
+			
+			IOUtils.copy(fileInput, responseOutput); //enviando o response, contendo o arquivo, para o client
+			
+			responseOutput.close();
+			fileInput.close();
 			
 			if(!file.getName().equals(DEFAULT_NOT_FOUND_FILE)) {
 				file.delete();
@@ -138,5 +168,4 @@ public class ReportController {
 			ex.printStackTrace();
 		}
 	}
-
 }

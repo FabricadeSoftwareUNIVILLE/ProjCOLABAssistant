@@ -1,0 +1,51 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<style>
+		#accessories {
+		    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+		    border-collapse: collapse;
+		    width: 100%;
+		}
+		
+		#accessories td, #accessories th {
+		    border: 1px solid #ddd;
+		    padding: 8px;
+		}
+		
+		#accessories tr:nth-child(even){background-color: #f2f2f2;}
+		
+		#accessories tr:hover {background-color: #ddd;}
+		
+		#accessories th {
+		    padding-top: 12px;
+		    padding-bottom: 12px;
+		    text-align: left;
+		    background-color: #4CAF50;
+		    color: white;
+		}
+	</style>
+</head>
+<body>
+	<table id="accessories">
+		<tr>
+			<th>ID</th>
+			<th>Nome</th>
+			<th>Descrição</th>
+			<th>Prescrição</th>
+			<th>Função</th>
+			<th>Categoria</th>
+		</tr>
+		<th:block th:each="accessory : ${accessories}">
+			<tr>
+				<td th:text="${accessory.id}"></td>
+				<td th:text="${accessory.name}"></td>
+				<td th:text="${accessory.description}"></td>
+				<td th:text="${accessory.prescription}"></td>
+				<td th:text="${accessory.function}"></td>
+				<td th:text="${accessory.category.name}"></td>
+			</tr>
+		</th:block>
+	</table>
+</body>
+</html>
