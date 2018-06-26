@@ -11,6 +11,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -94,6 +95,8 @@ public class ReportServiceImpl implements ReportService {
 			String template = objects.get(0).getTemplatePath();
 			
 			Context context = new Context();
+			//context.setLocale(new Locale("pt", "BR")); TODO mudar os arquivos esperados para os testes unitários para português.
+			context.setLocale(Locale.ENGLISH);
 			context.setVariable(reportType, reportObjects);
 			
 			String processedHtml = templateEngine.process(template, context);
