@@ -13,7 +13,7 @@ public class AccessorySize {
 	private long id;
 	@Column(length=500)
 	private String name;
-	private int order;
+	private int orderNum;
 	public long getId() {
 		return id;
 	}
@@ -26,10 +26,11 @@ public class AccessorySize {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public int getOrder() {
-		return order;
+	public int getOrderNum() {
+		return orderNum;
 	}
-	public void setOrder(int order) {
-		this.order = order;
+	public void setOrderNum(int orderNum) {
+		this.orderNum = orderNum;
 	}
+
 }

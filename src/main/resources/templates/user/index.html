@@ -1,10 +1,36 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
-</head>
-<body>
-
-</body>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head th:include="layout :: htmlhead"></head>
+    <body>
+        <div class="container">
+            <nav th:replace="layout :: menu">(menu)</nav>
+            <a href="form.html" th:href="@{/user/new}" class="btn btn-primary btn-lg" role="button">Cadastrar</a>
+            <div class="border border-dark">
+                <table class="table">
+                    <thead class="thead-light"> 
+                        <tr>
+                            <th scope="col">Nome</th>
+                            <th scope="col">Sexo</th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr scope="row" th:each="user : ${listuser}">
+                            <td th:text="${user.nome}"></td>
+                            <td th:text="${user.email}"></td>
+                            <td th:text="${user.type}"></td>
+                            <td th:text="${user.phone}"></td>
+                            <td th:text="${user.address}"></td>
+                            <td th:text="${user.city}"></td>
+                            <td>
+                                <a href="#" class="btn btn-secondary btn-lg" role="button">Alterar</a>
+                                <a href="#" class="btn btn-warning btn-lg" role="button">Excluir</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>        
+        <div th:include="layout :: footer" id="footer">(footer)</div>
+    </body>
 </html>
