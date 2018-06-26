@@ -227,7 +227,7 @@ public class ReportServiceTests {
 		String returnedContent = getPDFContent(returnedFile);
 		String expectedContent = getPDFContent(expectedFile);
 		
-		assertEquals(returnedContent, expectedContent);
+		assertEquals(expectedContent, returnedContent);
 		
 		returnedFile.delete();
     }
@@ -382,6 +382,8 @@ public class ReportServiceTests {
 	            //ignore
 	        }
 	    }
+	    
+	    parsedText = parsedText.replace("\n", "").replace("\r", "").replace(" ", "").toLowerCase();
 	    
 	    return parsedText;
     }
