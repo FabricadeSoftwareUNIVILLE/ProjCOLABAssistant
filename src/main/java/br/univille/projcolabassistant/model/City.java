@@ -15,6 +15,17 @@ public class City {
 	private String name;
 	@Column(length=1000)
 	private String state;
+	
+	public City() {
+
+	}
+	
+	public City(long id, String name, String state) {
+		this.id = id;
+		this.name = name;
+		this.state = state;
+	}
+	
 	public long getId() {
 		return id;
 	}

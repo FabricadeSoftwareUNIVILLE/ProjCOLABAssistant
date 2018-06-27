@@ -1,0 +1,5 @@
+A pasta na qual este arquivo está contido é usado para armazenar temporariamente (menos de 1 segundo) relatórios gerados pela aplicação, seja pela requição do usuário ou pelos testes unitários.
+
+Porém, por algum motivo, o git não considera esta pasta, sem nenhum arquivo, como mudança.
+
+Para isso existe este arquivo.
