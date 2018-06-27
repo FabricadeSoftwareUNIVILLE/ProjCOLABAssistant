@@ -243,12 +243,12 @@ public class ReportServiceTests {
     //===============================
     //      Orders Report Tests      
     //===============================
-    
+
     @Test
     public void getAllOrdersTest() {
-		when(mockOrderRepository.searchBetween(ANY_START_DATE, ANY_END_DATE, ANY_START_DATE, ANY_END_DATE, "")).thenReturn(asList(dummyPedidoA, dummyPedidoB, dummyPedidoC));
+		when(mockOrderRepository.searchBetweenAsc(ANY_START_DATE, ANY_END_DATE, ANY_START_DATE, ANY_END_DATE, "")).thenReturn(asList(dummyPedidoA, dummyPedidoB, dummyPedidoC));
 		
-		File returnedFile = reportService.generateOrderReport(null, null, null, null, "", null);
+		File returnedFile = reportService.generateOrderReport(null, null, null, null, "", null, false);
 		File expectedFile = new File(EXPECTED_FILES + "expected_order_all.pdf");
 		
 		String returnedContent = getPDFContent(returnedFile);
@@ -261,9 +261,9 @@ public class ReportServiceTests {
     
     @Test
     public void getOrdersByCreationUntilTest() {
-    	when(mockOrderRepository.searchBetween(ANY_START_DATE, new Date(JAN_20_2018), ANY_START_DATE, ANY_END_DATE, "")).thenReturn(asList(dummyPedidoA, dummyPedidoB));
+    	when(mockOrderRepository.searchBetweenAsc(ANY_START_DATE, new Date(JAN_20_2018), ANY_START_DATE, ANY_END_DATE, "")).thenReturn(asList(dummyPedidoA, dummyPedidoB));
 		
-		File returnedFile = reportService.generateOrderReport(null, new Date(JAN_20_2018), null, null, "", null);
+		File returnedFile = reportService.generateOrderReport(null, new Date(JAN_20_2018), null, null, "", null, false);
 		File expectedFile = new File(EXPECTED_FILES + "expected_order_creation_until.pdf");
 		
 		String returnedContent = getPDFContent(returnedFile);
@@ -276,9 +276,9 @@ public class ReportServiceTests {
     
     @Test
     public void getOrdersByCreationBetweenTest() {
-    	when(mockOrderRepository.searchBetween(new Date(JAN_02_2018), new Date(FEV_05_2018), ANY_START_DATE, ANY_END_DATE, "")).thenReturn(asList(dummyPedidoB));
+    	when(mockOrderRepository.searchBetweenAsc(new Date(JAN_02_2018), new Date(FEV_05_2018), ANY_START_DATE, ANY_END_DATE, "")).thenReturn(asList(dummyPedidoB));
 		
-		File returnedFile = reportService.generateOrderReport(new Date(JAN_02_2018), new Date(FEV_05_2018), null, null, "", null);
+		File returnedFile = reportService.generateOrderReport(new Date(JAN_02_2018), new Date(FEV_05_2018), null, null, "", null, false);
 		File expectedFile = new File(EXPECTED_FILES + "expected_order_creation_between.pdf");
 		
 		String returnedContent = getPDFContent(returnedFile);
@@ -291,9 +291,9 @@ public class ReportServiceTests {
     
     @Test
     public void getOrdersByFinishedUntilTest() {
-    	when(mockOrderRepository.searchBetween(ANY_START_DATE, ANY_END_DATE, ANY_START_DATE, new Date(JAN_20_2018), "")).thenReturn(asList(dummyPedidoA));
+    	when(mockOrderRepository.searchBetweenAsc(ANY_START_DATE, ANY_END_DATE, ANY_START_DATE, new Date(JAN_20_2018), "")).thenReturn(asList(dummyPedidoA));
 		
-		File returnedFile = reportService.generateOrderReport(null, null, null, new Date(JAN_20_2018), "", null);
+		File returnedFile = reportService.generateOrderReport(null, null, null, new Date(JAN_20_2018), "", null, false);
 		File expectedFile = new File(EXPECTED_FILES + "expected_order_finished_until.pdf");
 		
 		String returnedContent = getPDFContent(returnedFile);
@@ -306,9 +306,9 @@ public class ReportServiceTests {
     
     @Test
     public void getOrdersByFinishedBetweenTest() {
-    	when(mockOrderRepository.searchBetween(ANY_START_DATE, ANY_END_DATE, new Date(FEV_05_2018), new Date(APR_01_2018), "")).thenReturn(asList(dummyPedidoB, dummyPedidoC));
+    	when(mockOrderRepository.searchBetweenAsc(ANY_START_DATE, ANY_END_DATE, new Date(FEV_05_2018), new Date(APR_01_2018), "")).thenReturn(asList(dummyPedidoB, dummyPedidoC));
 		
-		File returnedFile = reportService.generateOrderReport(null, null, new Date(FEV_05_2018), new Date(APR_01_2018), "", null);
+		File returnedFile = reportService.generateOrderReport(null, null, new Date(FEV_05_2018), new Date(APR_01_2018), "", null, false);
 		File expectedFile = new File(EXPECTED_FILES + "expected_order_finished_between.pdf");
 		
 		String returnedContent = getPDFContent(returnedFile);
@@ -321,9 +321,9 @@ public class ReportServiceTests {
     
     @Test
     public void getOrdersByFinishedBetweenAndStatusTest() {
-    	when(mockOrderRepository.searchBetweenWithStatus(ANY_START_DATE, ANY_END_DATE, new Date(FEV_05_2018), new Date(APR_01_2018), "", 100)).thenReturn(asList(dummyPedidoC));
+    	when(mockOrderRepository.searchBetweenWithStatusAsc(ANY_START_DATE, ANY_END_DATE, new Date(FEV_05_2018), new Date(APR_01_2018), "", 100)).thenReturn(asList(dummyPedidoC));
 		
-		File returnedFile = reportService.generateOrderReport(null, null, new Date(FEV_05_2018), new Date(APR_01_2018), "", 100);
+		File returnedFile = reportService.generateOrderReport(null, null, new Date(FEV_05_2018), new Date(APR_01_2018), "", 100, false);
 		File expectedFile = new File(EXPECTED_FILES + "expected_order_finished_between_status.pdf");
 		
 		String returnedContent = getPDFContent(returnedFile);
@@ -336,9 +336,24 @@ public class ReportServiceTests {
     
     @Test
     public void getOrdersByStatusAndNameTest() {
-    	when(mockOrderRepository.searchBetweenWithStatus(ANY_START_DATE, ANY_END_DATE, ANY_START_DATE, ANY_END_DATE, "Ana Barbosa", 200)).thenReturn(asList(dummyPedidoB));
+    	when(mockOrderRepository.searchBetweenWithStatusAsc(ANY_START_DATE, ANY_END_DATE, ANY_START_DATE, ANY_END_DATE, "Ana Barbosa", 200)).thenReturn(asList(dummyPedidoB));
 		
-		File returnedFile = reportService.generateOrderReport(null, null, null, null, "Ana Barbosa", 200);
+		File returnedFile = reportService.generateOrderReport(null, null, null, null, "Ana Barbosa", 200, false);
+		File expectedFile = new File(EXPECTED_FILES + "expected_order_status_name.pdf");
+		
+		String returnedContent = getPDFContent(returnedFile);
+		String expectedContent = getPDFContent(expectedFile);
+		
+		assertEquals(returnedContent, expectedContent);
+
+		returnedFile.delete();
+    }
+    
+    @Test
+    public void getOrdersAllOrderedByDesc() {
+    	when(mockOrderRepository.searchBetweenDesc(ANY_START_DATE, ANY_END_DATE, ANY_START_DATE, ANY_END_DATE, "")).thenReturn(asList(dummyPedidoB));
+		
+		File returnedFile = reportService.generateOrderReport(null, null, null, null, "", null, true);
 		File expectedFile = new File(EXPECTED_FILES + "expected_order_status_name.pdf");
 		
 		String returnedContent = getPDFContent(returnedFile);
