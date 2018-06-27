@@ -95,7 +95,6 @@ public class ReportServiceImpl implements ReportService {
 			String template = objects.get(0).getTemplatePath();
 			
 			Context context = new Context();
-			//context.setLocale(new Locale("pt", "BR")); TODO mudar os arquivos esperados para os testes unitários para português.
 			context.setLocale(Locale.ENGLISH);
 			context.setVariable(reportType, reportObjects);
 			

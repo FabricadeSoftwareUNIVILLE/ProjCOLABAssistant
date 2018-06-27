@@ -4,7 +4,6 @@ import static br.univille.projcolabassistant.constants.Constants.EXPECTED_FILES;
 import static br.univille.projcolabassistant.constants.Constants.RESULT_NOT_FOUND_FILE;
 import static br.univille.projcolabassistant.constants.Constants.ANY_START_DATE;
 import static br.univille.projcolabassistant.constants.Constants.ANY_END_DATE;
-import static br.univille.projcolabassistant.constants.Constants.ANY_STATUS;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 import static java.util.Arrays.asList;
@@ -18,7 +17,6 @@ import org.apache.pdfbox.cos.COSDocument;
 import org.apache.pdfbox.pdfparser.PDFParser;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.util.PDFTextStripper;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -38,52 +36,49 @@ import br.univille.projcolabassistant.repository.OrderRequestRepository;
 import br.univille.projcolabassistant.repository.UserRepository;
 import br.univille.projcolabassistant.service.impl.ReportServiceImpl;
 
-@SuppressWarnings("unused")
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class ReportServiceTests {
 	@InjectMocks
-	ReportServiceImpl reportService;
+	private ReportServiceImpl reportService;
 
 	@Mock
-    UserRepository mockUserRepository;
+	private UserRepository mockUserRepository;
 	
 	@Mock
-    InstitutionRepository mockInstitutionRepository;
+	private InstitutionRepository mockInstitutionRepository;
 	
 	@Mock
-    OrderRequestRepository mockOrderRepository;
+	private OrderRequestRepository mockOrderRepository;
 	
 	@Autowired
-	TemplateEngine templateEngine;
-    
-    User dummyUserPedro;
-    User dummyUserAna;
-    User dummyUserJoao;
-    User dummyUserAdmin;
-    
-    City dummyJoinville;
-    City dummyCuritiba;
-    
-    Institution dummyUniville;
-    Institution dummyHospital;
-    Institution dummyEscola;
-    Institution dummySaude;
-    
-    OrderRequest dummyPedidoA;
-    OrderRequest dummyPedidoB;
-    OrderRequest dummyPedidoC;
-    
-    final long JAN_01_2010 = 1262311200000L;
-	final long JAN_01_2018 = 1514772000000L;
-	final long JAN_02_2018 = 1514858400000L;
-	final long JAN_20_2018 = 1516413600000L;
-	final long FEV_05_2018 = 1517796000000L;
-	final long FEV_15_2018 = 1518660000000L;
-	final long MAR_10_2018 = 1520650800000L;
-	final long APR_01_2018 = 1522551600000L;
-	final long DEC_31_2018 = 1546221600000L;
-    
+	private TemplateEngine templateEngine;
+
+	private User dummyUserPedro;
+	private User dummyUserAna;
+	private User dummyUserJoao;
+	private User dummyUserAdmin;
+
+	private City dummyJoinville;
+	private City dummyCuritiba;
+
+	private Institution dummyUniville;
+    private Institution dummyHospital;
+    private Institution dummyEscola;
+	private Institution dummySaude;
+
+	private OrderRequest dummyPedidoA;
+	private OrderRequest dummyPedidoB;
+	private OrderRequest dummyPedidoC;
+
+	private final long JAN_01_2018 = 1514772000000L;
+	private final long JAN_02_2018 = 1514858400000L;
+	private final long JAN_20_2018 = 1516413600000L;
+	private final long FEV_05_2018 = 1517796000000L;
+	private final long FEV_15_2018 = 1518660000000L;
+	private final long MAR_10_2018 = 1520650800000L;
+	private final long APR_01_2018 = 1522551600000L;
+
     @Before
     public void setUp() {
     	reportService.setTemplateEngine(templateEngine);
@@ -350,7 +345,7 @@ public class ReportServiceTests {
 		String expectedContent = getPDFContent(expectedFile);
 		
 		assertEquals(returnedContent, expectedContent);
-		
+
 		returnedFile.delete();
     }
     
