@@ -54,7 +54,7 @@ public class ProjColabAssistantApplicationTests {
 	        this.mockMvc.perform(post("/Institution")
 	                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
 	                .param("form", "")
-	                .content("id=0&nome=zezinho&sexo=Masculino"))
+	                .content("id=0&name=zezinho&description=Masculino"))
 	                .andDo(print())
 	                .andExpect(status().isMovedTemporarily())
 	                .andExpect(view().name("redirect:/Institution"));
