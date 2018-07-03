@@ -20,9 +20,11 @@ import org.thymeleaf.context.Context;
 import org.xhtmlrenderer.pdf.ITextRenderer;
 
 import br.univille.projcolabassistant.model.AbstractReportObject;
+import br.univille.projcolabassistant.model.AssistiveAccessory;
 import br.univille.projcolabassistant.model.Institution;
 import br.univille.projcolabassistant.model.OrderRequest;
 import br.univille.projcolabassistant.model.User;
+import br.univille.projcolabassistant.repository.AccessoryRepository;
 import br.univille.projcolabassistant.repository.InstitutionRepository;
 import br.univille.projcolabassistant.repository.OrderRequestRepository;
 import br.univille.projcolabassistant.repository.UserRepository;
@@ -38,6 +40,9 @@ public class ReportServiceImpl implements ReportService {
 	
 	@Autowired
 	private OrderRequestRepository orderRequestRepository;
+	
+	@Autowired
+	private AccessoryRepository accessoryRepository;
 	
 	@Autowired
 	private ITemplateEngine templateEngine;
@@ -80,6 +85,14 @@ public class ReportServiceImpl implements ReportService {
 		}
 	
 		return createPDFReport(orders);
+	}
+	
+	@Override
+	public File generateAccessoryReport(String categoryFilter) {
+		
+		List<AssistiveAccessory> category = this.accessoryRepository.findAll();
+		
+		return createPDFReport(category);
 	}
 
 	@SuppressWarnings("unchecked")
