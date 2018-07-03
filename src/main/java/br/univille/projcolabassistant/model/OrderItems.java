@@ -11,7 +11,7 @@ import javax.persistence.ManyToOne;
 @Entity
 public class OrderItems {
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long id;
 	private int quantity;
 	@ManyToOne(cascade= {CascadeType.MERGE,CascadeType.REFRESH})
