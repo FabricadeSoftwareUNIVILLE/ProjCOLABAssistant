@@ -19,7 +19,7 @@ import javax.persistence.OneToOne;
 @Entity
 public class AssistiveAccessory {
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long id;
 	@Column(length=500)
 	private String name;
