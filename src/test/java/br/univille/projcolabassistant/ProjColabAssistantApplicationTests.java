@@ -80,4 +80,35 @@ public class ProjColabAssistantApplicationTests {
 	        .andExpect(xpath("/html/body/div/div/table/tbody/tr/td[6]/text()").string("Joinville"));
 
 	}
+	
+	@Test
+	public void institutionControllerUpdateTest() throws Exception {
+		
+		
+		City c = new City();	
+		c.setName("Joinville");
+		c.setState("SC");
+		
+		cityRepository.save(c);
+		cityRepository.flush();
+		
+		this.mockMvc.perform(get("/Institution/alterar/1")).andDo(print()).andExpect(status().isOk()).andDo(print())
+        .andExpect(xpath("/html/body/div/div/table/tbody/tr/td[1]/text()").string("univille"))
+        .andExpect(xpath("/html/body/div/div/table/tbody/tr/td[2]/text()").string("descricao"))
+        .andExpect(xpath("/html/body/div/div/table/tbody/tr/td[3]/text()").string("rua"))
+        .andExpect(xpath("/html/body/div/div/table/tbody/tr/td[4]/text()").string("123456"))
+        .andExpect(xpath("/html/body/div/div/table/tbody/tr/td[5]/text()").string("teste@teste"))
+        .andExpect(xpath("/html/body/div/div/table/tbody/tr/td[6]/text()").string("Joinville"));
+		
+		this.mockMvc.perform(post("/Institution")
+				.contentType(MediaType.APPLICATION_FORM_URLENCODED)
+				.param("form", "")
+				.content("id=1&address=rua&description=descricao&email=teste@teste&name=univille&phone=123456&city=1"))
+		.andDo(print())
+		.andExpect(status().isMovedTemporarily())
+		.andExpect(view().name("redirect:/Institution"));
+		
+	    
+
+	}
 }
