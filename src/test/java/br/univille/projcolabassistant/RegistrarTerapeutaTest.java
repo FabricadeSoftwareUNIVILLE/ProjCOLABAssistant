@@ -17,9 +17,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.ResultMatcher;
 
 import br.univille.projcolabassistant.controller.RegisterController;
+import br.univille.projcolabassistant.model.City;
+import br.univille.projcolabassistant.repository.CityRepository;
 
 
 
@@ -31,6 +32,8 @@ public class RegistrarTerapeutaTest {
 
     @Autowired
     private RegisterController registerController;
+    @Autowired
+    private CityRepository cityRepository;
     @Autowired
     private MockMvc mockMvc;
     
@@ -44,34 +47,38 @@ public class RegistrarTerapeutaTest {
     @Test
     public void registerController() throws Exception {
         //Teste do método index
-        this.mockMvc.perform(get("/user")).andExpect(status().isOk())
+        this.mockMvc.perform(get("/user")).andExpect(status().isOk()).andDo(print())
         .andExpect(xpath("/html/body/div/div/table").exists());
     }
     
     @Test
-    public void pacienteControllerSaveTest() throws Exception {
+    public void registerControllerSaveTest() throws Exception {
+    	
+    	City c = new City();
+    	c.setName("Joinville");
+    	c.setState("SC");
+    	
+    	cityRepository.save(c);
+    	cityRepository.flush();
+    	
+    	
         this.mockMvc.perform(post("/user")
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                 .param("form", "")
-                .content("id=0&nome=Bruno Henrique Cristofolini&email=bruno@gmail.com&phone=(47) 9 8897-7354&address=Rua Tajsdsaj&city=Joinville"))
+                .content("id=0&name=Bruno Henrique Cristofolini&email=bruno@gmail.com&phone=(47) 9 8897-7354&address=Rua Tajsdsaj&city=1"))
                 .andDo(print())
                 .andExpect(status().isMovedTemporarily())
                 .andExpect(view().name("redirect:/user"));
         
         this.mockMvc.perform(get("/user")).andDo(print()).andExpect(status().isOk())
         .andExpect(xpath("/html/body/div/div/table/tbody/tr/td[1]/text()").string("Bruno Henrique Cristofolini"))
-        .andExpect(xpath("/html/body/div/div/table/tbody/tr/td[2]/text()").string("bruno@gmail.com"));
-        andExpect(xpath("/html/body/div/div/table/tbody/tr/td[3]/text()").string("(47) 9 8897-7354"));
-        andExpect(xpath("/html/body/div/div/table/tbody/tr/td[4]/text()").string("Rua Tajsdsaj"));
-        andExpect(xpath("/html/body/div/div/table/tbody/tr/td[5]/text()").string("Joinville"));
+        .andExpect(xpath("/html/body/div/div/table/tbody/tr/td[2]/text()").string("bruno@gmail.com"))
+        .andExpect(xpath("/html/body/div/div/table/tbody/tr/td[3]/text()").string("(47) 9 8897-7354"))
+        .andExpect(xpath("/html/body/div/div/table/tbody/tr/td[4]/text()").string("Rua Tajsdsaj"))
+        .andExpect(xpath("/html/body/div/div/table/tbody/tr/td[5]/text()").string("Joinville"));
             
     }
 
 
-	private void andExpect(ResultMatcher string) {
-		// TODO Auto-generated method stub
-		
-	}
-    
 
 }
