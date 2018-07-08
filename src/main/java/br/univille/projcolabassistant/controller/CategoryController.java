@@ -7,11 +7,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @RequestMapping("/consultecategory")
-
 public class CategoryController {
-	@GetMapping("")
-	public ModelAndView index() {
 
-	return new ModelAndView("consultecategory/index");
-	}
+    @GetMapping("")
+    public ModelAndView index() {
+        return new ModelAndView("consultecategory/index");
+    }
 }
