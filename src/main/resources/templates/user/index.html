@@ -24,12 +24,12 @@
                         <input type="text" class="form-control" id="txtuser" placeholder="Usuario">
                     </div>
                     <div class="form-group">
-                        <label for="txtemail">Senha</label>
-                        <input type="password" class="form-control" id="txtpassword" placeholder="Senha">
+                        <label for="txtemail">Email</label>
+                        <input type="text" class="form-control" id="txtemail" placeholder="Email">
                     </div>
                     <div class="mdl-card__actions mdl-card--border" style="text-align:center;">
                     <button type="submit" class="btn btn-primary">Acessar</button>
-                    <button type="submit" class="btn btn-primary">Esqueci a senha</button>
+                    <a href="form.html" th:href="@{/user/list}" class="btn btn-primary" role="button">Listar Usuarios</a>
                     <a href="form.html" th:href="@{/user/new}" class="btn btn-primary" role="button">Cadastrar</a>
                     </div>
             </div>
