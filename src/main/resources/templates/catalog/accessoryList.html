@@ -5,14 +5,14 @@
     </head>
     <body>
 	    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-	  		<a class="navbar-brand" href="#">LOGO COLAB</a>
-	  		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-	    		<span class="navbar-toggler-icon"></span>
-	  		</button>
+	  		<a href="#">
+	  			<img src="/image/logoColab.jpg" class="logo">
+	  		</a>
+
 	  		<div class="collapse navbar-collapse" id="navbarNav">
 	    		<ul class="navbar-nav">
 	      			<li class="nav-item active">
-	        			<a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+	        			
 	      			</li>
 	    		</ul>
 	  		</div>
@@ -23,30 +23,12 @@
         </div>
         
         <div class="container">
-        	<div class="row">
-	        	<div class="card col-md-3">
-	  				<img class="card-img-top" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSaxFvaVtZhSYE_KOwxQ5vUvlk4Ns0qKZPqfao8bGVgEVgK8qbNgw" alt="Card image cap">
+        	<div class="row" >
+	        	<div class="card col-md-3" th:each="umpac : ${listAccessory}">
+	  				<img class="card-img-top" src="/image/item.png" alt="Card image cap">
 	  				<div class="card-body">
-	    				<h5 class="card-title">Lorem ipsum</h5>
-	    				<p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer condimentum.</p>
-	    				<a href="#" class="btn btn-primary">Mais</a>
-	  				</div>
-				</div>
-				
-				<div class="card col-md-3">
-	  				<img class="card-img-top" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSaxFvaVtZhSYE_KOwxQ5vUvlk4Ns0qKZPqfao8bGVgEVgK8qbNgw" alt="Card image cap">
-	  				<div class="card-body">
-	    				<h5 class="card-title">Lorem ipsum</h5>
-	    				<p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer condimentum.</p>
-	    				<a href="#" class="btn btn-primary">Mais</a>
-	  				</div>
-				</div>
-				
-				<div class="card col-md-3">
-	  				<img class="card-img-top" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSaxFvaVtZhSYE_KOwxQ5vUvlk4Ns0qKZPqfao8bGVgEVgK8qbNgw" alt="Card image cap">
-	  				<div class="card-body">
-	    				<h5 class="card-title">Lorem ipsum</h5>
-	    				<p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer condimentum.</p>
+	    				<h5 class="card-title" th:text="${umpac.name}"></h5>
+	    				<p class="card-text" th:text="${umpac.description}"></p>
 	    				<a href="#" class="btn btn-primary">Mais</a>
 	  				</div>
 				</div>
