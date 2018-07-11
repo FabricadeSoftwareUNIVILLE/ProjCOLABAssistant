@@ -38,22 +38,12 @@ public class RegisterController {
 		return new ModelAndView("user/index", "listaUs", listaUser);
 	}
 	
-	@GetMapping("/novo")
+	@GetMapping("/register")
     public ModelAndView createForm1(@ModelAttribute User user) {
         List<City> listaCidades = cityRepository.findAll();
-        return new ModelAndView("user/form","listacidades",listaCidades);
+        return new ModelAndView("user/register","listacidades",listaCidades);
     }
-
-	@GetMapping(value="/alterar/{id}")
-    public ModelAndView alterarForm1(@PathVariable("id") User user) {
-        List<City> listaCidades = cityRepository.findAll();
-        HashMap<String, Object> dados = new HashMap<String, Object>();
-        dados.put("user",user);
-        dados.put("listacidades",listaCidades);
-        
-        return new ModelAndView("user/form",dados);
-    }
-
+	
 	@PostMapping(params = "form")
 	public ModelAndView save(@Valid User user, BindingResult result, RedirectAttributes redirect) {
 		user.setType("Terapeuta");
@@ -61,10 +51,5 @@ public class RegisterController {
 		return new ModelAndView("redirect:/user");
 	}
 
-
-	@GetMapping(value = "remover/{id}")
-	public ModelAndView remover(@PathVariable("id") Long id, RedirectAttributes redirect) {
-		this.userRepository.deleteById(id);
-		return new ModelAndView("redirect:/user");
-	}
+	
 }
