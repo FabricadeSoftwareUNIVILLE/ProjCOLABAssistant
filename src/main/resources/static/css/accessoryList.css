@@ -2,15 +2,31 @@ body{
 	font-family: 'Roboto Mono', monospace;
 }
 
+.navbar-brand {
+    font-size: 2.25rem;
+}
+
 .logo{
 	width: 5%;
 	heigth: 5%;
 	margin: 5px;
 }
 
-.card{
+.card-banner{
+	text-align: center;
+	height: 60px;
+	width: 100%;
+	padding: 1%;
 	margin-left: 6%;
-	margin-bootom: 5%;
+	margin-top: 3%;
+	margin-bottom: 3%;
+	background-color: #e0e0e0;
+	box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+}
+
+.card{
+	margin-left: 8%;
+	margin-bottom: 5%;
 	box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
 }
 
