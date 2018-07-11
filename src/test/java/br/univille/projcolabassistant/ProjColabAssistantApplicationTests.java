@@ -47,7 +47,7 @@ public class ProjColabAssistantApplicationTests {
 	@Test
 	public void institutionControllerTest() throws Exception {
 		//Teste do método index
-		this.mockMvc.perform(get("/Institution")).andExpect(status().isOk())
+		this.mockMvc.perform(get("/institution")).andExpect(status().isOk())
 		.andExpect(xpath("/html/body/div/div/table").exists());
 	}
 
@@ -63,15 +63,15 @@ public class ProjColabAssistantApplicationTests {
 		cityRepository.save(c);
 		cityRepository.flush();
 		
-		this.mockMvc.perform(post("/Institution")
+		this.mockMvc.perform(post("/institution")
 				.contentType(MediaType.APPLICATION_FORM_URLENCODED)
 				.param("form", "")
 				.content("id=0&address=rua&description=descricao&email=teste@teste&name=univille&phone=123456&city=1"))
 		.andDo(print())
 		.andExpect(status().isMovedTemporarily())
-		.andExpect(view().name("redirect:/Institution"));
+		.andExpect(view().name("redirect:/institution"));
 		
-	    this.mockMvc.perform(get("/Institution")).andDo(print()).andExpect(status().isOk())
+	    this.mockMvc.perform(get("/institution")).andDo(print()).andExpect(status().isOk())
 	        .andExpect(xpath("/html/body/div/div/table/tbody/tr/td[1]/text()").string("univille"))
 	        .andExpect(xpath("/html/body/div/div/table/tbody/tr/td[2]/text()").string("descricao"))
 	        .andExpect(xpath("/html/body/div/div/table/tbody/tr/td[3]/text()").string("rua"))
@@ -92,7 +92,7 @@ public class ProjColabAssistantApplicationTests {
 		cityRepository.save(c);
 		cityRepository.flush();
 		
-		this.mockMvc.perform(get("/Institution/alterar/1")).andDo(print()).andExpect(status().isOk()).andDo(print())
+		this.mockMvc.perform(get("/institution/alterar/1")).andDo(print()).andExpect(status().isOk()).andDo(print())
         .andExpect(xpath("/html/body/div/div/table/tbody/tr/td[1]/text()").string("univille"))
         .andExpect(xpath("/html/body/div/div/table/tbody/tr/td[2]/text()").string("descricao"))
         .andExpect(xpath("/html/body/div/div/table/tbody/tr/td[3]/text()").string("rua"))
@@ -100,13 +100,13 @@ public class ProjColabAssistantApplicationTests {
         .andExpect(xpath("/html/body/div/div/table/tbody/tr/td[5]/text()").string("teste@teste"))
         .andExpect(xpath("/html/body/div/div/table/tbody/tr/td[6]/text()").string("Joinville"));
 		
-		this.mockMvc.perform(post("/Institution")
+		this.mockMvc.perform(post("/institution")
 				.contentType(MediaType.APPLICATION_FORM_URLENCODED)
 				.param("form", "")
 				.content("id=1&address=rua&description=descricao&email=teste@teste&name=univille&phone=123456&city=1"))
 		.andDo(print())
 		.andExpect(status().isMovedTemporarily())
-		.andExpect(view().name("redirect:/Institution"));
+		.andExpect(view().name("redirect:/institution"));
 		
 	    
 
