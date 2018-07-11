@@ -14,7 +14,7 @@ import javax.persistence.TemporalType;
 @Entity
 public class OrderStatusLog {
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long id;
 	private int status;
 	@Temporal(value=TemporalType.TIMESTAMP)

@@ -15,7 +15,7 @@ import javax.persistence.ManyToOne;
 @Entity
 public class User extends AbstractReportObject {	
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long id;
 	@Column(length=1000)
 	private String name;
