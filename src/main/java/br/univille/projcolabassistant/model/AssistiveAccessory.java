@@ -17,7 +17,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 @Entity
-public class AssistiveAccessory {
+public class AssistiveAccessory extends AbstractReportObject{
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private long id;
@@ -41,6 +41,14 @@ public class AssistiveAccessory {
 	private List<AccessoryPhoto> photoList = new ArrayList<AccessoryPhoto>();
 	@OneToOne(cascade=CascadeType.ALL)
 	private AccessoryPhoto principalPhoto = new AccessoryPhoto();
+	
+	
+	public AssistiveAccessory() {
+		this.setReportType("assistiveaccessory");
+		this.setTemplatePath("report/accessory-pdf-template.html");
+	}
+	
+	
 	public long getId() {
 		return id;
 	}

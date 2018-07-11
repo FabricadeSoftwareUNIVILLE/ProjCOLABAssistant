@@ -118,7 +118,7 @@ public class ReportController {
 	public void generateAndDownloadInstitutionReport(@RequestParam("nameFilter") String nameFilter, 
 													 @RequestParam("emailFilter") String emailFilter, 
 													 @RequestParam("cityFilter") String cityFilter,
-													 HttpServletResponse response) {		
+													 HttpServletResponse response) {
 		try {		
 			File file = this.reportService.generateInstitutionReport(nameFilter, emailFilter, cityFilter);
 			
@@ -144,34 +144,33 @@ public class ReportController {
 		}
 	}
 	
-	@RequestMapping(value="/download/accessories", 
+	@RequestMapping(value="/download/accessory",
 			method=RequestMethod.GET,
 			produces=MediaType.APPLICATION_OCTET_STREAM_VALUE)
 	public void generateAndDownloadAccessoryReport(@RequestParam("categoryFilter") String categoryFilter, 
-													 HttpServletResponse response) {		
-	try {		
-		File file = this.reportService.generateAccessoryReport(categoryFilter);
-		
-		response.setContentType("application/pdf");   
-		response.setHeader("Content-Disposition", "attachment; filename = relNumPecasProdTipoAcess.pdf");
-		
-		OutputStream responseOutput = response.getOutputStream();
-		FileInputStream fileInput = new FileInputStream(file);
-		
-		IOUtils.copy(fileInput, responseOutput); //enviando o response, contendo o arquivo, para o client
-		
-		responseOutput.close();
-		fileInput.close();
-		
-		System.out.println("file.getName() = " + file.getName());
-		
-		if(!file.getName().equals(DEFAULT_NOT_FOUND_FILE)) {
-			file.delete();
+													 HttpServletResponse response) {
+		try {
+			File file = this.reportService.generateAccessoryReport(categoryFilter);
+			
+			response.setContentType("application/pdf");
+			response.setHeader("Content-Disposition", "attachment; filename = relNumPecasProdTipoAcess.pdf");
+			
+			OutputStream responseOutput = response.getOutputStream();
+			FileInputStream fileInput = new FileInputStream(file);
+			
+			IOUtils.copy(fileInput, responseOutput);
+			
+			responseOutput.close();
+			fileInput.close();
+			
+			System.out.println("file.getName() = " + file.getName());
+			
+			if(!file.getName().equals(DEFAULT_NOT_FOUND_FILE)) {
+				file.delete();
+			}
+		}
+		catch (Exception ex) {
+			ex.printStackTrace();
 		}
 	}
-	catch (Exception ex) {
-		ex.printStackTrace();
-}
-}
-
 }
