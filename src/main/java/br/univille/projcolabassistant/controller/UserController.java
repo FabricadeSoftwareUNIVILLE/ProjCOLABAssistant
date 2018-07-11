@@ -1,5 +1,6 @@
 package br.univille.projcolabassistant.controller;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -31,9 +32,8 @@ public class UserController {
 		
 	@GetMapping("")
     public ModelAndView index() {
-		
-		
-		return new ModelAndView("user/index");
+		List<User> listUser = this.userRepository.findAll();				
+		return new ModelAndView("user/index","listuser", listUser);
 	}
 	
 	@PostMapping(value="/savenew")
@@ -61,7 +61,11 @@ public class UserController {
 	
 	@GetMapping(value="/modify/{id}")
     public ModelAndView modifyForm(@PathVariable("id") User user) {
-        return new ModelAndView("user/form","user",user);
+		List<City> listCity = cityRepository.findAll();
+		HashMap<String, Object> dados = new HashMap<String, Object>();
+		dados.put("listcity", listCity);
+		dados.put("user",user);
+        return new ModelAndView("user/form", dados);
     }
 	
 	@GetMapping(value="remove/{id}")
@@ -70,10 +74,9 @@ public class UserController {
         return new ModelAndView("redirect:/user");
     }
 	
-	@GetMapping("/list")
-    public ModelAndView list(@ModelAttribute User user) {
-		List<User> listUser = this.userRepository.findAll();
-		return new ModelAndView("user/list", "listuser", listUser);
-    }
-	
+	//@GetMapping("/list")
+    //public ModelAndView list(@ModelAttribute User user) {
+	//	List<User> listUser = this.userRepository.findAll();
+	//	return new ModelAndView("user/list", "listuser", listUser);
+    //}
 }
