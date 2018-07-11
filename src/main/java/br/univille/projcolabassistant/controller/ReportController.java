@@ -83,9 +83,10 @@ public class ReportController {
 											   @RequestParam("finishedDateEnd") String finishedDateEnd,
 											   @RequestParam("userName") String userName, 
 											   @RequestParam("status") Integer status, 
+											   @RequestParam(value="orderByDesc", defaultValue="false") Boolean isOrderByDesc, 
 			                                   HttpServletResponse response) {		
 		try {		
-			File file = this.reportService.generateOrderReport(toDate(creationDateStart), toDate(creationDateEnd), toDate(finishedDateStart), toDate(finishedDateEnd), userName, status);
+			File file = this.reportService.generateOrderReport(toDate(creationDateStart), toDate(creationDateEnd), toDate(finishedDateStart), toDate(finishedDateEnd), userName, status, isOrderByDesc);
 			
 			response.setContentType("application/pdf");   
 			response.setHeader("Content-Disposition", "attachment; filename = relatorio_pedidos.pdf");
@@ -127,9 +128,7 @@ public class ReportController {
 			
 			responseOutput.close();
 			fileInput.close();
-			
-			System.out.println("file.getName() = " + file.getName());
-			
+
 			if(!file.getName().equals(DEFAULT_NOT_FOUND_FILE)) {
 				file.delete();
 			}
