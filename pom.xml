@@ -75,6 +75,27 @@
 			<artifactId>jquery-maskedinput</artifactId>
 			<version>1.3.1</version>
 		</dependency>
+		<dependency>
+	     <groupId>org.apache.commons</groupId>
+	     <artifactId>commons-io</artifactId>
+	     <version>1.3.2</version>
+    </dependency>
+		<dependency>
+		    <groupId>org.mockito</groupId>
+		    <artifactId>mockito-all</artifactId>
+		    <version>1.9.5</version>
+		    <scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.xhtmlrenderer</groupId>
+			<artifactId>flying-saucer-pdf</artifactId>
+			<version>9.1.4</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.pdfbox</groupId>
+			<artifactId>pdfbox</artifactId>
+			<version>1.8.10</version>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -85,6 +106,5 @@
 			</plugin>
 		</plugins>
 	</build>
-
 
 </project>

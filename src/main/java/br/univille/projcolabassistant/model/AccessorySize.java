@@ -29,7 +29,7 @@ public class AccessorySize {
 	public int getOrderNum() {
 		return orderNum;
 	}
-	public void setOrderNum(int order) {
-		this.orderNum = order;
+	public void setOrderNum(int orderNum) {
+		this.orderNum = orderNum;
 	}
 }
