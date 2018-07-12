@@ -27,6 +27,11 @@ import br.univille.projcolabassistant.repository.CityRepository;
 @SpringBootTest
 @AutoConfigureMockMvc
 public class ProjColabAssistantApplicationTests {
+	
+	@Autowired
+	private CategoryController categoryController;
+	@Autowired
+	private MockMvc mockMvc;
 
 
 	@Autowired
@@ -42,6 +47,13 @@ public class ProjColabAssistantApplicationTests {
 
 		assertThat(InstitutionController).isNotNull();
 	}
+	
+	public void pacienteControllerTest() throws Exception {
+		//Teste do método index
+		this.mockMvc.perform(get("/consultecategory")).andDo(print()).andExpect(status().isOk())
+		.andExpect(xpath("//table").exists())
+		.andExpect(xpath("//td[contains(., 'Zezinho')]").exists());
+		}
 
 
 	@Test
