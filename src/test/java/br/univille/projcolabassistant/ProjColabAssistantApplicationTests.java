@@ -83,7 +83,7 @@ public class ProjColabAssistantApplicationTests {
 	
 	@Test
 	public void institutionControllerUpdateTest() throws Exception {
-		/*
+		
 		
 		City c = new City();	
 		c.setName("Joinville");
@@ -107,8 +107,10 @@ public class ProjColabAssistantApplicationTests {
 		.andDo(print())
 		.andExpect(status().isMovedTemporarily())
 		.andExpect(view().name("redirect:/Institution"));
-		
-	    */
-
+			    
+  }
+	@Test
+	public void consultAccessories() throws Exception {
+		this.mockMvc.perform(get("/catalogo")).andDo(print()).andExpect(status().isOk());
 	}
 }
