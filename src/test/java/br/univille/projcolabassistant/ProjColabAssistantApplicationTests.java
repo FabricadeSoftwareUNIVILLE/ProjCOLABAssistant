@@ -109,6 +109,9 @@ public class ProjColabAssistantApplicationTests {
 		.andExpect(view().name("redirect:/Institution"));
 		
 	    
-
+  }
+	@Test
+	public void consultAccessories() throws Exception {
+		this.mockMvc.perform(get("/catalogo")).andDo(print()).andExpect(status().isOk());
 	}
 }
