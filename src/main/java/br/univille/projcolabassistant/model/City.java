@@ -9,12 +9,23 @@ import javax.persistence.Id;
 @Entity
 public class City {
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long id;
 	@Column(length=1000)
 	private String name;
 	@Column(length=1000)
 	private String state;
+	
+	public City() {
+
+	}
+	
+	public City(long id, String name, String state) {
+		this.id = id;
+		this.name = name;
+		this.state = state;
+	}
+	
 	public long getId() {
 		return id;
 	}

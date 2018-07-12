@@ -16,9 +16,9 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-public class OrderRequest {
+public class OrderRequest extends AbstractReportObject {
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long id;
 	@Temporal(value=TemporalType.TIMESTAMP)
 	private Date orderDate;
@@ -38,6 +38,25 @@ public class OrderRequest {
 	@OneToMany(cascade=CascadeType.ALL)
 	@JoinColumn(name="orderitems_id")
 	private List<OrderItems> itensList = new ArrayList<OrderItems>();
+
+	public OrderRequest() {
+		this.setReportType("orders");
+		this.setTemplatePath("report/order-pdf-template");
+	}
+	
+	public OrderRequest(long id, Date orderDate, Date orderFinshDate, int status, Institution institution, User user,
+			User userRequest) {
+		this.id = id;
+		this.orderDate = orderDate;
+		this.orderFinshDate = orderFinshDate;
+		this.status = status;
+		this.institution = institution;
+		this.user = user;
+		this.userRequest = userRequest;
+		
+		this.setReportType("orders");
+		this.setTemplatePath("report/order-pdf-template");
+	}
 
 	public long getId() {
 		return id;

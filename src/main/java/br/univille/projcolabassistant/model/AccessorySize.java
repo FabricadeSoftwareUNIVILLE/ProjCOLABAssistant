@@ -9,7 +9,7 @@ import javax.persistence.Id;
 @Entity
 public class AccessorySize {
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long id;
 	@Column(length=500)
 	private String name;
@@ -29,7 +29,7 @@ public class AccessorySize {
 	public int getOrderNum() {
 		return orderNum;
 	}
-	public void setOrderNum(int order) {
-		this.orderNum = order;
+	public void setOrderNum(int orderNum) {
+		this.orderNum = orderNum;
 	}
 }
