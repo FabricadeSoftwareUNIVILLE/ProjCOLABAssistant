@@ -7,12 +7,18 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class Category {
+public class Category extends AbstractReportObject {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long id;
 	@Column(length=500)
 	private String name;
+	
+	public Category() {
+		this.setReportType("categories");
+		this.setTemplatePath("report/category-pdf-template");
+	}
+	
 	public long getId() {
 		return id;
 	}

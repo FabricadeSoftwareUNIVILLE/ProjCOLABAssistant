@@ -1,0 +1,44 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8"/>
+	<style>
+		#institutions {
+		    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+		    border-collapse: collapse;
+		    width: 100%;
+		}
+		
+		#institutions td, #institutions th {
+		    border: 1px solid #ddd;
+		    padding: 8px;
+		}
+		
+		#institutions tr:nth-child(even){background-color: #f2f2f2;}
+		
+		#institutions tr:hover {background-color: #ddd;}
+		
+		#institutions th {
+		    padding-top: 12px;
+		    padding-bottom: 12px;
+		    text-align: left;
+		    background-color: #4CAF50;
+		    color: white;
+		}
+	</style>
+</head>
+<body>
+	<table id="institutions">
+		<tr>
+			<th>ID</th>
+			<th>Nome</th>
+		</tr>
+		<th:block th:each="category : ${categories}">
+			<tr>
+				<td th:text="${category.id}"></td>
+				<td th:text="${category.name}"></td>
+			</tr>
+		</th:block>
+	</table>
+</body>
+</html>

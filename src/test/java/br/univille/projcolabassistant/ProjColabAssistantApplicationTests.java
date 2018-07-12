@@ -107,8 +107,7 @@ public class ProjColabAssistantApplicationTests {
 		.andDo(print())
 		.andExpect(status().isMovedTemporarily())
 		.andExpect(view().name("redirect:/Institution"));
-		
-	    
+			    
   }
 	@Test
 	public void consultAccessories() throws Exception {
