@@ -9,8 +9,8 @@ import br.univille.projcolabassistant.model.AssistiveAccessory;
 import br.univille.projcolabassistant.model.Category;
 
 @Repository
-public interface AccessoryRepository extends JpaRepository<AssistiveAccessory, Long>{
+public interface AssistiveAccessoryRepository extends JpaRepository<AssistiveAccessory, Long>{
 	
-	public List<AssistiveAccessory> findByCategory(Category category);
+	public List<AssistiveAccessory> findByCategory(String categoryFilter);
 
 }

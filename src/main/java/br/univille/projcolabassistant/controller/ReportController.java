@@ -1,7 +1,7 @@
 package br.univille.projcolabassistant.controller;
 
-import static br.univille.projcolabassistant.util.Util.toDate;
 import static br.univille.projcolabassistant.constants.Constants.DEFAULT_NOT_FOUND_FILE;
+import static br.univille.projcolabassistant.util.Util.toDate;
 
 import java.io.File;
 import java.io.FileInputStream;
