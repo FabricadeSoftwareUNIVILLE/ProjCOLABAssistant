@@ -1,0 +1,5 @@
+insert into assistive_accessory (id,code,description,function,name,prescription,category_id,principal_photo_id) values (1,"codigo","descricao","funcao","Nome","prescricao",1,1);
+
+insert into accessory_photo (id,uri,description,accessoryphoto_id) values (1,"fotodeteste.jpg","Uma foto supimpa",1);
+
+insert into category (id,name) values (1,"category test");
