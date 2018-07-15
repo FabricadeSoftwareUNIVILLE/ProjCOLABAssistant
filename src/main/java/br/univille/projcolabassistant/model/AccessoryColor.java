@@ -9,7 +9,7 @@ import javax.persistence.Id;
 @Entity
 public class AccessoryColor {
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long id;
 	@Column(length=500)
 	private String name;

@@ -18,7 +18,7 @@ import javax.persistence.TemporalType;
 @Entity
 public class OrderRequest extends AbstractReportObject {
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long id;
 	@Temporal(value=TemporalType.TIMESTAMP)
 	private Date orderDate;
