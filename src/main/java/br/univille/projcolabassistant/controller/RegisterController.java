@@ -35,7 +35,7 @@ public class RegisterController {
 	public ModelAndView index() {
 		List<User> listaUser = this.userRepository.findAll();
 
-		return new ModelAndView("user/index", "listaUs", listaUser);
+		return new ModelAndView("user/register", "listaUs", listaUser);
 	}
 	
 	@GetMapping("/register")
