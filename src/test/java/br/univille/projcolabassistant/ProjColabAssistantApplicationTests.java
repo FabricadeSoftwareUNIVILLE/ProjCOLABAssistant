@@ -41,11 +41,15 @@ public class ProjColabAssistantApplicationTests {
 	@Autowired
 	private MockMvc mockMvc;
 
+	@Autowired
+	private UserController controller;
+	
 	@Test
 	public void contextLoads() {
 		//Verifica a existência da instância do controlador
 
 		assertThat(InstitutionController).isNotNull();
+		assertThat(controller).isNotNull();
 	}
 	
 	public void pacienteControllerTest() throws Exception {
