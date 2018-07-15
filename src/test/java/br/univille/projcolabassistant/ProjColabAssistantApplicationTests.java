@@ -1,11 +1,9 @@
 package br.univille.projcolabassistant;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.hamcrest.Matchers.containsString;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.xpath;
@@ -19,7 +17,9 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
+import br.univille.projcolabassistant.controller.CategoryController;
 import br.univille.projcolabassistant.controller.InstitutionController;
+import br.univille.projcolabassistant.controller.UserController;
 import br.univille.projcolabassistant.model.City;
 import br.univille.projcolabassistant.repository.CityRepository;
 
@@ -38,8 +38,6 @@ public class ProjColabAssistantApplicationTests {
 	private InstitutionController InstitutionController;
 	@Autowired
 	private CityRepository cityRepository; 
-	@Autowired
-	private MockMvc mockMvc;
 
 	@Autowired
 	private UserController controller;
