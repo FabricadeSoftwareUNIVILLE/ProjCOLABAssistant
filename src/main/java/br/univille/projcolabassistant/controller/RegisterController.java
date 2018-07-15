@@ -22,7 +22,7 @@ import br.univille.projcolabassistant.repository.CityRepository;
 import br.univille.projcolabassistant.repository.UserRepository;
 
 @Controller
-@RequestMapping("/user")
+@RequestMapping("/register")
 public class RegisterController {
 
 	@Autowired
@@ -32,10 +32,9 @@ public class RegisterController {
     private CityRepository cityRepository;
 
 	@GetMapping("")
-	public ModelAndView index() {
-		List<User> listaUser = this.userRepository.findAll();
-
-		return new ModelAndView("user/register", "listaUs", listaUser);
+	public ModelAndView index(@ModelAttribute User user) {
+		List<City> listaCidades = cityRepository.findAll();
+        return new ModelAndView("user/register","listacidades",listaCidades);
 	}
 	
 	@GetMapping("/register")

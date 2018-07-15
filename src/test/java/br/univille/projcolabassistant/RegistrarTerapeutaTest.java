@@ -62,7 +62,7 @@ public class RegistrarTerapeutaTest {
     	cityRepository.flush();
     	
     	
-        this.mockMvc.perform(post("/user")
+        this.mockMvc.perform(post("/register")
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                 .param("form", "")
                 .content("id=0&name=Bruno Henrique Cristofolini&email=bruno@gmail.com&phone=(47) 9 8897-7354&address=Rua Tajsdsaj&city=1"))
