@@ -32,4 +32,5 @@ public class AccessorySize {
 	public void setOrderNum(int orderNum) {
 		this.orderNum = orderNum;
 	}
+
 }
