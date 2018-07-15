@@ -22,7 +22,7 @@ public class ConsultAccessoriesController {
 	public ModelAndView index() {
 		List<AssistiveAccessory> listAccessory = this.consultAccessoriesRepository.findAll();
 				
-		return new ModelAndView("/catalog/accessoryList", "listAccessory", listAccessory);
+		return new ModelAndView("catalog/accessoryList", "listAccessory", listAccessory);
 	}
 
 }
