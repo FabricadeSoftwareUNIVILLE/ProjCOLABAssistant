@@ -1,0 +1,52 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8"/>
+	<style>
+		#institutions {
+		    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+		    border-collapse: collapse;
+		    width: 100%;
+		}
+		
+		#institutions td, #institutions th {
+		    border: 1px solid #ddd;
+		    padding: 8px;
+		}
+		
+		#institutions tr:nth-child(even){background-color: #f2f2f2;}
+		
+		#institutions tr:hover {background-color: #ddd;}
+		
+		#institutions th {
+		    padding-top: 12px;
+		    padding-bottom: 12px;
+		    text-align: left;
+		    background-color: #4CAF50;
+		    color: white;
+		}
+	</style>
+</head>
+<body>
+	<table id="institutions">
+		<tr>
+			<th>ID</th>
+			<th>Nome</th>
+			<th>Endereço</th>
+			<th>Telefone</th>
+			<th>Email</th>
+			<th>Cidade</th>
+		</tr>
+		<th:block th:each="institution : ${institutions}">
+			<tr>
+				<td th:text="${institution.id}"></td>
+				<td th:text="${institution.name}"></td>
+				<td th:text="${institution.address}"></td>
+				<td th:text="${institution.phone}"></td>
+				<td th:text="${institution.email}"></td>
+				<td th:text="${institution.city.name}"></td>
+			</tr>
+		</th:block>
+	</table>
+</body>
+</html>
