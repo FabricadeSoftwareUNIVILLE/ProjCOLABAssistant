@@ -90,7 +90,7 @@ public class ReportServiceImpl implements ReportService {
 	@Override
 	public File generateAccessoryReport(String categoryFilter) {
 		
-		List<AssistiveAccessory> category = this.AssistiveAccessoryRepository.findByCategory(categoryFilter);
+		List<AssistiveAccessory> category = this.AssistiveAccessoryRepository.findByCategoryName(categoryFilter);
 		
 		return createPDFReport(category);
 	}
@@ -128,7 +128,6 @@ public class ReportServiceImpl implements ReportService {
 		}
 		catch (Exception ex) {
 			ex.printStackTrace();
-			
 			return null;
 		}
 	}

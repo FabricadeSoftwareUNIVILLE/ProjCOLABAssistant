@@ -149,6 +149,7 @@ public class ReportController {
 			produces=MediaType.APPLICATION_OCTET_STREAM_VALUE)
 	public void generateAndDownloadAccessoryReport(@RequestParam("categoryFilter") String categoryFilter, 
 													 HttpServletResponse response) {
+		System.out.println(categoryFilter);
 		try {
 			File file = this.reportService.generateAccessoryReport(categoryFilter);
 			
