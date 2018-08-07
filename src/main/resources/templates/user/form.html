@@ -13,6 +13,10 @@
                         <input type="text" class="form-control" id="txtnome" placeholder="Nome" th:field="*{name}" >
                     </div>
                     <div class="form-group">
+                        <label for="txttype">Ocupacao</label>
+                        <input type="text" class="form-control" id="txttype" placeholder="Ocupacao" th:field="*{type}" >
+                    </div>                    
+                    <div class="form-group">
                         <label for="txtemail">Email</label>
                         <input type="text" class="form-control" id="txtemail" placeholder="Email" th:field="*{email}" >
                     </div>
@@ -21,7 +25,7 @@
                         <input type="text" class="form-control" id="txtphone" placeholder="Telefone" th:field="*{phone}">
                     </div>
                     <div class="form-group">
-                        <label for="txtaddress">Endereço</label>
+                        <label for="txtaddress">Endereco</label>
                         <input type="text" class="form-control" id="txtaddress" placeholder="Endereco" th:field="*{address}">
                     </div>
                     <div class="form-group">
@@ -30,6 +34,12 @@
                             <option th:each="city : ${listcity}" th:value="${city.id}" th:text="${city.name}"></option>
                         </select>
                     </div>
+                    <div class="form-group">
+                    
+                    <label for="slcEnabledUser">Usuario ativo</label><br>
+                    <input type="checkbox" name="userEnabled" th:field="*{enabled}">Ativo<br>
+                    </div>
+                                        
                     <button type="submit" class="btn btn-primary">Enviar</button>
                 </form>
             </div>
