@@ -14,7 +14,7 @@ public class EmailController {
     @Autowired private JavaMailSender mailSender;
 
 
-    @RequestMapping(path = "/enviar_email", method = RequestMethod.GET)
+    @RequestMapping(path = "/enviar_email", method = RequestMethod.POST)
     public String sendMail() {
         SimpleMailMessage message = new SimpleMailMessage();
 
@@ -34,3 +34,4 @@ public class EmailController {
     }
 
 }
+
