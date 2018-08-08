@@ -153,9 +153,10 @@ public class ReportController {
 	public void generateAndDownloadInstitutionReport(@RequestParam("nameFilter") String nameFilter, 
 			@RequestParam("emailFilter") String emailFilter, 
 			@RequestParam("cityFilter") String cityFilter,
+			@RequestParam("isDesc") boolean isDesc,
 			HttpServletResponse response) {		
 		try {		
-			File file = this.reportService.generateInstitutionReport(nameFilter, emailFilter, cityFilter);
+			File file = this.reportService.generateInstitutionReport(nameFilter, emailFilter, cityFilter, isDesc);
 
 			response.setContentType("application/pdf");   
 			response.setHeader("Content-Disposition", "attachment; filename = relatorio_instituicoes.pdf");

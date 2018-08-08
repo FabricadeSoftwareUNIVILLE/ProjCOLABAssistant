@@ -62,8 +62,14 @@ public class ReportServiceImpl implements ReportService {
 	}
 	
 	@Override
-	public File generateInstitutionReport(String nameFilter, String emailFilter, String cityFilter) {
-		List<Institution> institutions = this.institutionRepository.searchWithFilters(nameFilter, emailFilter, cityFilter);
+	public File generateInstitutionReport(String nameFilter, String emailFilter, String cityFilter, boolean isDesc) {
+		List<Institution> institutions;
+		
+		if (isDesc) {
+			institutions = this.institutionRepository.searchWithFiltersByDesc(nameFilter, emailFilter, cityFilter);
+		} else {
+			institutions = this.institutionRepository.searchWithFiltersByAsc(nameFilter, emailFilter, cityFilter);
+		}
 		
 		return createPDFReport(institutions);
 	}
