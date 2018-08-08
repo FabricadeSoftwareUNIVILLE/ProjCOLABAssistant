@@ -29,6 +29,7 @@ import br.univille.projcolabassistant.repository.InstitutionRepository;
 import br.univille.projcolabassistant.repository.OrderRequestRepository;
 import br.univille.projcolabassistant.repository.UserRepository;
 import br.univille.projcolabassistant.service.ReportService;
+import br.univille.projcolabassistant.viewmodel.OrderSumByCategory;
 
 @Service
 public class ReportServiceImpl implements ReportService {
@@ -88,11 +89,11 @@ public class ReportServiceImpl implements ReportService {
 	}
 	
 	@Override
-	public File generateAccessoryReport(String categoryFilter) {
+	public File generateOrderSumByCategoryReport(String categoryFilter) {
 		
-		List<AssistiveAccessory> category = this.AssistiveAccessoryRepository.findByCategoryName(categoryFilter);
+		List<OrderSumByCategory> OrderSumByCategory = this.orderRequestRepository.searchOrderSumByCategory(categoryFilter);
 		
-		return createPDFReport(category);
+		return createPDFReport(OrderSumByCategory);
 	}
 
 	@SuppressWarnings("unchecked")

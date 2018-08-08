@@ -144,17 +144,17 @@ public class ReportController {
 		}
 	}
 	
-	@RequestMapping(value="/download/accessory",
+	@RequestMapping(value="/download/orderCategory",
 			method=RequestMethod.GET,
 			produces=MediaType.APPLICATION_OCTET_STREAM_VALUE)
-	public void generateAndDownloadAccessoryReport(@RequestParam("categoryFilter") String categoryFilter, 
+	public void generateAndDownloadOrderSumByCategoryReport(@RequestParam("categoryFilter") String categoryFilter, 
 													 HttpServletResponse response) {
 		System.out.println(categoryFilter);
 		try {
-			File file = this.reportService.generateAccessoryReport(categoryFilter);
+			File file = this.reportService.generateOrderSumByCategoryReport(categoryFilter);
 			
 			response.setContentType("application/pdf");
-			response.setHeader("Content-Disposition", "attachment; filename = relNumPecasProdTipoAcess.pdf");
+			response.setHeader("Content-Disposition", "attachment; filename = relatorio_num_pecas_categoria.pdf");
 			
 			OutputStream responseOutput = response.getOutputStream();
 			FileInputStream fileInput = new FileInputStream(file);
