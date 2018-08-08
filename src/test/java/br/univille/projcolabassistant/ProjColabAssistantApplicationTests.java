@@ -40,13 +40,13 @@ public class ProjColabAssistantApplicationTests {
 	private CityRepository cityRepository; 
 
 	@Autowired
-	private UserController controller;
+	private UserController userController;
 
 	@Test
 	public void contextLoads() {
 		//Verifica a existência da instância do controlador
 		assertThat(InstitutionController).isNotNull();
-		assertThat(controller).isNotNull();
+		assertThat(userController).isNotNull();
 	}
 
 	public void pacienteControllerTest() throws Exception {
@@ -67,7 +67,7 @@ public class ProjColabAssistantApplicationTests {
 
 	@Test
 	public void institutionControllerSaveTest() throws Exception {
-		
+
 		City c = new City();	
 		c.setName("Joinville");
 		c.setState("SC");
@@ -119,16 +119,45 @@ public class ProjColabAssistantApplicationTests {
 		.andExpect(view().name("redirect:/Institution"));
 
 	}
-	
+
 	@Test
 	public void consultAccessories() throws Exception {
 		this.mockMvc.perform(get("/catalogo")).andDo(print()).andExpect(status().isOk());
 	}
-	
+
 	@Test
 	public void userTest() throws Exception {
 		this.mockMvc.perform(get("/user")).andDo(print()).andExpect(status().isOk());
 	}
 
+	@Test
+	public void userControllerTest() throws Exception {
+		this.mockMvc.perform(get("/user")).andExpect(status().isOk())
+		.andExpect(xpath("/html/body/div/div/table").exists());
+	}
 
+	@Test
+	public void userSaveTest() throws Exception {
+		City c = new City();	
+		c.setName("Joinville");
+		c.setState("SC");
+		
+		cityRepository.save(c);
+		cityRepository.flush();
+		
+		this.mockMvc.perform(post("/user")
+				.contentType(MediaType.APPLICATION_FORM_URLENCODED)
+				.param("form", "")
+				.content("id=0&name=waltinho&type=terapeuta&email=waltinho@teste.com&phone=12345678&adress=univille&city=1"))
+		.andDo(print())
+		.andExpect(status().isMovedTemporarily())
+		.andExpect(view().name("redirect:/user"));
+
+		this.mockMvc.perform(get("/user")).andDo(print()).andExpect(status().isOk())
+		.andExpect(xpath("/html/body/div/div/table/tbody/tr/td[1]/text()").string("waltinho"))
+		.andExpect(xpath("/html/body/div/div/table/tbody/tr/td[2]/text()").string("waltinho@teste.com"))
+		.andExpect(xpath("/html/body/div/div/table/tbody/tr/td[3]/text()").string("12345678"))
+		.andExpect(xpath("/html/body/div/div/table/tbody/tr/td[4]/text()").string("univille"));
+
+	}
 }
