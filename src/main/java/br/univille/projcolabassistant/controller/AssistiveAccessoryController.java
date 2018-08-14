@@ -31,8 +31,8 @@ public class AssistiveAccessoryController {
         return new ModelAndView("assistiveaccessory/index","assistiveaccessories",accessoriesList);
     }
     @GetMapping("/new")
-    public String createForm(@ModelAttribute AssistiveAccessory assistiveaccessory) {
-        return "assistiveaccessory/form";
+    public ModelAndView createForm(@ModelAttribute AssistiveAccessory assistiveaccessory) {
+        return new ModelAndView("assistiveaccessory/form");
     }
     @PostMapping(params="form")
     public ModelAndView save(@Valid AssistiveAccessory assistiveaccessory, BindingResult result, RedirectAttributes redirect) {
