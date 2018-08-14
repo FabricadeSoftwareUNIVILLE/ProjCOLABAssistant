@@ -33,8 +33,4 @@ public class OrderSumByCategory {
 	public void setSumOrderCategory(long sumOrderCategory) {
 		this.sumOrderCategory = sumOrderCategory;
 	}
-	
-	
-	
-
 }

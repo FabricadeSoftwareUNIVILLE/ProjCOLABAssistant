@@ -46,9 +46,9 @@ public class ReportController {
         return "report/institution-report";
     }
 	
-	@GetMapping("/accessory")
-    public String createAccessoryReport() {
-        return "report/accessory-report";
+	@GetMapping("/orderCategory")
+    public String createOrderSumByCategoryReport() {
+        return "report/orderCategory-report";
     }
 	
 	@RequestMapping(value="/download/user", 
