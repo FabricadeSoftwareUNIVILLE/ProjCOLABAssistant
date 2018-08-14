@@ -19,7 +19,7 @@ import br.univille.projcolabassistant.model.AssistiveAccessory;
 import br.univille.projcolabassistant.repository.AssistiveAccessoryRepository;
 
 @Controller
-@RequestMapping("/accessory")
+@RequestMapping("/assistiveaccessory")
 public class AssistiveAccessoryController {
 	@Autowired
     private AssistiveAccessoryRepository accessoryRepository;
@@ -28,27 +28,26 @@ public class AssistiveAccessoryController {
     public ModelAndView index() {
     	List<AssistiveAccessory> accessoriesList = this.accessoryRepository.findAll();
         
-        return new ModelAndView("assistiveaccessory/index","assistivecategories",accessoriesList);
+        return new ModelAndView("assistiveaccessory/index","assistiveaccessories",accessoriesList);
     }
     @GetMapping("/new")
     public String createForm(@ModelAttribute AssistiveAccessory category) {
         return "assistiveaccessory/form";
     }
     @PostMapping(params="form")
-    public ModelAndView save(@Valid AssistiveAccessory accessory, BindingResult result, RedirectAttributes redirect) {
+    public ModelAndView save(@Valid AssistiveAccessory assistiveaccessory, BindingResult result, RedirectAttributes redirect) {
         
-    	accessory = this.accessoryRepository.save(accessory);
-        this.accessoryRepository.
+    	assistiveaccessory = this.accessoryRepository.save(assistiveaccessory);
         
-        return new ModelAndView("redirect:/accessory");
+        return new ModelAndView("redirect:/assistiveaccessory");
     }
     @GetMapping(value="/update/{id}")
-    public ModelAndView alterarForm(@PathVariable("id") AssistiveAccessory accessory) {
-        return new ModelAndView("assistiveaccessory/form","assistivecategory",accessory);
+    public ModelAndView alterarForm(@PathVariable("id") AssistiveAccessory assistiveaccessory) {
+        return new ModelAndView("assistiveaccessory/form","assistivecategory",assistiveaccessory);
     }
     @GetMapping(value="delete/{id}")
     public ModelAndView remover(@PathVariable ("id") Long id, RedirectAttributes redirect) {
         this.accessoryRepository.deleteById(id);
-        return new ModelAndView("redirect:/accessory");
+        return new ModelAndView("redirect:/assistiveaccessory");
     }
 }
