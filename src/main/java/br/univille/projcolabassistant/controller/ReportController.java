@@ -1,7 +1,7 @@
 package br.univille.projcolabassistant.controller;
 
-import static br.univille.projcolabassistant.util.Util.toDate;
 import static br.univille.projcolabassistant.constants.Constants.DEFAULT_NOT_FOUND_FILE;
+import static br.univille.projcolabassistant.util.Util.toDate;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -88,9 +88,9 @@ public class ReportController {
 	@RequestMapping(value="/download/user", 
 			method=RequestMethod.GET,
 			produces=MediaType.APPLICATION_OCTET_STREAM_VALUE)
-	public void generateAndDownloadUserReport(String nameFilter, String emailFilter, String typeFilter, HttpServletResponse response) {
+	public void generateAndDownloadUserReport(String nameFilter, String emailFilter, String typeFilter, boolean orderByDesc, HttpServletResponse response) {
 		try {
-			File file = this.reportService.generateUserReport(nameFilter, emailFilter, typeFilter);
+			File file = this.reportService.generateUserReport(nameFilter, emailFilter, typeFilter, orderByDesc);
 
 			response.setContentType("application/pdf");   
 			response.setHeader("Content-Disposition", "attachment; filename = relatorio_usuario.pdf");
