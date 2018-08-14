@@ -166,12 +166,12 @@ public class ReportServiceTests {
     //=====================================
     //      Institutions Report Tests
     //=====================================
-
+    
     @Test
     public void getAllInstitutionsTest() {
-		when(mockInstitutionRepository.searchWithFilters("", "", "")).thenReturn(asList(dummyUniville, dummyHospital, dummyEscola, dummySaude));
+		when(mockInstitutionRepository.searchWithFiltersByDesc("", "", "")).thenReturn(asList(dummyUniville, dummySaude, dummyHospital, dummyEscola));
 
-		File returnedFile = reportService.generateInstitutionReport("", "", "");
+		File returnedFile = reportService.generateInstitutionReport("", "", "", true);
 		File expectedFile = new File(EXPECTED_FILES + "expected_insti_all.pdf");
 
 		String returnedContent = getPDFContent(returnedFile);
@@ -184,9 +184,9 @@ public class ReportServiceTests {
 
     @Test
     public void getInstitutionsFilteredByNameTest() {
-		when(mockInstitutionRepository.searchWithFilters("Municipal", "", "")).thenReturn(asList(dummyHospital, dummyEscola));
+		when(mockInstitutionRepository.searchWithFiltersByDesc("Municipal", "", "")).thenReturn(asList(dummyHospital, dummyEscola));
 
-		File returnedFile = reportService.generateInstitutionReport("Municipal", "", "");
+		File returnedFile = reportService.generateInstitutionReport("Municipal", "", "", true);
 		File expectedFile = new File(EXPECTED_FILES + "expected_insti_filter_name.pdf");
 
 		String returnedContent = getPDFContent(returnedFile);
@@ -199,9 +199,9 @@ public class ReportServiceTests {
 
     @Test
     public void getInstitutionsFilteredByCityTest() {
-		when(mockInstitutionRepository.searchWithFilters("", "", "ritib")).thenReturn(asList(dummyHospital, dummyEscola, dummySaude));
+		when(mockInstitutionRepository.searchWithFiltersByDesc("", "", "ritib")).thenReturn(asList(dummySaude, dummyHospital, dummyEscola));
 
-		File returnedFile = reportService.generateInstitutionReport("", "", "ritib");
+		File returnedFile = reportService.generateInstitutionReport("", "", "ritib", true);
 		File expectedFile = new File(EXPECTED_FILES + "expected_insti_filter_city.pdf");
 
 		String returnedContent = getPDFContent(returnedFile);
@@ -214,9 +214,9 @@ public class ReportServiceTests {
 
     @Test
     public void getInstitutionsFilteredByCityAndEmailTest() {
-		when(mockInstitutionRepository.searchWithFilters("", "pr.gov.br", "ritib")).thenReturn(asList(dummyEscola));
+		when(mockInstitutionRepository.searchWithFiltersByDesc("", "pr.gov.br", "ritib")).thenReturn(asList(dummyEscola));
 
-		File returnedFile = reportService.generateInstitutionReport("", "pr.gov.br", "ritib");
+		File returnedFile = reportService.generateInstitutionReport("", "pr.gov.br", "ritib", true);
 		File expectedFile = new File(EXPECTED_FILES + "expected_insti_filter_city_email.pdf");
 
 		String returnedContent = getPDFContent(returnedFile);
@@ -229,15 +229,45 @@ public class ReportServiceTests {
 
     @Test
     public void getZeroInstitutionsReportTest() {
-		when(mockInstitutionRepository.searchWithFilters("Nonexistent Institution", "Nonexistent Email", "Nonexistent City")).thenReturn(new ArrayList<Institution>());
+		when(mockInstitutionRepository.searchWithFiltersByDesc("Nonexistent Institution", "Nonexistent Email", "Nonexistent City")).thenReturn(new ArrayList<Institution>());
 
-		File returnedFile = reportService.generateInstitutionReport("Nonexistent Institution", "Nonexistent Email", "Nonexistent City");
+		File returnedFile = reportService.generateInstitutionReport("Nonexistent Institution", "Nonexistent Email", "Nonexistent City", true);
 		File expectedFile = new File(RESULT_NOT_FOUND_FILE);
 
 		String returnedContent = getPDFContent(returnedFile);
 		String expectedContent = getPDFContent(expectedFile);
 
 		assertEquals(expectedContent, returnedContent);
+    }
+    
+    @Test
+    public void getAllInstitutionsAscTest() {
+		when(mockInstitutionRepository.searchWithFiltersByAsc("", "", "")).thenReturn(asList(dummyEscola, dummyHospital, dummySaude, dummyUniville));
+
+		File returnedFile = reportService.generateInstitutionReport("", "", "", false);
+		File expectedFile = new File(EXPECTED_FILES + "expected_insti_all_asc.pdf");
+
+		String returnedContent = getPDFContent(returnedFile);
+		String expectedContent = getPDFContent(expectedFile);
+
+		assertEquals(expectedContent, returnedContent);
+
+		returnedFile.delete();
+    }
+    
+    @Test
+    public void getInstitutionsFilteredByNameAscTest() {
+		when(mockInstitutionRepository.searchWithFiltersByAsc("Municipal", "", "")).thenReturn(asList(dummyEscola, dummyHospital));
+
+		File returnedFile = reportService.generateInstitutionReport("Municipal", "", "", false);
+		File expectedFile = new File(EXPECTED_FILES + "expected_insti_filter_name_asc.pdf");
+
+		String returnedContent = getPDFContent(returnedFile);
+		String expectedContent = getPDFContent(expectedFile);
+
+		assertEquals(expectedContent, returnedContent);
+
+		returnedFile.delete();
     }
 
     //===============================
