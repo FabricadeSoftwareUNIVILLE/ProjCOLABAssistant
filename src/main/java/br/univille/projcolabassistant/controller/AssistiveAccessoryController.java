@@ -16,13 +16,17 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.univille.projcolabassistant.model.AssistiveAccessory;
+import br.univille.projcolabassistant.model.Category;
 import br.univille.projcolabassistant.repository.AssistiveAccessoryRepository;
+import br.univille.projcolabassistant.repository.CategoryRepository;
 
 @Controller
 @RequestMapping("/assistiveaccessory")
 public class AssistiveAccessoryController {
 	@Autowired
     private AssistiveAccessoryRepository accessoryRepository;
+	@Autowired
+    private CategoryRepository categoryRepository;
 	
     @GetMapping("")
     public ModelAndView index() {
@@ -30,10 +34,13 @@ public class AssistiveAccessoryController {
         
         return new ModelAndView("assistiveaccessory/index","assistiveaccessories",accessoriesList);
     }
+    
     @GetMapping("/new")
     public ModelAndView createForm(@ModelAttribute AssistiveAccessory assistiveaccessory) {
-        return new ModelAndView("assistiveaccessory/form");
+    	List<Category> categories = categoryRepository.findAll();
+        return new ModelAndView("assistiveaccessory/form","categories",categories);
     }
+    
     @PostMapping(params="form")
     public ModelAndView save(@Valid AssistiveAccessory assistiveaccessory, BindingResult result, RedirectAttributes redirect) {
         
@@ -41,10 +48,12 @@ public class AssistiveAccessoryController {
         
         return new ModelAndView("redirect:/assistiveaccessory");
     }
+    
     @GetMapping(value="/update/{id}")
     public ModelAndView alterarForm(@PathVariable("id") AssistiveAccessory assistiveaccessory) {
         return new ModelAndView("assistiveaccessory/form","assistivecategory",assistiveaccessory);
     }
+    
     @GetMapping(value="delete/{id}")
     public ModelAndView remover(@PathVariable ("id") Long id, RedirectAttributes redirect) {
         this.accessoryRepository.deleteById(id);
