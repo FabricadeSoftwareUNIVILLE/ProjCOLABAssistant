@@ -1,6 +1,8 @@
 package br.univille.projcolabassistant;
 
+import static java.util.Arrays.asList;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -10,6 +12,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -20,7 +23,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import br.univille.projcolabassistant.controller.CategoryController;
 import br.univille.projcolabassistant.controller.InstitutionController;
 import br.univille.projcolabassistant.controller.UserController;
+import br.univille.projcolabassistant.model.Category;
 import br.univille.projcolabassistant.model.City;
+import br.univille.projcolabassistant.repository.CategoryRepository;
 import br.univille.projcolabassistant.repository.CityRepository;
 
 @RunWith(SpringRunner.class)
@@ -33,7 +38,6 @@ public class ProjColabAssistantApplicationTests {
 	@Autowired
 	private MockMvc mockMvc;
 
-
 	@Autowired
 	private InstitutionController InstitutionController;
 	@Autowired
@@ -41,6 +45,10 @@ public class ProjColabAssistantApplicationTests {
 
 	@Autowired
 	private UserController controller;
+	
+	@Autowired
+	private CategoryRepository categoryRepository;
+	
 	
 	@Test
 	public void contextLoads() {
@@ -50,6 +58,30 @@ public class ProjColabAssistantApplicationTests {
 		assertThat(controller).isNotNull();
 	}
 	
+	@Test
+	public void categoryController() throws Exception {
+	
+		categoryRepository.deleteAll();
+		categoryRepository.flush();
+		
+		//when(categoryRepository.findAll()).thenReturn(asList(category));
+		
+		
+		this.mockMvc.perform(post("/category")
+				.contentType(MediaType.APPLICATION_FORM_URLENCODED)
+				.param("form", "")
+				.content("id=0&name=roberta"))
+		.andDo(print())
+		.andExpect(status().isMovedTemporarily())
+		.andExpect(view().name("redirect:/category"));
+		
+	    this.mockMvc.perform(get("/category")).andDo(print()).andExpect(status().isOk())
+	        .andExpect(xpath("/html/body/div/div/table/tbody/tr/td[2]/text()").string("roberta"));	      
+
+	}
+	
+	
+	@Test
 	public void pacienteControllerTest() throws Exception {
 		//Teste do método index
 		this.mockMvc.perform(get("/consultecategory")).andDo(print()).andExpect(status().isOk())
