@@ -31,7 +31,7 @@ public class AssistiveAccessoryController {
         return new ModelAndView("assistiveaccessory/index","assistiveaccessories",accessoriesList);
     }
     @GetMapping("/new")
-    public String createForm(@ModelAttribute AssistiveAccessory category) {
+    public String createForm(@ModelAttribute AssistiveAccessory assistiveaccessory) {
         return "assistiveaccessory/form";
     }
     @PostMapping(params="form")
