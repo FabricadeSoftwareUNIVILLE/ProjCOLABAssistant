@@ -47,7 +47,7 @@ public class AssistiveAccessoryController {
         return new ModelAndView("assistiveaccessory/form",dados);
     }
     
-    @PostMapping(params="form")
+    @PostMapping(value="/new")
     public ModelAndView save(@Valid AssistiveAccessory assistiveaccessory, BindingResult result, RedirectAttributes redirect) {
         
     	assistiveaccessory = this.accessoryRepository.save(assistiveaccessory);
@@ -57,7 +57,13 @@ public class AssistiveAccessoryController {
     
     @GetMapping(value="/update/{id}")
     public ModelAndView alterarForm(@PathVariable("id") AssistiveAccessory assistiveaccessory) {
-        return new ModelAndView("assistiveaccessory/form","assistivecategory",assistiveaccessory);
+    	List<Category> categories = categoryRepository.findAll();
+    	
+    	HashMap<String, Object> dados = new HashMap<String, Object>();
+    	dados.put("assistiveaccessory", assistiveaccessory);
+    	dados.put("categories",categories);
+    	
+        return new ModelAndView("assistiveaccessory/form",dados);
     }
     
     @GetMapping(value="delete/{id}")

@@ -24,7 +24,7 @@
                             <td th:text="${assistiveaccessory.function}"></td>
                             <td th:text="${assistiveaccessory.code}"></td>
                             <td>
-                                <a href="form.html" th:href="@{'/assistiveaccessory/modify/' + ${assistiveaccessory.id}}" class="btn btn-secondary btn-lg" role="button">Alterar</a>
+                                <a href="form.html" th:href="@{'/assistiveaccessory/update/' + ${assistiveaccessory.id}}" class="btn btn-secondary btn-lg" role="button">Alterar</a>
                                 <a href="#" class="btn btn-warning btn-lg" role="button" data-toggle="modal" data-target="#confirmExclusion" th:data-id="${user.id}">Excluir</a>
                             </td>
                         </tr>
@@ -58,7 +58,7 @@
                   var button = $(event.relatedTarget)
                   var recipient = button.data('id')
                   var modal = $(this)
-                  modal.find('#btnConf').attr("href","/user/remove/" + recipient)
+                  modal.find('#btnConf').attr("href","/user/delete/" + recipient)
                 })
            /*]]>*/
         </script> 
