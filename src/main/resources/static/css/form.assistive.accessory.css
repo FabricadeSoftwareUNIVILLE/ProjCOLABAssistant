@@ -5,9 +5,22 @@
 }
 
 .assistive-accessory-border {
-	
+	padding: 30px;
 }
 
 .assistive-accessory-group {
 	
+}
+
+.assistive-accessory-btn {
+	
+}
+
+.navbar {
+	background-color: #e0e0e0 !important;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+}
+
+.navbar a {
+	color: #000000 !important;
 }
