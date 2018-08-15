@@ -33,3 +33,7 @@ body{
 .card-text{
 	text-align: justify;
 }
+
+.glyphicon {
+    font-size: 35px;
+}
