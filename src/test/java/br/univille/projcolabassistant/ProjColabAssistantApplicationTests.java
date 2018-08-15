@@ -18,6 +18,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
 import br.univille.projcolabassistant.controller.CategoryController;
+import br.univille.projcolabassistant.controller.CityController;
 import br.univille.projcolabassistant.controller.InstitutionController;
 import br.univille.projcolabassistant.controller.UserController;
 import br.univille.projcolabassistant.model.City;
@@ -42,12 +43,16 @@ public class ProjColabAssistantApplicationTests {
 	@Autowired
 	private UserController controller;
 	
+	@Autowired
+	private CityController cityController;
+	
 	@Test
 	public void contextLoads() {
 		//Verifica a existência da instância do controlador
 
 		assertThat(InstitutionController).isNotNull();
 		assertThat(controller).isNotNull();
+		assertThat(cityController).isNotNull();
 	}
 	
 	public void pacienteControllerTest() throws Exception {
@@ -127,4 +132,24 @@ public class ProjColabAssistantApplicationTests {
 	public void consultAccessories() throws Exception {
 		this.mockMvc.perform(get("/catalogo")).andDo(print()).andExpect(status().isOk());
 	}
+	
+	@Test
+	public void cityController() throws Exception {
+	
+		cityRepository.deleteAll();
+		cityRepository.flush();
+		
+		this.mockMvc.perform(post("/city")
+				.contentType(MediaType.APPLICATION_FORM_URLENCODED)
+				.param("form", "")
+				.content("id=0&name=Joinville"))
+		.andDo(print())
+		.andExpect(status().isMovedTemporarily())
+		.andExpect(view().name("redirect:/city"));
+		
+	    this.mockMvc.perform(get("/city")).andDo(print()).andExpect(status().isOk())
+	        .andExpect(xpath("/html/body/div/div/table/tbody/tr/td[2]/text()").string("Joinville"));	      
+
+	}
+
 }
