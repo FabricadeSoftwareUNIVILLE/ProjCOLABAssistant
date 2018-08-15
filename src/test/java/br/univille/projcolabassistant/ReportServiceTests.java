@@ -382,4 +382,9 @@ public class ReportServiceTests {
 	    
 	    return parsedText;
     }
+    
+    //===========================================
+    //      Order Sum by Category Tests      
+    //===========================================
+    
 }

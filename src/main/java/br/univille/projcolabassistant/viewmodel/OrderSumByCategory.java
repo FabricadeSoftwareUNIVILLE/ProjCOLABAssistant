@@ -1,6 +1,8 @@
 package br.univille.projcolabassistant.viewmodel;
 
-public class OrderSumByCategory {
+import br.univille.projcolabassistant.model.AbstractReportObject;
+
+public class OrderSumByCategory extends AbstractReportObject{
 	private long idCategory;
 	private String nameCategory;
 	private long sumOrderCategory;
@@ -12,8 +14,9 @@ public class OrderSumByCategory {
 		this.idCategory = idCategory;
 		this.nameCategory = nameCategory;
 		this.sumOrderCategory = sumOrderCategory;
+		this.setReportType("ordersumbycategories");
+		this.setTemplatePath("report/orderCategory-pdf-template");
 	}
-	
 	
 	public long getIdCategory() {
 		return idCategory;

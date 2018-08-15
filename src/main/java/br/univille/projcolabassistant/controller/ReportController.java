@@ -119,7 +119,7 @@ public class ReportController {
 													 @RequestParam("emailFilter") String emailFilter, 
 													 @RequestParam("cityFilter") String cityFilter,
 													 HttpServletResponse response) {
-		try {		
+		try {
 			File file = this.reportService.generateInstitutionReport(nameFilter, emailFilter, cityFilter);
 			
 			response.setContentType("application/pdf");   
