@@ -1,5 +1,6 @@
 package br.univille.projcolabassistant.controller;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -38,7 +39,12 @@ public class AssistiveAccessoryController {
     @GetMapping("/new")
     public ModelAndView createForm(@ModelAttribute AssistiveAccessory assistiveaccessory) {
     	List<Category> categories = categoryRepository.findAll();
-        return new ModelAndView("assistiveaccessory/form","categories",categories);
+    	
+    	HashMap<String, Object> dados = new HashMap<String, Object>();
+    	dados.put("assistiveaccessory", assistiveaccessory);
+    	dados.put("categories",categories);
+    	
+        return new ModelAndView("assistiveaccessory/form",dados);
     }
     
     @PostMapping(params="form")
