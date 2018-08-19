@@ -11,6 +11,21 @@ import org.springframework.stereotype.Component;
 @Component("newMailSender")
 public class MailSender {
 
+    /*
+    * Sending emails using this class
+    *
+    * ...
+    * public MailSender mailSender;
+    *
+    * String from = "springboot.dacs@gmail.com";
+    * String to = "springboot.dacs+emailtest@gmail.com";
+    * String subject = "JavaMailSenderTest";
+    * String body = "Testing!";
+    * mailSender.sendMail(from, to, subject, body);
+    * ...
+    *
+    * */
+
     @Autowired
     JavaMailSender javaMailSender;
 
