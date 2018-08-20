@@ -20,11 +20,13 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
+import br.univille.projcolabassistant.controller.AccessoryColorController;
 import br.univille.projcolabassistant.controller.CategoryController;
 import br.univille.projcolabassistant.controller.InstitutionController;
 import br.univille.projcolabassistant.controller.UserController;
 import br.univille.projcolabassistant.model.Category;
 import br.univille.projcolabassistant.model.City;
+import br.univille.projcolabassistant.repository.AccessoryColorRepository;
 import br.univille.projcolabassistant.repository.CategoryRepository;
 import br.univille.projcolabassistant.repository.CityRepository;
 
@@ -35,11 +37,16 @@ public class ProjColabAssistantApplicationTests {
 	
 	@Autowired
 	private CategoryController categoryController;
+	
+	@Autowired
+	private AccessoryColorController accessorycontroller;
+	
 	@Autowired
 	private MockMvc mockMvc;
 
 	@Autowired
 	private InstitutionController InstitutionController;
+	
 	@Autowired
 	private CityRepository cityRepository; 
 
@@ -48,6 +55,9 @@ public class ProjColabAssistantApplicationTests {
 	
 	@Autowired
 	private CategoryRepository categoryRepository;
+	
+	@Autowired
+	private AccessoryColorRepository accessorycolorRepository;
 	
 	
 	@Test
@@ -78,6 +88,27 @@ public class ProjColabAssistantApplicationTests {
 	    this.mockMvc.perform(get("/category")).andDo(print()).andExpect(status().isOk())
 	        .andExpect(xpath("/html/body/div/div/table/tbody/tr/td[2]/text()").string("roberta"));	      
 
+	}
+	
+	@Test
+	public void AccessoryColorController() throws Exception {
+	
+		accessorycolorRepository.deleteAll();
+		accessorycolorRepository.flush();
+		
+		//when(categoryRepository.findAll()).thenReturn(asList(category));
+		
+		
+		this.mockMvc.perform(post("/accessorycolor")
+				.contentType(MediaType.APPLICATION_FORM_URLENCODED)
+				.param("form", "")
+				.content("id=0&name=verdinho"))
+		.andDo(print())
+		.andExpect(status().isMovedTemporarily())
+		.andExpect(view().name("redirect:/accessorycolor"));
+		
+	    this.mockMvc.perform(get("/accessorycolor")).andDo(print()).andExpect(status().isOk())
+	        .andExpect(xpath("/html/body/div/div/table/tbody/tr/td[2]/text()").string("verdinho"));	      
 	}
 	
 	
