@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <meta charset="UTF-8">
+    <head th:include="layout :: htmlhead"></head>
+    <body>
+
+        <div class="container">
+            <nav th:replace="layout :: menu">(menu)</nav>
+            
+            <div class="border border-dark">
+                <table class="table">
+                    <thead class="thead-light"> 
+                        <tr>
+                            <th scope="col">Código do Pedido</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Data</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr scope="row" th:each="order : ${listorder}">
+                            <td th:text="${order.id}"></td>
+                            <td th:text="${order.status}"></td>
+                            <td th:text="${order.data}"></td>
+                            <td>
+                                <a href="form.html" th:href="@{'/user/modify/' + ${user.id}}" class="btn btn-secondary btn-lg" role="button">Alterar</a>
+                                <a href="#" class="btn btn-warning btn-lg" role="button" data-toggle="modal" data-target="#confirmExclusion" th:data-id="${order.id}">Excluir</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal fade" id="confirmExclusion" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">ConfirmaÃ§Ã£o de exclusÃ£o</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">X</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <p>Confirmar a exclusÃ£o deste registro de Pedido?</p>
+                        </div>
+                        <div class="modal-footer">
+                            <a href="#" class="btn btn-warning btn-lg" id="btnConf" role="button">Sim</a>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div th:include="layout :: footer" id="footer">(footer)</div>
+        <script th:inline="javascript">
+          /*<![CDATA[*/
+               $('#confirmExclusion').on('show.bs.modal', function (event) {
+                  var button = $(event.relatedTarget)
+                  var recipient = button.data('id')
+                  var modal = $(this)
+                  modal.find('#btnConf').attr("href","/order/remove/" + recipient)
+                })
+           /*]]>*/
+        </script> 
+    </body>
+</html>

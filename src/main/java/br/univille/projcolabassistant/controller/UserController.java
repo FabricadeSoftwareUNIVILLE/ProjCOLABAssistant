@@ -50,7 +50,7 @@ public class UserController {
         
         user = this.userRepository.save(user);
         
-        return new ModelAndView("redirect:/user");
+        return new ModelAndView("redirect:/");
     }
 	
 	@GetMapping("/new")
