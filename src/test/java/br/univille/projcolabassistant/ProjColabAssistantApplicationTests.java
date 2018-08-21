@@ -142,13 +142,21 @@ public class ProjColabAssistantApplicationTests {
 		this.mockMvc.perform(post("/city")
 				.contentType(MediaType.APPLICATION_FORM_URLENCODED)
 				.param("form", "")
-				.content("id=0&name=Joinville"))
+				.content("id=0&name=Joinville&state=Santa Catarina"))
+		
 		.andDo(print())
 		.andExpect(status().isMovedTemporarily())
 		.andExpect(view().name("redirect:/city"));
 		
+
+
+		
 	    this.mockMvc.perform(get("/city")).andDo(print()).andExpect(status().isOk())
-	        .andExpect(xpath("/html/body/div/div/table/tbody/tr/td[2]/text()").string("Joinville"));	      
+	        .andExpect(xpath("/html/body/div/div/table/tbody/tr/td[1]/text()").string("Joinville"))
+	        .andExpect(xpath("/html/body/div/div/table/tbody/tr/td[2]/text()").string("Santa Catarina"));
+	    
+	    
+        
 
 	}
 
