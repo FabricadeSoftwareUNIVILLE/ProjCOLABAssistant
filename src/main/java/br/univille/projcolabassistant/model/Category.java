@@ -13,6 +13,14 @@ public class Category {
 	private long id;
 	@Column(length=500)
 	private String name;
+	
+	public Category() {
+	}
+	
+	public Category(int id, String name) {
+		this.id = id;
+		this.name = name;
+	}
 	public long getId() {
 		return id;
 	}

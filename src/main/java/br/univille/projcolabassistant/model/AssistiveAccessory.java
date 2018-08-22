@@ -29,7 +29,7 @@ public class AssistiveAccessory extends AbstractReportObject{
 	private String prescription;
 	@Column(length=1000)
 	private String function;
-	private String code;
+	private int code;
 	@ManyToOne(cascade={CascadeType.MERGE,CascadeType.REFRESH})
 	private Category category = new Category();
 	@ManyToMany(cascade={CascadeType.MERGE,CascadeType.REFRESH})
@@ -49,6 +49,20 @@ public class AssistiveAccessory extends AbstractReportObject{
 	}
 	
 	
+	public AssistiveAccessory(int id, int code, String description, String prescription, String function, String name, Category category, AccessoryPhoto principalPhoto) {
+		// TODO Auto-generated constructor stub
+		this.id = id;
+		this.code = code;
+		this.description = description;
+		this.prescription = prescription;
+		this.function = function;
+		this.name = name;
+		this.category = category;
+		this.principalPhoto = principalPhoto;
+		this.setReportType("assistiveaccessory");
+		this.setTemplatePath("report/accessory-pdf-template.html");
+	}
+
 	public long getId() {
 		return id;
 	}
@@ -79,10 +93,10 @@ public class AssistiveAccessory extends AbstractReportObject{
 	public void setFunction(String function) {
 		this.function = function;
 	}
-	public String getCode() {
+	public int getCode() {
 		return code;
 	}
-	public void setCode(String code) {
+	public void setCode(int code) {
 		this.code = code;
 	}
 	public Category getCategory() {
