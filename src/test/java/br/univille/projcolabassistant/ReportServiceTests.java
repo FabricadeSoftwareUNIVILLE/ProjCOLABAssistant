@@ -41,6 +41,7 @@ import br.univille.projcolabassistant.repository.InstitutionRepository;
 import br.univille.projcolabassistant.repository.OrderRequestRepository;
 import br.univille.projcolabassistant.repository.UserRepository;
 import br.univille.projcolabassistant.service.impl.ReportServiceImpl;
+import br.univille.projcolabassistant.viewmodel.OrderSumByCategory;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -102,6 +103,9 @@ public class ReportServiceTests {
 	private AccessoryColor accessoryColorA; 
 	private AccessoryColor accessoryColorB;
 	
+	private OrderSumByCategory orderSumCategoryA;
+	private OrderSumByCategory orderSumCategoryB;
+	
     @Before
     public void setUp() {
     	reportService.setTemplateEngine(templateEngine);
@@ -139,6 +143,8 @@ public class ReportServiceTests {
 		orderItemsA = new OrderItems(00001,10,assistiveAccessoryA,accessorySizeA,accessoryColorA);
 		orderItemsB = new OrderItems(00002,35,assistiveAccessoryB,accessorySizeA,accessoryColorA);
 		
+		orderSumCategoryA = new OrderSumByCategory(00003, "Categoria A", 10);
+		orderSumCategoryB = new OrderSumByCategory(00004, "Categoria B", 35);
     }
     
     //==============================
@@ -427,8 +433,9 @@ public class ReportServiceTests {
     //      Order Sum by Category Tests      
     //===========================================
     
+    @Test
     public void returnOrderSumByCategoryTest() {
-		when(mockOrderRepository.searchOrderSumByCategory(00003, "Categoria A", 10)).thenReturn(asList(dummyPedidoB);
+		when(mockOrderRepository.searchOrderSumByCategory("ria")).thenReturn(asList(orderSumCategoryA, orderSumCategoryB));
     	
     	File returnedFile = reportService.generateOrderSumByCategoryReport("ria");
 		File expectedFile = new File(EXPECTED_FILES + "expected_order_sum_result.pdf");
