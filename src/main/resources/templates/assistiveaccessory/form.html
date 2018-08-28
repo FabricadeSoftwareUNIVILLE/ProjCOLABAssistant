@@ -6,7 +6,7 @@
         <div class="container assistive-accessory-container">
             <nav th:replace="layout :: menu">(menu)</nav>
             <div class="border border-dark assistive-accessory-border">
-            <form th:action="@{/assistiveaccessory/new/(form)}" th:object="${assistiveaccessory}" action="#" method="post">
+            <form th:action="@{/assistiveaccessory/new/(form)}" th:object="${assistiveaccessory}" action="#" method="post" enctype="multipart/form-data">
                     <input type="hidden" id="id" th:field="*{id}" />    
                     
                     <div class="form-group assistive-accessory-group">
