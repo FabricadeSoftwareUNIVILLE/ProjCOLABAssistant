@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head th:include="layout :: htmlhead">
+		<meta charset="UTF-8">
+	</head>
+	<body>
+		<nav class="navbar navbar-expand-lg navbar-light bg-light">
+			<img src="/image/logoColab.jpg" class="logo">
+			<div class="container-fluid" id="navbarNav">
+				<ul class="navbar-nav">
+					<li class="nav-item active"></li>
+					<li class="navbar-brand">Minha Lista</li>
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					
+				</ul>
+			</div>
+		</nav>
+
+		<div class="container">
+			<table class="table">
+			 	<thead>
+			    	<tr>
+			      		<th scope="col">Produto</th>
+			      		<th scope="col">Descrição</th>
+			      		<th scope="col">Remover</th>
+			    	</tr>
+			  	</thead>
+			  	<tbody>
+			    	<tr>
+			      		<td><img class="card-img-top" src="/image/item.png" alt="Card image cap"></td>
+			      		<td>Produto top de linha 1</td>
+			     		<td><span class="glyphicon glyphicon glyphicon-remove" aria-hidden="true"></span></td>
+			    	</tr>
+		
+			    	<tr>	      
+			      		<td><img class="card-img-top" src="/image/item.png" alt="Card image cap"></td>
+			      		<td>Produto top de linha 2</td>
+			      		<td><span class="glyphicon glyphicon glyphicon-remove" aria-hidden="true"></span></td>
+			    	</tr>
+			    
+			    	<tr>
+			      		<td><img class="card-img-top" src="/image/item.png" alt="Card image cap"></td>
+			      		<td>Produto top de linha 3</td>
+			      		<td><span class="glyphicon glyphicon glyphicon-remove" aria-hidden="true"></span></td>
+			    	</tr>
+			  </tbody>
+			</table>
+		</div>
+	</body>
+</html>
