@@ -16,8 +16,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import br.univille.projcolabassistant.model.AccessoryColor;
 import br.univille.projcolabassistant.model.AssistiveAccessory;
 import br.univille.projcolabassistant.model.Category;
+import br.univille.projcolabassistant.repository.AccessoryColorRepository;
 import br.univille.projcolabassistant.repository.AssistiveAccessoryRepository;
 import br.univille.projcolabassistant.repository.CategoryRepository;
 
@@ -28,6 +30,8 @@ public class AssistiveAccessoryController {
     private AssistiveAccessoryRepository accessoryRepository;
 	@Autowired
     private CategoryRepository categoryRepository;
+	@Autowired
+    private AccessoryColorRepository accessoryColorRepository;
 	
     @GetMapping("")
     public ModelAndView index() {
@@ -39,10 +43,12 @@ public class AssistiveAccessoryController {
     @GetMapping("/new")
     public ModelAndView createForm(@ModelAttribute AssistiveAccessory assistiveaccessory) {
     	List<Category> categories = categoryRepository.findAll();
+    	List<AccessoryColor> colors = accessoryColorRepository.findAll();
     	
     	HashMap<String, Object> dados = new HashMap<String, Object>();
     	dados.put("assistiveaccessory", assistiveaccessory);
     	dados.put("categories",categories);
+    	dados.put("colors", colors);
     	
         return new ModelAndView("assistiveaccessory/form",dados);
     }
@@ -58,10 +64,12 @@ public class AssistiveAccessoryController {
     @GetMapping(value="/update/{id}")
     public ModelAndView alterarForm(@PathVariable("id") AssistiveAccessory assistiveaccessory) {
     	List<Category> categories = categoryRepository.findAll();
+    	List<AccessoryColor> colors = accessoryColorRepository.findAll();
     	
     	HashMap<String, Object> dados = new HashMap<String, Object>();
     	dados.put("assistiveaccessory", assistiveaccessory);
     	dados.put("categories",categories);
+    	dados.put("colors", colors);
     	
         return new ModelAndView("assistiveaccessory/form",dados);
     }
