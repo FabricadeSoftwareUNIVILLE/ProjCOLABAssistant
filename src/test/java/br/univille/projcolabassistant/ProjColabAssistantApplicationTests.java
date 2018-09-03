@@ -21,12 +21,15 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
 import br.univille.projcolabassistant.controller.AccessoryColorController;
+import br.univille.projcolabassistant.controller.AssistiveAccessoryController;
 import br.univille.projcolabassistant.controller.CategoryController;
 import br.univille.projcolabassistant.controller.InstitutionController;
 import br.univille.projcolabassistant.controller.UserController;
+import br.univille.projcolabassistant.model.AssistiveAccessory;
 import br.univille.projcolabassistant.model.Category;
 import br.univille.projcolabassistant.model.City;
 import br.univille.projcolabassistant.repository.AccessoryColorRepository;
+import br.univille.projcolabassistant.repository.AssistiveAccessoryRepository;
 import br.univille.projcolabassistant.repository.CategoryRepository;
 import br.univille.projcolabassistant.repository.CityRepository;
 
@@ -39,7 +42,13 @@ public class ProjColabAssistantApplicationTests {
 	private CategoryController categoryController;
 	
 	@Autowired
-	private AccessoryColorController accessorycontroller;
+	private AccessoryColorController accessoryController;
+	
+	@Autowired
+	private AssistiveAccessoryController assistiveAccessoryController;
+	
+	@Autowired
+	private AssistiveAccessoryRepository assistiveAccessoryRepository;
 	
 	@Autowired
 	private MockMvc mockMvc;
@@ -190,4 +199,22 @@ public class ProjColabAssistantApplicationTests {
 	public void consultAccessories() throws Exception {
 		this.mockMvc.perform(get("/catalogo")).andDo(print()).andExpect(status().isOk());
 	}
+
+	@Test
+	public void AssistiveAccessorySave() throws Exception {
+		
+		assistiveAccessoryRepository.deleteAll();
+		
+		AssistiveAccessory accessory = new AssistiveAccessory();
+		accessory.setId(1);
+		accessory.setName("Colher adaptada");
+		accessory.setCode("AL001");
+		accessory.setDescription("Colher adaptada para auxiliar as pessoas com necessidades especiais.");
+		accessory.setFunction("Alimentação");
+		accessory.setPrescription("Pessoas com necessidades especiais em sua alimentação");
+		
+		assistiveAccessoryRepository.save(accessory);
+		
+	}
+	
 }
