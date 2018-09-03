@@ -16,6 +16,16 @@ public class AccessoryPhoto {
 	private String description;
 	@Column(length=5000)
 	private String URI;
+	
+	public AccessoryPhoto() {
+	}
+	
+	public AccessoryPhoto(int id, String description, String URI, int i) {
+		this.id = id;
+		this.description = description;
+		this.URI = URI;
+	}
+
 	public long getId() {
 		return id;
 	}

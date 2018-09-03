@@ -20,6 +20,8 @@ import org.thymeleaf.context.Context;
 import org.xhtmlrenderer.pdf.ITextRenderer;
 
 import br.univille.projcolabassistant.model.AbstractReportObject;
+import br.univille.projcolabassistant.model.AssistiveAccessory;
+import br.univille.projcolabassistant.repository.AssistiveAccessoryRepository;
 import br.univille.projcolabassistant.model.Category;
 import br.univille.projcolabassistant.model.Institution;
 import br.univille.projcolabassistant.model.OrderRequest;
@@ -29,6 +31,7 @@ import br.univille.projcolabassistant.repository.InstitutionRepository;
 import br.univille.projcolabassistant.repository.OrderRequestRepository;
 import br.univille.projcolabassistant.repository.UserRepository;
 import br.univille.projcolabassistant.service.ReportService;
+import br.univille.projcolabassistant.viewmodel.OrderSumByCategory;
 
 @Service
 public class ReportServiceImpl implements ReportService {
@@ -42,7 +45,10 @@ public class ReportServiceImpl implements ReportService {
 	private OrderRequestRepository orderRequestRepository;
 	
 	@Autowired
+	private AssistiveAccessoryRepository AssistiveAccessoryRepository;
+	@Autowired
 	private CategoryRepository categoryRepository;
+
 	
 	@Autowired
 	private ITemplateEngine templateEngine;
@@ -103,6 +109,13 @@ public class ReportServiceImpl implements ReportService {
 	}
 	
 	@Override
+	public File generateOrderSumByCategoryReport(String categoryFilter) {
+		
+		List<OrderSumByCategory> OrderSumByCategory = this.orderRequestRepository.searchOrderSumByCategory(categoryFilter);
+		
+		return createPDFReport(OrderSumByCategory);
+  }
+  @Override
 	public File generateAcessoryCategoryReport() {
 		List<Category> listCategory = this.categoryRepository.findAll();
 	
@@ -142,7 +155,6 @@ public class ReportServiceImpl implements ReportService {
 		}
 		catch (Exception ex) {
 			ex.printStackTrace();
-			
 			return null;
 		}
 	}
