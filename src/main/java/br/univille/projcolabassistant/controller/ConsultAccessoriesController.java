@@ -8,11 +8,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import br.univille.projcolabassistant.model.AssistiveAccessory;
 import br.univille.projcolabassistant.repository.ConsultAccessoriesRepository;
+import br.univille.projcolabassistant.viewmodel.AssistiveAccessoryViewModel;
 
 @Controller
-@RequestMapping("/catalogo")
+@RequestMapping("/")
 public class ConsultAccessoriesController {
 
 	@Autowired
@@ -20,7 +20,7 @@ public class ConsultAccessoriesController {
 	
 	@GetMapping("")
 	public ModelAndView index() {
-		List<AssistiveAccessory> listAccessory = this.consultAccessoriesRepository.findAll();
+		List<AssistiveAccessoryViewModel> listAccessory = this.consultAccessoriesRepository.findAllAssistiveAccessoryViewModel();
 				
 		return new ModelAndView("catalog/accessoryList", "listAccessory", listAccessory);
 	}
