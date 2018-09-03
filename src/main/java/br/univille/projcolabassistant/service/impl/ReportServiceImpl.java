@@ -21,10 +21,12 @@ import org.xhtmlrenderer.pdf.ITextRenderer;
 
 import br.univille.projcolabassistant.model.AbstractReportObject;
 import br.univille.projcolabassistant.model.AssistiveAccessory;
+import br.univille.projcolabassistant.repository.AssistiveAccessoryRepository;
+import br.univille.projcolabassistant.model.Category;
 import br.univille.projcolabassistant.model.Institution;
 import br.univille.projcolabassistant.model.OrderRequest;
 import br.univille.projcolabassistant.model.User;
-import br.univille.projcolabassistant.repository.AssistiveAccessoryRepository;
+import br.univille.projcolabassistant.repository.CategoryRepository;
 import br.univille.projcolabassistant.repository.InstitutionRepository;
 import br.univille.projcolabassistant.repository.OrderRequestRepository;
 import br.univille.projcolabassistant.repository.UserRepository;
@@ -44,6 +46,9 @@ public class ReportServiceImpl implements ReportService {
 	
 	@Autowired
 	private AssistiveAccessoryRepository AssistiveAccessoryRepository;
+	@Autowired
+	private CategoryRepository categoryRepository;
+
 	
 	@Autowired
 	private ITemplateEngine templateEngine;
@@ -63,14 +68,20 @@ public class ReportServiceImpl implements ReportService {
 	}
 	
 	@Override
-	public File generateInstitutionReport(String nameFilter, String emailFilter, String cityFilter) {
-		List<Institution> institutions = this.institutionRepository.searchWithFilters(nameFilter, emailFilter, cityFilter);
+	public File generateInstitutionReport(String nameFilter, String emailFilter, String cityFilter, boolean isDesc) {
+		List<Institution> institutions;
+		
+		if (isDesc) {
+			institutions = this.institutionRepository.searchWithFiltersByDesc(nameFilter, emailFilter, cityFilter);
+		} else {
+			institutions = this.institutionRepository.searchWithFiltersByAsc(nameFilter, emailFilter, cityFilter);
+		}
 		
 		return createPDFReport(institutions);
 	}
 	
 	@Override
-	public File generateOrderReport(Date creationDateStart, Date creationDateEnd, Date finishedDateStart, Date finishedDateEnd, String userName, Integer status) {
+	public File generateOrderReport(Date creationDateStart, Date creationDateEnd, Date finishedDateStart, Date finishedDateEnd, String userName, Integer status, Boolean isOrderByDesc) {
 		creationDateStart = (creationDateStart == null) ? ANY_START_DATE : creationDateStart;
 		creationDateEnd   = (creationDateEnd   == null) ? ANY_END_DATE : creationDateEnd;
 		finishedDateStart = (finishedDateStart == null) ? ANY_START_DATE : finishedDateStart;
@@ -78,11 +89,20 @@ public class ReportServiceImpl implements ReportService {
 		
 		List<OrderRequest> orders;
 		
-		if(status == ANY_STATUS) {
-			orders = this.orderRequestRepository.searchBetween(creationDateStart, creationDateEnd, finishedDateStart, finishedDateEnd, userName);
-		}
-		else {
-			orders = this.orderRequestRepository.searchBetweenWithStatus(creationDateStart, creationDateEnd, finishedDateStart, finishedDateEnd, userName, status);
+		if (isOrderByDesc) {
+			if(status == ANY_STATUS) {
+				orders = this.orderRequestRepository.searchBetweenDesc(creationDateStart, creationDateEnd, finishedDateStart, finishedDateEnd, userName);
+			}
+			else {
+				orders = this.orderRequestRepository.searchBetweenWithStatusDesc(creationDateStart, creationDateEnd, finishedDateStart, finishedDateEnd, userName, status);
+			}
+		} else {
+			if(status == ANY_STATUS) {
+				orders = this.orderRequestRepository.searchBetweenAsc(creationDateStart, creationDateEnd, finishedDateStart, finishedDateEnd, userName);
+			}
+			else {
+				orders = this.orderRequestRepository.searchBetweenWithStatusAsc(creationDateStart, creationDateEnd, finishedDateStart, finishedDateEnd, userName, status);
+			}
 		}
 	
 		return createPDFReport(orders);
@@ -94,6 +114,12 @@ public class ReportServiceImpl implements ReportService {
 		List<OrderSumByCategory> OrderSumByCategory = this.orderRequestRepository.searchOrderSumByCategory(categoryFilter);
 		
 		return createPDFReport(OrderSumByCategory);
+  }
+  @Override
+	public File generateAcessoryCategoryReport() {
+		List<Category> listCategory = this.categoryRepository.findAll();
+	
+		return createPDFReport(listCategory);
 	}
 
 	@SuppressWarnings("unchecked")

@@ -11,7 +11,7 @@ import javax.persistence.ManyToOne;
 @Entity
 public class Institution extends AbstractReportObject {
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long id;
 	@Column(length=1000)
 	private String name;
@@ -21,6 +21,7 @@ public class Institution extends AbstractReportObject {
 	private String address;
 	private String phone;
 	private String email;
+
 	@ManyToOne(cascade={CascadeType.MERGE,CascadeType.REFRESH})
 	private City city = new City();
 	

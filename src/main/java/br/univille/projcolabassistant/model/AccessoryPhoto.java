@@ -10,7 +10,7 @@ import javax.persistence.Id;
 @Entity
 public class AccessoryPhoto {
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long id;
 	@Column(length=1000)
 	private String description;
