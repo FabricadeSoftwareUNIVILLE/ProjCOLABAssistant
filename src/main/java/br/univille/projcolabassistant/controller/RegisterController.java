@@ -47,7 +47,8 @@ public class RegisterController {
 	public ModelAndView save(@Valid User user, BindingResult result, RedirectAttributes redirect) {
 		user.setType("Terapeuta");
 		user = this.userRepository.save(user);
-		return new ModelAndView("redirect:/user");
+		return new ModelAndView("redirect:/");
+		//return new ModelAndView("redirect:/"); Futuramente iremos colocar esta rota para o index
 	}
 
 	
