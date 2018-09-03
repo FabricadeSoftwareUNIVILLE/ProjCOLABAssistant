@@ -132,8 +132,8 @@ public class ReportServiceTests {
 		
 		photoA = new AccessoryPhoto(00001,"PhotoSupimpa.jpg","Descricao de teste",00001);
 		
-		assistiveAccessoryA = new AssistiveAccessory(00001,00001,"Descrição do primeiro acessório","O primeiro acessório serve para testar","Teste 00001","Prescricao teste",categoryA,photoA);
-		assistiveAccessoryB = new AssistiveAccessory(00002,00002,"Descrição do segundo acessório"," O segundo acessório serve para verificar se o primeiro funcionou","Teste 00002","Prescricao teste2",categoryB,photoA);
+		assistiveAccessoryA = new AssistiveAccessory(00001,"00001","Descrição do primeiro acessório","O primeiro acessório serve para testar","Teste 00001","Prescricao teste",categoryA,photoA);
+		assistiveAccessoryB = new AssistiveAccessory(00002,"00002","Descrição do segundo acessório"," O segundo acessório serve para verificar se o primeiro funcionou","Teste 00002","Prescricao teste2",categoryB,photoA);
 		
 		accessorySizeA = new AccessorySize(00001,"Nome Tamanho A", 00001);
 		

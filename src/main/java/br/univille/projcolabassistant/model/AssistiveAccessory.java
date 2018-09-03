@@ -47,7 +47,7 @@ public class AssistiveAccessory extends AbstractReportObject{
 	}
 	
 	
-	public AssistiveAccessory(int id, int code, String description, String prescription, String function, String name, Category category, AccessoryPhoto principalPhoto) {
+	public AssistiveAccessory(int id, String code, String description, String prescription, String function, String name, Category category, AccessoryPhoto principalPhoto) {
 		// TODO Auto-generated constructor stub
 		this.id = id;
 		this.code = code;

@@ -1,5 +1,7 @@
 package br.univille.projcolabassistant.service;
 
+import javax.mail.MessagingException;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,40 +13,43 @@ import org.springframework.stereotype.Component;
 @Component("newMailSender")
 public class MailSender {
 
-    /*
-    * Sending emails using this class
-    *
-    * ...
-    * public MailSender mailSender;
-    *
-    * String from = "springboot.dacs@gmail.com";
-    * String to = "springboot.dacs+emailtest@gmail.com";
-    * String subject = "JavaMailSenderTest";
-    * String body = "Testing!";
-    * mailSender.sendMail(from, to, subject, body);
-    * ...
-    *
-    * */
+	/*
+	 * Sending emails using this class
+	 *
+	 * ...
+	 * public MailSender mailSender;
+	 *
+	 * String from = "springboot.dacs@gmail.com";
+	 * String to = "springboot.dacs+emailtest@gmail.com";
+	 * String subject = "JavaMailSenderTest";
+	 * String body = "Testing!";
+	 * mailSender.sendMail(from, to, subject, body);
+	 * ...
+	 *
+	 * */
 
-    @Autowired
-    JavaMailSender javaMailSender;
+	@Autowired
+	JavaMailSender javaMailSender;
 
-    Logger logger = LoggerFactory.getLogger(this.getClass());
+	Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    public void sendMail(String from, String to, String subject, String body) {
+	public void sendMail(String from, String to, String subject, String body) {
+		try {
+			SimpleMailMessage mail = new SimpleMailMessage();
 
-        SimpleMailMessage mail = new SimpleMailMessage();
+			mail.setFrom(from);
+			mail.setTo(to);
+			mail.setSubject(subject);
+			mail.setText(body);
 
-        mail.setFrom(from);
-        mail.setTo(to);
-        mail.setSubject(subject);
-        mail.setText(body);
+			logger.info("Sending...");
 
-        logger.info("Sending...");
+			javaMailSender.send(mail);
 
-        javaMailSender.send(mail);
-
-        logger.info("Done!");
-    }
+			logger.info("Done!");
+		}catch (Exception e) {
+			logger.error("Erro ao enviar email", e);
+		}
+	}
 
 }
