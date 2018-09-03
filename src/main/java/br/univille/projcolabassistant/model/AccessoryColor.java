@@ -13,6 +13,12 @@ public class AccessoryColor {
 	private long id;
 	@Column(length=500)
 	private String name;
+	public AccessoryColor(int id, String name) {
+		this.id = id;
+		this.name = name;
+	}
+	public AccessoryColor() {
+	}
 	public long getId() {
 		return id;
 	}

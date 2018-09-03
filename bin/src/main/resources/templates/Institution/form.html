@@ -21,22 +21,26 @@
                     </div>
                     <div class="form-group">
                         <label for="slcphone">Telefone</label>
-						 <input type="text" th:field="*{phone}" class="form-control" id="txtphone" placeholder="telefone">
+                        <input type="text" class="form-control" id="txtphone" placeholder="telefone">
                     </div>
                     <div class="form-group">
                         <label for="slcemail">Email</label>
 						 <input type="text" th:field="*{email}" class="form-control" id="txtemail" placeholder="email">
                     </div>
-                    <!-- 
+                    
                     <div class="form-group">
-                        <label for="slccity">Cidade</label>
-						 <input type="text" th:field="*{city}" class="form-control" id="txtcity" placeholder="cidade">
+                        <label for="slcCidade">Cidade</label>
+                        <select class="form-control" id="slccity" th:field="*{city}">
+                            <option th:each="umacidade : ${listacidades}" th:value="${umacidade.id}" th:text="${umacidade.name}"></option>
+                        </select>
                     </div>
-                     -->
+                     
                     <button type="submit" class="btn btn-primary">Enviar</button>
                 </form>
             </div>
         </div>
         <div th:include="layout :: footer" id="footer">(footer)</div>
+        
+        </script>
     </body>
 </html>

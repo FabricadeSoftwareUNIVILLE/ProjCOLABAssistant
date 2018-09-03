@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head th:include="layout :: htmlhead">
+    	<meta charset="UTF-8">
+    </head>
+    <body>
+        <div class="container text-center">
+            <nav th:replace="layout :: menu">(menu)</nav>
+            <hr>
+            
+            <form action="/report/download/orderCategory" method="GET">
+              <div class="row">
+			    <div class="form-group col">
+				  <label for="categoryFilter">Tipo de acessório (categoria):</label>
+				  <input type="text" name="categoryFilter" class="form-control" id="categoryFilter" value=""/>
+				</div>
+			</div>
+			  <div class="row">
+			  	<div class="col"></div>
+			  	<div class="col-2.3">
+			  		<input class="btn btn-primary" type="submit" value="Gerar relatório">
+			  	</div>
+			  	<div class="col"></div>
+			  </div>
+			</form>
+						
+	        <div th:include="layout :: footer" id="footer">(footer)</div>
+	    </div>
+    </body>
+</html>

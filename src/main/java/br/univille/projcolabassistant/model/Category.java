@@ -21,6 +21,12 @@ public class Category extends AbstractReportObject {
 		this.setTemplatePath("report/category-pdf-template");
 	}
 	
+	public Category(int id, String name) {
+    this();
+		this.id = id;
+		this.name = name;
+	}
+	
 	public long getId() {
 		return id;
 	}

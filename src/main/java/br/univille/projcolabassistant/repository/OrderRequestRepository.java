@@ -9,6 +9,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import br.univille.projcolabassistant.model.OrderRequest;
+import br.univille.projcolabassistant.viewmodel.OrderSumByCategory;
 
 @Repository
 public interface OrderRequestRepository extends JpaRepository<OrderRequest, Long>{
@@ -27,6 +28,9 @@ public interface OrderRequestRepository extends JpaRepository<OrderRequest, Long
 									                      @Param("finishedDateEnd") Date finishedDateEnd,
 									                      @Param("userName") String userName,
 									                      @Param("status") int status);
+
+  @Query("SELECT NEW br.univille.projcolabassistant.viewmodel.OrderSumByCategory(c.id,c.name,SUM(o.quantity)) FROM OrderItems o, IN(o.accessory) a, IN(a.category) c  where c.name LIKE %:categoryName% GROUP BY c.id")
+	public List<OrderSumByCategory> searchOrderSumByCategory(@Param("categoryName") String categoryName);
 	
 	@Query("SELECT x FROM OrderRequest x WHERE "
 			    + "x.orderDate >= :creationDateStart AND "

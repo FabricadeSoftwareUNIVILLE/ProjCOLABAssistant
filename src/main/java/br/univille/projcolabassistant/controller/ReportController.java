@@ -1,7 +1,7 @@
 package br.univille.projcolabassistant.controller;
 
-import static br.univille.projcolabassistant.util.Util.toDate;
 import static br.univille.projcolabassistant.constants.Constants.DEFAULT_NOT_FOUND_FILE;
+import static br.univille.projcolabassistant.util.Util.toDate;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -56,7 +56,10 @@ public class ReportController {
 	}
 	
 
-
+	@GetMapping("/orderCategory")
+  public String createOrderSumByCategoryReport() {
+    return "report/orderCategory-report";
+  }
 
 	@RequestMapping(value="/download/category", 
 			method=RequestMethod.GET,
@@ -84,6 +87,7 @@ public class ReportController {
 			ex.printStackTrace();
 		}
 	}
+
 
 	@RequestMapping(value="/download/user", 
 			method=RequestMethod.GET,
@@ -177,5 +181,35 @@ public class ReportController {
 			ex.printStackTrace();
 		}
 	}
-
+	
+	@RequestMapping(value="/download/orderCategory",
+			method=RequestMethod.GET,
+			produces=MediaType.APPLICATION_OCTET_STREAM_VALUE)
+	public void generateAndDownloadOrderSumByCategoryReport(@RequestParam("categoryFilter") String categoryFilter, 
+													 HttpServletResponse response) {
+		System.out.println(categoryFilter);
+		try {
+			File file = this.reportService.generateOrderSumByCategoryReport(categoryFilter);
+			
+			response.setContentType("application/pdf");
+			response.setHeader("Content-Disposition", "attachment; filename = relatorio_num_pecas_categoria.pdf");
+			
+			OutputStream responseOutput = response.getOutputStream();
+			FileInputStream fileInput = new FileInputStream(file);
+			
+			IOUtils.copy(fileInput, responseOutput);
+			
+			responseOutput.close();
+			fileInput.close();
+			
+			System.out.println("file.getName() = " + file.getName());
+			
+			if(!file.getName().equals(DEFAULT_NOT_FOUND_FILE)) {
+				file.delete();
+			}
+		}
+		catch (Exception ex) {
+			ex.printStackTrace();
+		}
+	}
 }
