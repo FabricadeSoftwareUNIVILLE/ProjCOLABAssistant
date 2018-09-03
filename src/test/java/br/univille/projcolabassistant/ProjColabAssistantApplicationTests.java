@@ -62,6 +62,11 @@ public class ProjColabAssistantApplicationTests {
 	@Autowired
 	private AccessoryColorRepository accessorycolorRepository;
 	
+	@Autowired
+	private AccessoryColorRepository AcessoryColorController;
+	
+	
+	
 	
 	@Test
 	public void contextLoads() {
@@ -69,6 +74,7 @@ public class ProjColabAssistantApplicationTests {
 
 		assertThat(InstitutionController).isNotNull();
 		assertThat(controller).isNotNull();
+		assertThat(AcessoryColorController).isNotNull();
 		assertThat(cityController).isNotNull();
 	}
 	
@@ -99,9 +105,6 @@ public class ProjColabAssistantApplicationTests {
 	
 		accessorycolorRepository.deleteAll();
 		accessorycolorRepository.flush();
-		
-		//when(categoryRepository.findAll()).thenReturn(asList(category));
-		
 		
 		this.mockMvc.perform(post("/accessorycolor")
 				.contentType(MediaType.APPLICATION_FORM_URLENCODED)
