@@ -1,5 +1,4 @@
 package br.univille.projcolabassistant.controller;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.forwardedUrl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,10 +16,6 @@ import br.univille.projcolabassistant.viewmodel.ShoppingCart;
 @RequestMapping("/orderrequest")
 
 public class OrderController {
-	
-	@Autowired
-	private UserRepository userRepository;
-	
 	@Autowired
 	private OrderRequestRepository orderRequestRepository;
 	
@@ -39,7 +34,6 @@ public class OrderController {
 		shoppingcart.getItensList().add(item3);
 		
 		for(ItemShoppingCart item : shoppingcart.getItensList()) {
-			
 			OrderItems orderitem = new OrderItems();
 			orderitem.setQuantity(item.getQuantity());
 			orderitem.setAccessory(item.getAccessory());
@@ -48,6 +42,7 @@ public class OrderController {
 			orderrequest.getItensList().add(orderitem);
 		}
 		
+		orderRequestRepository.save(orderrequest);
 	}
 	
 	

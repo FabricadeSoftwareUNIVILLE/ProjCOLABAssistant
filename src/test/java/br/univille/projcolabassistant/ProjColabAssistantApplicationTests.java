@@ -110,16 +110,6 @@ public class ProjColabAssistantApplicationTests {
 	    this.mockMvc.perform(get("/accessorycolor")).andDo(print()).andExpect(status().isOk())
 	        .andExpect(xpath("/html/body/div/div/table/tbody/tr/td[2]/text()").string("verdinho"));	      
 	}
-	
-	
-	@Test
-	public void pacienteControllerTest() throws Exception {
-		//Teste do método index
-		this.mockMvc.perform(get("/consultecategory")).andDo(print()).andExpect(status().isOk())
-		.andExpect(xpath("//table").exists())
-		.andExpect(xpath("//td[contains(., 'Zezinho')]").exists());
-		}
-
 
 	@Test
 	public void institutionControllerTest() throws Exception {
@@ -188,6 +178,6 @@ public class ProjColabAssistantApplicationTests {
   }
 	@Test
 	public void consultAccessories() throws Exception {
-		this.mockMvc.perform(get("/catalogo")).andDo(print()).andExpect(status().isOk());
+		this.mockMvc.perform(get("/")).andDo(print()).andExpect(status().isOk());
 	}
 }

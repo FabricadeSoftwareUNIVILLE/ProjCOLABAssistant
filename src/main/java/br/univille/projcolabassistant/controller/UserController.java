@@ -43,14 +43,14 @@ public class UserController {
 		user.setType("TO");
         user = this.userRepository.save(user);
         
-        return new ModelAndView("redirect:/user");
+        return new ModelAndView("redirect:/");
     }
 	@PostMapping(params="form")
     public ModelAndView save(@Valid User user, BindingResult result, RedirectAttributes redirect) {
         
         user = this.userRepository.save(user);
         
-        return new ModelAndView("redirect:/");
+        return new ModelAndView("redirect:/user");
     }
 	
 	@GetMapping("/new")
