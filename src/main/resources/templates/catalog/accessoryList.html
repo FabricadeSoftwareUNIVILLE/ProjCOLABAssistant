@@ -17,24 +17,20 @@
 				</ul>
 			</div>
 		</nav>
-
-		<div class="container">			
-			<div class="container"th:each="umpac : ${listAccessory}">
-				<div class="row" th:if="${umpac.first}">
-					<div class="card-banner" align="center">
-						<h2 th:text="${umpac.assistiveAccessory.category.name}"></h2>
-					</div>
+					
+		<div class="container" th:each="umpac : ${listAccessory}">
+			<div class="row" th:if="${umpac.first}">
+				<div class="card-banner" align="center">
+					<h2 th:text="${umpac.assistiveAccessory.category.name}"></h2>
 				</div>
-				
-					<div class="card col-md-3" >
-						<img class="card-img-top" src="/image/item.png" alt="Card image cap">
-						<div class="card-body">
-							<h5 class="card-title" th:text="${umpac.assistiveAccessory.name}"></h5>
-							<p class="card-text" th:text="${umpac.assistiveAccessory.description}"></p>
-							<a href="#" class="btn btn-success">Adicionar</a>
-						</div>
-					</div>
-				
+			</div>
+			<div class="card col-md-3" >
+				<img class="card-img-top" src="/image/item.png" alt="Card image cap">
+				<div class="card-body">
+					<h5 class="card-title" th:text="${umpac.assistiveAccessory.name}"></h5>
+					<p class="card-text" th:text="${umpac.assistiveAccessory.description}"></p>
+					<a href="#" class="btn btn-success">Adicionar</a>
+				</div>
 			</div>
 		</div>
 	</body>

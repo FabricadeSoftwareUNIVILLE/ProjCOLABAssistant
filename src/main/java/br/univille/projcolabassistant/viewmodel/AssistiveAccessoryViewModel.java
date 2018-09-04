@@ -1,10 +1,12 @@
 package br.univille.projcolabassistant.viewmodel;
 
+import java.util.List;
+
 import br.univille.projcolabassistant.model.AccessoryColor;
 import br.univille.projcolabassistant.model.AssistiveAccessory;
 
 public class AssistiveAccessoryViewModel {
-	private AssistiveAccessory assistiveAccessory;
+	private List<AssistiveAccessory> listAssistiveAccessory;
 	private AccessoryColor accessoryColor;
 	private boolean first;
 	
@@ -13,18 +15,11 @@ public class AssistiveAccessoryViewModel {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public AssistiveAccessoryViewModel(AssistiveAccessory assistiveAccessory,AccessoryColor accessoryColor) {
-		this.assistiveAccessory = assistiveAccessory;
+	public AssistiveAccessoryViewModel(List<AssistiveAccessory> listAssistiveAccessory,AccessoryColor accessoryColor) {
+		this.listAssistiveAccessory = listAssistiveAccessory;
 		this.accessoryColor = accessoryColor;
 	}
 	
-	
-	public AssistiveAccessory getAssistiveAccessory() {
-		return assistiveAccessory;
-	}
-	public void setAssistiveAccessory(AssistiveAccessory assistiveAccessory) {
-		this.assistiveAccessory = assistiveAccessory;
-	}
 	public AccessoryColor getAccessoryColor() {
 		return accessoryColor;
 	}

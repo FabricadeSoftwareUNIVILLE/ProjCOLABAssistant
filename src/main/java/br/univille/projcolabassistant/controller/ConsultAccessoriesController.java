@@ -23,13 +23,13 @@ public class ConsultAccessoriesController {
 	public ModelAndView index() {
 		List<AssistiveAccessoryViewModel> listAccessory = this.consultAccessoriesRepository.findAllAssistiveAccessoryViewModel();
 		
-		Category lastCategory = null;
+		/*Category lastCategory = null;
 		for(AssistiveAccessoryViewModel item : listAccessory) {
 			if(lastCategory != item.getAssistiveAccessory().getCategory()) {
 				lastCategory = item.getAssistiveAccessory().getCategory();
 				item.setFirst(true);
 			}
-		}
+		}*/
 				
 		return new ModelAndView("catalog/accessoryList", "listAccessory", listAccessory);
 	}
