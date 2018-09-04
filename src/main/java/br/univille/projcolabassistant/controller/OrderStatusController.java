@@ -14,7 +14,6 @@ import br.univille.projcolabassistant.model.OrderRequest;
 @RequestMapping("/orderstatus")
 public class OrderStatusController {
 	@Autowired
-	
 	private OrderStatusController orderstatusRepository;
 
 	
