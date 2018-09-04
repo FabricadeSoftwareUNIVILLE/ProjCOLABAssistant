@@ -6,6 +6,8 @@ import br.univille.projcolabassistant.model.AssistiveAccessory;
 public class AssistiveAccessoryViewModel {
 	private AssistiveAccessory assistiveAccessory;
 	private AccessoryColor accessoryColor;
+	private boolean first;
+	
 	
 	public AssistiveAccessoryViewModel() {
 		// TODO Auto-generated constructor stub
@@ -28,6 +30,14 @@ public class AssistiveAccessoryViewModel {
 	}
 	public void setAccessoryColor(AccessoryColor accessoryColor) {
 		this.accessoryColor = accessoryColor;
+	}
+
+	public boolean isFirst() {
+		return first;
+	}
+
+	public void setFirst(boolean first) {
+		this.first = first;
 	}
 	
 	
