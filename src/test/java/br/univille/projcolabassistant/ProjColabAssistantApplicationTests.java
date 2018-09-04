@@ -10,12 +10,15 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.xpath;
 
+import java.util.List;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
@@ -27,9 +30,11 @@ import br.univille.projcolabassistant.controller.InstitutionController;
 import br.univille.projcolabassistant.controller.UserController;
 import br.univille.projcolabassistant.model.Category;
 import br.univille.projcolabassistant.model.City;
+import br.univille.projcolabassistant.model.Institution;
 import br.univille.projcolabassistant.repository.AccessoryColorRepository;
 import br.univille.projcolabassistant.repository.CategoryRepository;
 import br.univille.projcolabassistant.repository.CityRepository;
+import br.univille.projcolabassistant.repository.InstitutionRepository;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -46,7 +51,10 @@ public class ProjColabAssistantApplicationTests {
 	private MockMvc mockMvc;
 
 	@Autowired
-	private InstitutionController InstitutionController;
+	private InstitutionController institutionController;
+	
+	@Autowired
+	private InstitutionRepository institutionRepository;
 	
 	@Autowired
 	private CityRepository cityRepository; 
@@ -72,7 +80,7 @@ public class ProjColabAssistantApplicationTests {
 	public void contextLoads() {
 		//Verifica a existência da instância do controlador
 
-		assertThat(InstitutionController).isNotNull();
+		assertThat(institutionController).isNotNull();
 		assertThat(controller).isNotNull();
 		assertThat(AcessoryColorController).isNotNull();
 		assertThat(cityController).isNotNull();
@@ -131,31 +139,36 @@ public class ProjColabAssistantApplicationTests {
 	@Test
 	public void institutionControllerTest() throws Exception {
 		//Teste do método index
+		institutionRepository.deleteAll();
+		cityRepository.deleteAll();
+		
 		this.mockMvc.perform(get("/institution")).andExpect(status().isOk())
 		.andExpect(xpath("/html/body/div/div/table").exists());
 	}
 
-
 	@Test
 	public void institutionControllerSaveTest() throws Exception {
 		
+
+		institutionRepository.deleteAll();
+		cityRepository.deleteAll();
 		
-		City c = new City();	
+		City c = new City();
 		c.setName("Joinville");
 		c.setState("SC");
-		
-		cityRepository.save(c);
+
+		c = cityRepository.save(c);
 		cityRepository.flush();
 		
 		this.mockMvc.perform(post("/institution")
 				.contentType(MediaType.APPLICATION_FORM_URLENCODED)
 				.param("form", "")
-				.content("id=0&address=rua&description=descricao&email=teste@teste&name=univille&phone=123456&city=1"))
+				.content("id=0&address=rua&description=descricao&email=teste@teste&name=univille&phone=123456&city=" + c.getId()))
 		.andDo(print())
 		.andExpect(status().isMovedTemporarily())
 		.andExpect(view().name("redirect:/institution"));
 		
-	    this.mockMvc.perform(get("/Institution")).andDo(print()).andExpect(status().isOk())
+	    this.mockMvc.perform(get("/institution")).andDo(print()).andExpect(status().isOk())
 	        .andExpect(xpath("/html/body/div/div/table/tbody/tr/td[1]/text()").string("univille"))
 	        .andExpect(xpath("/html/body/div/div/table/tbody/tr/td[2]/text()").string("descricao"))
 	        .andExpect(xpath("/html/body/div/div/table/tbody/tr/td[3]/text()").string("rua"))
@@ -163,20 +176,35 @@ public class ProjColabAssistantApplicationTests {
 	        .andExpect(xpath("/html/body/div/div/table/tbody/tr/td[5]/text()").string("teste@teste"))
 	        .andExpect(xpath("/html/body/div/div/table/tbody/tr/td[6]/text()").string("Joinville"));
 
+	    institutionRepository.deleteAll();
+		cityRepository.deleteAll();
 	}
 	
 	@Test
 	public void institutionControllerUpdateTest() throws Exception {
-		
+
+		institutionRepository.deleteAll();
+		cityRepository.deleteAll();
 		
 		City c = new City();	
 		c.setName("Joinville");
 		c.setState("SC");
 		
-		cityRepository.save(c);
+		c = cityRepository.save(c);
 		cityRepository.flush();
 		
-		this.mockMvc.perform(get("/institution/alterar/1")).andDo(print()).andExpect(status().isOk()).andDo(print())
+		Institution inst = new Institution();
+		inst.setName("univille");
+		inst.setAddress("rua");
+		inst.setCity(c);
+		inst.setDescription("descricao");
+		inst.setEmail("teste@teste");
+		inst.setPhone("123456");
+		
+		inst = institutionRepository.save(inst);
+		
+		
+		this.mockMvc.perform(get("/institution/alterar/"+inst.getId())).andDo(print()).andExpect(status().isOk()).andDo(print())
         .andExpect(xpath("/html/body/div/div/table/tbody/tr/td[1]/text()").string("univille"))
         .andExpect(xpath("/html/body/div/div/table/tbody/tr/td[2]/text()").string("descricao"))
         .andExpect(xpath("/html/body/div/div/table/tbody/tr/td[3]/text()").string("rua"))
@@ -184,13 +212,8 @@ public class ProjColabAssistantApplicationTests {
         .andExpect(xpath("/html/body/div/div/table/tbody/tr/td[5]/text()").string("teste@teste"))
         .andExpect(xpath("/html/body/div/div/table/tbody/tr/td[6]/text()").string("Joinville"));
 		
-		this.mockMvc.perform(post("/institution")
-				.contentType(MediaType.APPLICATION_FORM_URLENCODED)
-				.param("form", "")
-				.content("id=1&address=rua&description=descricao&email=teste@teste&name=univille&phone=123456&city=1"))
-		.andDo(print())
-		.andExpect(status().isMovedTemporarily())
-		.andExpect(view().name("redirect:/institution"));
+		institutionRepository.deleteAll();
+		cityRepository.deleteAll();
 			    
   }
 	@Test
@@ -207,7 +230,7 @@ public class ProjColabAssistantApplicationTests {
 		this.mockMvc.perform(post("/city")
 				.contentType(MediaType.APPLICATION_FORM_URLENCODED)
 				.param("form", "")
-				.content("id=0&name=Joinville&state=Santa Catarina"))
+				.content("name=Joinville&state=Santa Catarina"))
 		
 		.andDo(print())
 		.andExpect(status().isMovedTemporarily())
