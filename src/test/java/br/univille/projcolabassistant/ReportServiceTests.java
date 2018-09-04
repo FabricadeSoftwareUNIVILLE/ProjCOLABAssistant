@@ -37,6 +37,7 @@ import br.univille.projcolabassistant.model.Institution;
 import br.univille.projcolabassistant.model.OrderItems;
 import br.univille.projcolabassistant.model.OrderRequest;
 import br.univille.projcolabassistant.model.User;
+import br.univille.projcolabassistant.repository.CategoryRepository;
 import br.univille.projcolabassistant.repository.InstitutionRepository;
 import br.univille.projcolabassistant.repository.OrderRequestRepository;
 import br.univille.projcolabassistant.repository.UserRepository;
@@ -48,6 +49,9 @@ import br.univille.projcolabassistant.viewmodel.OrderSumByCategory;
 public class ReportServiceTests {
 	@InjectMocks
 	private ReportServiceImpl reportService;
+	
+	@Mock
+	private CategoryRepository mockCategoryRepository;
 
 	@Mock
 	private UserRepository mockUserRepository;
@@ -74,7 +78,13 @@ public class ReportServiceTests {
     private Institution dummyHospital;
     private Institution dummyEscola;
 	private Institution dummySaude;
-
+	
+	private Category dummyCategoriaAlimentacao;
+	private Category dummyCategoriaEscrita;
+	private Category dummyCategoriaVestir;
+	private Category dummyCategoriaObjetos;
+	
+	
 	private OrderRequest dummyPedidoA;
 	private OrderRequest dummyPedidoB;
 	private OrderRequest dummyPedidoC;
@@ -127,6 +137,13 @@ public class ReportServiceTests {
 		dummyPedidoB = new OrderRequest(40002, new Date(JAN_02_2018), new Date(FEV_05_2018), 200, dummyHospital, dummyUserAdmin, dummyUserAna);
 		dummyPedidoC = new OrderRequest(40003, new Date(FEV_15_2018), new Date(MAR_10_2018), 100, dummyHospital, dummyUserAdmin, dummyUserJoao);
 		
+		
+		dummyCategoriaAlimentacao = new Category(001,"Alimentacao");
+		dummyCategoriaEscrita = new Category(002,"Escrita");
+		dummyCategoriaVestir = new Category(003,"Vestir");
+		dummyCategoriaObjetos = new Category(004,"Objetos");
+		
+		
 		categoryA = new Category(00001,"Categoria A");
 		categoryB = new Category(00002,"Categoria B");
 		
@@ -163,6 +180,22 @@ public class ReportServiceTests {
 
 		assertEquals(expectedContent, returnedContent);
 
+		returnedFile.delete();
+    }
+    
+    @Test
+    public void getCategoryReportTest() {
+    	when(mockCategoryRepository.findAll()).thenReturn(asList(dummyCategoriaAlimentacao, dummyCategoriaEscrita,  
+   		dummyCategoriaVestir, dummyCategoriaObjetos));
+    	
+    	File returnedFile = this.reportService.generateAcessoryCategoryReport();
+    	File expectedFile = new File(EXPECTED_FILES + "expected_result_all_category");
+    	
+    	String returnedContent = getPDFContent(returnedFile);
+		String expectedContent = getPDFContent(expectedFile);
+		
+		assertEquals(expectedContent, returnedContent);
+		
 		returnedFile.delete();
     }
 
