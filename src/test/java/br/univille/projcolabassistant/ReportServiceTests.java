@@ -187,9 +187,12 @@ public class ReportServiceTests {
 		when(mockUserRepository.searchWithFiltersWithStatus("Nonexistent User", "Nonexistent Email", "Nonexistent Status")).thenReturn(new ArrayList<User>());
 
 		File returnedFile = reportService.generateUserReport("Nonexistent User", "Nonexistent Email", "Nonexistent Status", true);
+		File expectedFile = new File(RESULT_NOT_FOUND_FILE);
 
-		assertNotNull(returnedFile);
-		returnedFile.delete();
+		String returnedContent = getPDFContent(returnedFile);
+		String expectedContent = getPDFContent(expectedFile);
+
+		assertEquals(expectedContent, returnedContent);
     }
 
     //=====================================
