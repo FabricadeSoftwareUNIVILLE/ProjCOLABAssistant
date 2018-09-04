@@ -155,7 +155,7 @@ public class ReportServiceTests {
     public void getAllUsersReportTest() {
 		when(mockUserRepository.searchWithFilters("", "")).thenReturn(asList(dummyUserPedro, dummyUserAna, dummyUserJoao));
 
-		File returnedFile = reportService.generateUserReport("", "", "");
+		File returnedFile = reportService.generateUserReport("", "", "", true);
 		File expectedFile = new File(EXPECTED_FILES + "expected_result_all_users.pdf");
 
 		String returnedContent = getPDFContent(returnedFile);
@@ -170,7 +170,7 @@ public class ReportServiceTests {
     public void getReportsFilteredByNameTest() {
 		when(mockUserRepository.searchWithFilters("Barbosa", "")).thenReturn(asList(dummyUserPedro, dummyUserAna));
 
-		File returnedFile = reportService.generateUserReport("Barbosa", "", "");
+		File returnedFile = reportService.generateUserReport("Barbosa", "", "", true);
 		File expectedFile = new File(EXPECTED_FILES + "expected_result_filter_name.pdf");
 
 		String returnedContent = getPDFContent(returnedFile);
@@ -185,7 +185,7 @@ public class ReportServiceTests {
     public void getReportsFilteredByTypeTest() {
 		when(mockUserRepository.searchWithFiltersWithStatus("", "", "ADMIN")).thenReturn(asList(dummyUserPedro, dummyUserJoao));
 
-		File returnedFile = reportService.generateUserReport("", "", "ADMIN");
+		File returnedFile = reportService.generateUserReport("", "", "ADMIN", true);
 		File expectedFile = new File(EXPECTED_FILES + "expected_result_filter_status.pdf");
 
 		String returnedContent = getPDFContent(returnedFile);
@@ -200,7 +200,7 @@ public class ReportServiceTests {
     public void getZeroUsersReportTest() {
 		when(mockUserRepository.searchWithFiltersWithStatus("Nonexistent User", "Nonexistent Email", "Nonexistent Status")).thenReturn(new ArrayList<User>());
 
-		File returnedFile = reportService.generateUserReport("Nonexistent User", "Nonexistent Email", "Nonexistent Status");
+		File returnedFile = reportService.generateUserReport("Nonexistent User", "Nonexistent Email", "Nonexistent Status", true);
 		File expectedFile = new File(RESULT_NOT_FOUND_FILE);
 
 		String returnedContent = getPDFContent(returnedFile);
