@@ -1,4 +1,4 @@
-package br.univille.projcolabassistant.valueobject;
+package br.univille.projcolabassistant.viewmodel;
 
 import br.univille.projcolabassistant.model.AssistiveAccessory;
 
