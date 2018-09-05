@@ -25,14 +25,12 @@
 				</div>
 			</div>
 			<div class="row">
-				<div class="card-columns">
-					<div class="card" th:each="umaccessory : ${umitem.value}">
-						<img class="card-img-top" src="/image/item.png" alt="Card image cap">
-						<div class="card-body">
-							<h5 class="card-title" th:text="${umaccessory.name}"></h5>
-							<p class="card-text" th:text="${umaccessory.description}"></p>
-							<a href="#" class="btn btn-success">Adicionar</a>
-						</div>
+				<div class="card" th:each="umaccessory : ${umitem.value}">
+					<img class="card-img-top" src="/image/item.png" alt="Card image cap">
+					<div class="card-body">
+						<h5 class="card-title" th:text="${umaccessory.name}"></h5>
+						<p class="card-text" th:text="${umaccessory.description}"></p>
+						<a href="#" class="btn btn-success">Adicionar</a>
 					</div>
 				</div>
 			</div>

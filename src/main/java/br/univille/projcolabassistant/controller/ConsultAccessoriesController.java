@@ -40,7 +40,6 @@ public class ConsultAccessoriesController {
 			}
 			listAssistiveAccessory.add(item.getAssistiveAccessory());
 		}
-		
 				
 		return new ModelAndView("catalog/accessoryList", "mapcategorylistAccessory", data);
 	}
