@@ -6,17 +6,16 @@ import br.univille.projcolabassistant.model.AccessoryColor;
 import br.univille.projcolabassistant.model.AssistiveAccessory;
 
 public class AssistiveAccessoryViewModel {
-	private List<AssistiveAccessory> listAssistiveAccessory;
+	private AssistiveAccessory assistiveAccessory;
 	private AccessoryColor accessoryColor;
-	private boolean first;
 	
 	
 	public AssistiveAccessoryViewModel() {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public AssistiveAccessoryViewModel(List<AssistiveAccessory> listAssistiveAccessory,AccessoryColor accessoryColor) {
-		this.listAssistiveAccessory = listAssistiveAccessory;
+	public AssistiveAccessoryViewModel(AssistiveAccessory assistiveAccessory,AccessoryColor accessoryColor) {
+		this.assistiveAccessory = assistiveAccessory;
 		this.accessoryColor = accessoryColor;
 	}
 	
@@ -27,13 +26,11 @@ public class AssistiveAccessoryViewModel {
 		this.accessoryColor = accessoryColor;
 	}
 
-	public boolean isFirst() {
-		return first;
+	public AssistiveAccessory getAssistiveAccessory() {
+		return assistiveAccessory;
 	}
 
-	public void setFirst(boolean first) {
-		this.first = first;
+	public void setAssistiveAccessory(AssistiveAccessory assistiveAccessory) {
+		this.assistiveAccessory = assistiveAccessory;
 	}
-	
-	
 }
