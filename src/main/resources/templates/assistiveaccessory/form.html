@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 	<meta charset="UTF-8">
-    <head th:include="layout :: htmlhead"></head>
+    <head th:include="layout :: htmlhead">
+    </head>
     <body>
         <div class="container assistive-accessory-container">
             <nav th:replace="layout :: menu">(menu)</nav>
@@ -35,9 +36,10 @@
                             <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}"></option>
                         </select>
                     </div>
-                    <div class="form-group assistive-accessory-group">
+                    <div class="form-group assistive-accessory-group upload-img">
                         <label for="imgUpload">Imagem</label>
-                        <input id="imgUpload" type="file" name="accessoryImage" />
+                        <input id="uploadedU" type="file" name="accessoryImage" onclick="onClickUpload()"/>
+                        <img id="uploadedImg" style="min-width: 50px; min-height:50px "/>
                     </div>
                     <button type="submit" class="btn btn-primary assistive-accessory-btn">Enviar</button>
                 </form>
