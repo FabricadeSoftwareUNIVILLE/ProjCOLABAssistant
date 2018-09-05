@@ -54,14 +54,22 @@ public class ReportServiceImpl implements ReportService {
 	private ITemplateEngine templateEngine;
 
 	@Override
-	public File generateUserReport(String nameFilter, String emailFilter, String typeFilter) {
+	public File generateUserReport(String nameFilter, String emailFilter, String typeFilter, boolean isOrderByDesc) {
 		List<User> users;
 		
 		if(typeFilter.isEmpty()) {
-			users = this.userRepository.searchWithFilters(nameFilter, emailFilter);
+			if(isOrderByDesc) {
+				users = this.userRepository.searchWithFiltersDesc(nameFilter, emailFilter);
+			} else {
+				users = this.userRepository.searchWithFilters(nameFilter, emailFilter);
+			}
 		}
 		else {
-			users = this.userRepository.searchWithFiltersWithStatus(nameFilter, emailFilter, typeFilter);
+			if(isOrderByDesc) {
+				users = this.userRepository.searchWithFiltersWithStatusDesc(nameFilter, emailFilter, typeFilter);
+			} else {
+				users = this.userRepository.searchWithFiltersWithStatus(nameFilter, emailFilter, typeFilter);
+			}
 		}
 		
 		return createPDFReport(users);
