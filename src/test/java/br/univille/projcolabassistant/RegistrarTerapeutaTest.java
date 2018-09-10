@@ -75,6 +75,9 @@ public class RegistrarTerapeutaTest {
         .andExpect(xpath("/html/body/div/div/table/tbody/tr/td[2]/text()").string("bruno@gmail.com"))
         .andExpect(xpath("/html/body/div/div/table/tbody/tr/td[3]/text()").string("(47) 9 8897-7354"))
         .andExpect(xpath("/html/body/div/div/table/tbody/tr/td[4]/text()").string("Rua Tajsdsaj"));
+        
+        cityRepository.deleteAll();
+        cityRepository.flush();
  
     }
 

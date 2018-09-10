@@ -7,7 +7,7 @@
 <body>
 	<div class="container">
 		<nav th:replace="layout :: menu">(menu)</nav>
-		<a href="form.html" th:href="@{/Institution/novo}" class="btn btn-primary btn-lg" role="button">Novo</a>
+		<a href="form.html" th:href="@{/institution/novo}" class="btn btn-primary btn-lg" role="button">Novo</a>
 		<div class="border border-dark">
 			<table class="table">
 				<thead class="thead-light">
@@ -30,7 +30,7 @@
 						<td th:text="${uminst.email}"></td>
 						<td th:text="${uminst.city.name}"></td>
 						<td>
-								<a href="form.html" th:href="@{'/Institution/alterar/' + ${uminst.id}}" class="btn btn-secondary btn-lg" role="button">Alterar</a>
+								<a href="form.html" th:href="@{'/institution/alterar/' + ${uminst.id}}" class="btn btn-secondary btn-lg" role="button">Alterar</a>
 								<a href="#" class="btn btn-warning btn-lg" role="button" data-toggle="modal" data-target="#confirmaExclusao" th:data-id="${uminst.id}">Excluir</a>
 
 						</td>
@@ -66,7 +66,7 @@
                   var button = $(event.relatedTarget)
                   var recipient = button.data('id')
                   var modal = $(this)
-                  modal.find('#btnConf').attr("href","/Institution/remover/" + recipient)
+                  modal.find('#btnConf').attr("href","/institution/remover/" + recipient)
                 })
            /*]]>*/
         </script> 
