@@ -17,7 +17,7 @@ grant all privileges on colabassistant.* to 'bob'@'localhost' identified by 'bob
 flush privileges;
 
 ## Diagrama de Casos de Uso
-![Diagrama de Casos de Uso](docs/diag_casodeuso_sistemacolab_v3.png)
+![Diagrama de Casos de Uso](docs/diag_casodeuso_sistemacolab_v4.png)
 
 ## Diagrama de Classes
 ![Diagrama de Classes](docs/diag_classes_sistemacolab_v3.png)

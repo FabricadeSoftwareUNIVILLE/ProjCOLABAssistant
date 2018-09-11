@@ -1,8 +1,6 @@
 package br.univille.projcolabassistant;
 
-import static java.util.Arrays.asList;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -10,9 +8,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.xpath;
 
+import java.util.List;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -29,10 +28,12 @@ import br.univille.projcolabassistant.controller.UserController;
 import br.univille.projcolabassistant.model.AssistiveAccessory;
 import br.univille.projcolabassistant.model.Category;
 import br.univille.projcolabassistant.model.City;
+import br.univille.projcolabassistant.model.Institution;
 import br.univille.projcolabassistant.repository.AccessoryColorRepository;
 import br.univille.projcolabassistant.repository.AssistiveAccessoryRepository;
 import br.univille.projcolabassistant.repository.CategoryRepository;
 import br.univille.projcolabassistant.repository.CityRepository;
+import br.univille.projcolabassistant.repository.InstitutionRepository;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -56,6 +57,9 @@ public class ProjColabAssistantApplicationTests {
 
 	@Autowired
 	private InstitutionController InstitutionController;
+	
+	@Autowired
+	private InstitutionRepository InstitutionRepository;
 	
 	@Autowired
 	private CityRepository cityRepository; 
@@ -127,69 +131,57 @@ public class ProjColabAssistantApplicationTests {
 	        .andExpect(xpath("/html/body/div/div/table/tbody/tr/td[2]/text()").string("verdinho"));	      
 	}
 
-	@Test
-	public void institutionControllerTest() throws Exception {
-		//Teste do método index
-		this.mockMvc.perform(get("/Institution")).andExpect(status().isOk())
-		.andExpect(xpath("/html/body/div/div/table").exists());
-	}
 
-
-	@Test
-	public void institutionControllerSaveTest() throws Exception {
-		
-		
-		City c = new City();	
-		c.setName("Joinville");
-		c.setState("SC");
-		
-		cityRepository.save(c);
-		cityRepository.flush();
-		
-		this.mockMvc.perform(post("/Institution")
-				.contentType(MediaType.APPLICATION_FORM_URLENCODED)
-				.param("form", "")
-				.content("id=0&address=rua&description=descricao&email=teste@teste&name=univille&phone=123456&city=1"))
-		.andDo(print())
-		.andExpect(status().isMovedTemporarily())
-		.andExpect(view().name("redirect:/Institution"));
-		
-	    this.mockMvc.perform(get("/Institution")).andDo(print()).andExpect(status().isOk())
-	        .andExpect(xpath("/html/body/div/div/table/tbody/tr/td[1]/text()").string("univille"))
-	        .andExpect(xpath("/html/body/div/div/table/tbody/tr/td[2]/text()").string("descricao"))
-	        .andExpect(xpath("/html/body/div/div/table/tbody/tr/td[3]/text()").string("rua"))
-	        .andExpect(xpath("/html/body/div/div/table/tbody/tr/td[4]/text()").string("123456"))
-	        .andExpect(xpath("/html/body/div/div/table/tbody/tr/td[5]/text()").string("teste@teste"))
-	        .andExpect(xpath("/html/body/div/div/table/tbody/tr/td[6]/text()").string("Joinville"));
-
-	}
 	
 	@Test
 	public void institutionControllerUpdateTest() throws Exception {
 		
-		
-		City c = new City();	
-		c.setName("Joinville");
-		c.setState("SC");
-		
-		cityRepository.save(c);
+		InstitutionRepository.deleteAll();
+		InstitutionRepository.flush();
+		cityRepository.deleteAll();
 		cityRepository.flush();
 		
-		this.mockMvc.perform(get("/Institution/alterar/1")).andDo(print()).andExpect(status().isOk()).andDo(print())
-        .andExpect(xpath("/html/body/div/div/table/tbody/tr/td[1]/text()").string("univille"))
-        .andExpect(xpath("/html/body/div/div/table/tbody/tr/td[2]/text()").string("descricao"))
-        .andExpect(xpath("/html/body/div/div/table/tbody/tr/td[3]/text()").string("rua"))
-        .andExpect(xpath("/html/body/div/div/table/tbody/tr/td[4]/text()").string("123456"))
-        .andExpect(xpath("/html/body/div/div/table/tbody/tr/td[5]/text()").string("teste@teste"))
-        .andExpect(xpath("/html/body/div/div/table/tbody/tr/td[6]/text()").string("Joinville"));
+		this.mockMvc.perform(get("/institution")).andExpect(status().isOk())
+		.andExpect(xpath("/html/body/div/div/table").exists());
+
 		
-		this.mockMvc.perform(post("/Institution")
+		City c = new City();	
+		c.setName("Joinville2");
+		c.setState("SC");
+		
+		c = cityRepository.save(c);
+		cityRepository.flush();
+		
+		this.mockMvc.perform(post("/institution")
 				.contentType(MediaType.APPLICATION_FORM_URLENCODED)
 				.param("form", "")
-				.content("id=1&address=rua&description=descricao&email=teste@teste&name=univille&phone=123456&city=1"))
+				.content("id=0&address=rua&description=descricao&email=teste@teste&name=univille&phone=123456&city="+c.getId()))
 		.andDo(print())
 		.andExpect(status().isMovedTemporarily())
-		.andExpect(view().name("redirect:/Institution"));
+		.andExpect(view().name("redirect:/institution"));
+		
+		List<Institution> listInstitution = InstitutionRepository.findAll();
+		
+		this.mockMvc.perform(get("/institution/alterar/" + listInstitution.get(0).getId())).andDo(print()).andExpect(status().isOk()).andDo(print())
+        .andExpect(xpath("/html/body/div/div/form/div[1]/input/@value").string("univille"))
+        .andExpect(xpath("/html/body/div/div/form/div[2]/input/@value").string("descricao"))
+        .andExpect(xpath("/html/body/div/div/form/div[3]/input/@value").string("rua"))
+        .andExpect(xpath("/html/body/div/div/form/div[4]/input/@value").string("123456"))
+        .andExpect(xpath("/html/body/div/div/form/div[5]/input/@value").string("teste@teste"))
+        .andExpect(xpath("/html/body/div/div/form/div[6]/select/option/text()").string("Joinville2"));
+		
+		this.mockMvc.perform(post("/institution")
+				.contentType(MediaType.APPLICATION_FORM_URLENCODED)
+				.param("form", "")
+				.content("address=rua&description=descricao&email=teste@teste&name=univille&phone=123456&city=" + c.getId() + "&id=" + listInstitution.get(0).getId()))
+		.andDo(print())
+		.andExpect(status().isMovedTemporarily())
+		.andExpect(view().name("redirect:/institution"));
+
+		InstitutionRepository.deleteAll();
+		InstitutionRepository.flush();
+		cityRepository.deleteAll();
+		cityRepository.flush();
 			    
   }
 	@Test
@@ -206,7 +198,7 @@ public class ProjColabAssistantApplicationTests {
 		this.mockMvc.perform(post("/city")
 				.contentType(MediaType.APPLICATION_FORM_URLENCODED)
 				.param("form", "")
-				.content("id=0&name=Joinville&state=Santa Catarina"))
+				.content("id=0&name=Joinville3&state=Santa Catarina"))
 		
 		.andDo(print())
 		.andExpect(status().isMovedTemporarily())
@@ -216,10 +208,11 @@ public class ProjColabAssistantApplicationTests {
 
 		
 	    this.mockMvc.perform(get("/city")).andDo(print()).andExpect(status().isOk())
-	        .andExpect(xpath("/html/body/div/div/table/tbody/tr/td[1]/text()").string("Joinville"))
+	        .andExpect(xpath("/html/body/div/div/table/tbody/tr/td[1]/text()").string("Joinville3"))
 	        .andExpect(xpath("/html/body/div/div/table/tbody/tr/td[2]/text()").string("Santa Catarina"));
 	    
-	    
+	    cityRepository.deleteAll();
+		cityRepository.flush();
         
 
 	}
