@@ -5,7 +5,15 @@
 </head>
 <body>
 	<div class="container">
-		<nav th:replace="layout :: menu">(menu)</nav>
+		<nav class="navbar navbar-expand-lg navbar-light bg-light">
+			<img src="/image/logoColab.jpg" class="logo">
+			<div class="collapse navbar-collapse" id="navbarNav">
+				<ul class="navbar-nav">
+					<li class="nav-item active"></li>
+					<li class="navbar-brand">Registro de Terapeuta</li>
+				</ul>
+			</div>
+		</nav>
 		<div class="border border-dark">
 			<form th:action="@{/register/(form)}" th:object="${user}" action="#"
 				method="post">
