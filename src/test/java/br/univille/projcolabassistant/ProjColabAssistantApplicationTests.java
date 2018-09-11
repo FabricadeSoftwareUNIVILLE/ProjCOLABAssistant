@@ -196,7 +196,6 @@ public class ProjColabAssistantApplicationTests {
 	public void consultAccessories() throws Exception {
 		this.mockMvc.perform(get("/")).andDo(print()).andExpect(status().isOk());
 	}
-<<<<<<< HEAD
 	
 	@Test
 	public void cityController() throws Exception {
@@ -225,7 +224,6 @@ public class ProjColabAssistantApplicationTests {
 
 	}
 
-=======
 
 	@Test
 	public void AssistiveAccessorySave() throws Exception {
@@ -243,6 +241,4 @@ public class ProjColabAssistantApplicationTests {
 		assistiveAccessoryRepository.save(accessory);
 		
 	}
-	
->>>>>>> 8a7139f2ab64aa6f3748bb59a5b848e2bcc46382
 }
