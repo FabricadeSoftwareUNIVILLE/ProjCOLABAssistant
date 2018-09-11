@@ -10,14 +10,14 @@
 			<table class="table">
 				<thead class="thead-light">
 					<tr>
-						<th scope="col">CÛdigo</th>
+						<th scope="col">C√≥digo</th>
 						<th scope="col">Data do pedido</th>
 						<th scope="col">Data de entrega</th>
 						<th scope="col">Status</th>
-						<th scope="col">InstituiÁ„o</th>
+						<th scope="col">Institui√ß√£o</th>
 						<th scope="col">Remetente</th>
-						<th scope="col">Destinat·rio</th>
-						<th scope="col">DescriÁ„o</th>
+						<th scope="col">Destinat√°rio</th>
+						<th scope="col">Descri√ß√£o</th>
 						<th scope="col"></th>
 					</tr>
 				</thead>
@@ -25,12 +25,12 @@
 					<tr scope="row" th:each="order : ${listorder}">
 						<td th:text="${order.id}"></td>
 						<td th:text="${order.orderDate}"></td>
-						<td th:text="${order.finishDate}"></td>
+						<td th:text="${order.orderFinshDate}"></td>
 						<td th:text="${order.status}"></td>
-						<td th:text="${order.institution}"></td>
-						<td th:text="${order.userRequest}"></td>
-						<td th:text="${order.user}"></td>
-						<td th:text="${order.itensList}"></td>
+						<td th:text="${order.institution.name}"></td>
+						<td th:text="${order.userRequest.name}"></td>
+						<td th:text="${order.user.name}"></td>
+						<td ></td>
 					</tr>
 				</tbody>
 			</table>

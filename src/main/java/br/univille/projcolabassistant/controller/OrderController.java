@@ -118,6 +118,7 @@ public class OrderController {
 		orderrequest.setUser(user);
 		orderrequest.setOrderFinshDate(new Date());
 		orderrequest.setOrderDate(new Date());
+		orderrequest.setOrderFinshDate(new Date());
 		orderrequest.setUserRequest(user);
 		orderrequest.setInstitution(inst);
 		orderRequestRepository.save(orderrequest);
