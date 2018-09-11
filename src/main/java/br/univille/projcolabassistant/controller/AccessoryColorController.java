@@ -1,6 +1,5 @@
 package br.univille.projcolabassistant.controller;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -18,11 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.univille.projcolabassistant.model.AccessoryColor;
-import br.univille.projcolabassistant.model.Category;
-import br.univille.projcolabassistant.model.City;
-import br.univille.projcolabassistant.model.Institution;
 import br.univille.projcolabassistant.repository.AccessoryColorRepository;
-import br.univille.projcolabassistant.repository.CategoryRepository;
 
 @Controller
 @RequestMapping("/accessorycolor")
