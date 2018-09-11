@@ -1,8 +1,6 @@
 package br.univille.projcolabassistant;
 
-import static java.util.Arrays.asList;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -12,7 +10,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -25,6 +22,10 @@ import br.univille.projcolabassistant.controller.CategoryController;
 import br.univille.projcolabassistant.controller.CityController;
 import br.univille.projcolabassistant.controller.InstitutionController;
 import br.univille.projcolabassistant.controller.UserController;
+import br.univille.projcolabassistant.model.AccessoryColor;
+import br.univille.projcolabassistant.model.AccessoryPhoto;
+import br.univille.projcolabassistant.model.AccessorySize;
+import br.univille.projcolabassistant.model.AssistiveAccessory;
 import br.univille.projcolabassistant.model.Category;
 import br.univille.projcolabassistant.model.City;
 import br.univille.projcolabassistant.repository.AccessoryColorRepository;
@@ -70,7 +71,7 @@ public class ProjColabAssistantApplicationTests {
 	
 	@Test
 	public void contextLoads() {
-		//Verifica a existência da instância do controlador
+		//Verifica a existÃªncia da instÃ¢ncia do controlador
 
 		assertThat(InstitutionController).isNotNull();
 		assertThat(controller).isNotNull();
@@ -120,7 +121,7 @@ public class ProjColabAssistantApplicationTests {
 
 	@Test
 	public void institutionControllerTest() throws Exception {
-		//Teste do método index
+		//Teste do mÃ©todo index
 		this.mockMvc.perform(get("/Institution")).andExpect(status().isOk())
 		.andExpect(xpath("/html/body/div/div/table").exists());
 	}
@@ -186,6 +187,30 @@ public class ProjColabAssistantApplicationTests {
 	@Test
 	public void consultAccessories() throws Exception {
 		this.mockMvc.perform(get("/")).andDo(print()).andExpect(status().isOk());
+		
+		
+		
+		
+		Category c = new Category();
+		c.setName("categoria 1");
+		categoryRepository.save(c);
+
+		AccessorySize size = new AccessorySize();
+		size.setName("pequeno");
+		
+		AccessoryColor color = new AccessoryColor();
+		color.setName("azul");
+		
+		AccessoryPhoto photo = new AccessoryPhoto();
+		photo.setId(123);
+		
+		AssistiveAccessory a = new AssistiveAccessory();
+		a.setCategory(c);
+		a.getSizeList().add(size);
+		a.getColorList().add(color);
+		a.getPhotoList().add(photo);
+		
+		
 	}
 	
 	@Test
