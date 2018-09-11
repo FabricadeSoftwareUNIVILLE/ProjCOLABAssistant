@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="layout :: htmlhead"></head>
+<body>
+	<div class="container">
+		<nav th:replace="layout :: menu">(menu)</nav>
+		<a href="form.html" th:href="@{/order/list}" class="btn btn-primary" role="button">List</a>
+		<div class="border border-dark">
+		
+		</div>
+
+	</div>
+	<div th:include="layout :: footer" id="footer">(footer)</div>
+</body>

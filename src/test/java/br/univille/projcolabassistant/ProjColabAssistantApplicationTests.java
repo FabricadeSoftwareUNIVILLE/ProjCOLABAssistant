@@ -22,6 +22,7 @@ import br.univille.projcolabassistant.controller.InstitutionController;
 import br.univille.projcolabassistant.controller.UserController;
 import br.univille.projcolabassistant.model.City;
 import br.univille.projcolabassistant.repository.CityRepository;
+import br.univille.projcolabassistant.repository.UserRepository;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -38,6 +39,8 @@ public class ProjColabAssistantApplicationTests {
 	private InstitutionController InstitutionController;
 	@Autowired
 	private CityRepository cityRepository; 
+	@Autowired
+	private UserRepository userRepository; 
 
 	@Autowired
 	private UserController userController;
@@ -138,6 +141,7 @@ public class ProjColabAssistantApplicationTests {
 
 	@Test
 	public void userSaveTest() throws Exception {
+		userRepository.deleteAll();
 		City c = new City();	
 		c.setName("Joinville");
 		c.setState("SC");
@@ -145,7 +149,7 @@ public class ProjColabAssistantApplicationTests {
 		cityRepository.save(c);
 		cityRepository.flush();
 		
-		this.mockMvc.perform(post("/user")
+		this.mockMvc.perform(post("/user/new")
 				.contentType(MediaType.APPLICATION_FORM_URLENCODED)
 				.param("form", "")
 				.content("id=0&name=waltinho&type=terapeuta&email=waltinho@teste.com&phone=12345678&adress=univille&city=1"))
