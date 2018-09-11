@@ -21,18 +21,19 @@
 		<div class="container" th:each="umitem : ${mapcategorylistAccessory}">
 			<div class="row">
 				<div class="card-banner" align="center">
-					<h2 th:text="${umitem.key.name}"></h2>
+					<span class="category-title" th:text="${umitem.key.name}"> </span>
 				</div>
 			</div>
 			<div class="row">
-				<div class="card" th:each="umaccessory : ${umitem.value}">
+				<div class="card col-xs-12 col-sm-4 col-md-3 col-lg-2"  th:each="umaccessory : ${umitem.value}">
 					<img class="card-img-top" src="/image/item.png" alt="Card image cap">
 					<div class="card-body">
-						<h5 class="card-title" th:text="${umaccessory.name}"></h5>
-						<p class="card-text" th:text="${umaccessory.description}"></p>
+						<h5 class="card-text" th:text="${umaccessory.name}"></h5>
+						<p class="card-title" th:text="${umaccessory.description}"></p>
 						<a href="#" class="btn btn-success">Adicionar</a>
 					</div>
 				</div>
+				
 			</div>
 		</div>
 	</body>

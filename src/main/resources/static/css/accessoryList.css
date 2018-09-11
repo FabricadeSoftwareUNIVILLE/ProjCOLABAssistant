@@ -12,6 +12,11 @@ body{
 	margin: 5px;
 }
 
+.category-title{
+	font-size: 27px;
+	font-weight: bold;
+}
+
 .card-banner{
 	text-align: center;
 	height: 60px;
@@ -31,6 +36,8 @@ body{
 }
 
 .card-text{
+	font-size: 17px;
+	font-weight: bold;
 	text-align: justify;
 }
 

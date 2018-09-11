@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,16 +16,28 @@ import br.univille.projcolabassistant.model.AssistiveAccessory;
 import br.univille.projcolabassistant.model.Category;
 import br.univille.projcolabassistant.repository.ConsultAccessoriesRepository;
 import br.univille.projcolabassistant.viewmodel.AssistiveAccessoryViewModel;
+import br.univille.projcolabassistant.viewmodel.ShoppingCart;
 
 @Controller
 @RequestMapping("/")
 public class ConsultAccessoriesController {
 
 	@Autowired
+	private ShoppingCart shoppingCart;
+
+	@Autowired
 	private ConsultAccessoriesRepository consultAccessoriesRepository;
-	
+
 	@GetMapping("")
-	public ModelAndView index() {
+	public ModelAndView index(HttpSession session) {
+		
+		ShoppingCart shoppingCart = null;
+		shoppingCart = (ShoppingCart) session.getAttribute("carrinho");
+		if (shoppingCart == null) {
+			shoppingCart = new ShoppingCart();
+			session.setAttribute("carrinho", shoppingCart);
+		}
+		
 		List<AssistiveAccessoryViewModel> listAccessoryViewModel = this.consultAccessoriesRepository.findAllAssistiveAccessoryViewModel();
 		
 		HashMap<Category, List<AssistiveAccessory>> data = new HashMap<Category, List<AssistiveAccessory>>();

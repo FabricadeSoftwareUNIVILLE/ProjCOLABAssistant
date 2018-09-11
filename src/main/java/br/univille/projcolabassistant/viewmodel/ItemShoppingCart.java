@@ -1,7 +1,12 @@
 package br.univille.projcolabassistant.viewmodel;
 
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
+
 import br.univille.projcolabassistant.model.AssistiveAccessory;
 
+@Component
+@Scope("session")
 public class ItemShoppingCart {
 	private long sequence;
 	private int quantity;
