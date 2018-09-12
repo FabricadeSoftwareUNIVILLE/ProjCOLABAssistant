@@ -30,6 +30,7 @@ import br.univille.projcolabassistant.model.Category;
 import br.univille.projcolabassistant.model.City;
 import br.univille.projcolabassistant.model.Institution;
 import br.univille.projcolabassistant.repository.AccessoryColorRepository;
+import br.univille.projcolabassistant.repository.AccessorySizeRepository;
 import br.univille.projcolabassistant.repository.AssistiveAccessoryRepository;
 import br.univille.projcolabassistant.repository.CategoryRepository;
 import br.univille.projcolabassistant.repository.CityRepository;
@@ -69,11 +70,18 @@ public class ProjColabAssistantApplicationTests {
 	
 	@Autowired
 	private CityController cityController;
-  @Autowired
+	
+    @Autowired
 	private CategoryRepository categoryRepository;
 	
 	@Autowired
 	private AccessoryColorRepository accessorycolorRepository;
+	
+	@Autowired
+	private AccessorySizeRepository accessorysizeRepository;
+	
+	@Autowired
+	private AccessorySizeRepository accessorySizeController;
 	
 	@Autowired
 	private AccessoryColorRepository AcessoryColorController;
@@ -130,7 +138,24 @@ public class ProjColabAssistantApplicationTests {
 	    this.mockMvc.perform(get("/accessorycolor")).andDo(print()).andExpect(status().isOk())
 	        .andExpect(xpath("/html/body/div/div/table/tbody/tr/td[2]/text()").string("verdinho"));	      
 	}
-
+	@Test
+	public void AccessorySizeController() throws Exception {
+	
+		accessorysizeRepository.deleteAll();
+		accessorysizeRepository.flush();
+		//START
+		this.mockMvc.perform(post("/accessorysize")
+				.contentType(MediaType.APPLICATION_FORM_URLENCODED)
+				.param("form", "")
+				.content("id=0&name=pequeno&ordeNum=1"))
+		.andDo(print())
+		.andExpect(status().isMovedTemporarily())
+		.andExpect(view().name("redirect:/accessorysize"));
+		
+	    this.mockMvc.perform(get("/accessorysize")).andDo(print()).andExpect(status().isOk())
+	        .andExpect(xpath("/html/body/div/div/table/tbody/tr/td[2]/text()").string("pequeno"));	      
+	}
+    
 
 	
 	@Test
