@@ -4,12 +4,14 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.List;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,6 +24,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import br.univille.projcolabassistant.model.AccessoryPhoto;
 import br.univille.projcolabassistant.model.AssistiveAccessory;
 import br.univille.projcolabassistant.model.Category;
 import br.univille.projcolabassistant.repository.AssistiveAccessoryRepository;
@@ -35,7 +38,8 @@ public class AssistiveAccessoryController {
 	@Autowired
 	private CategoryRepository categoryRepository;
 
-	private static String UPLOADED_FOLDER = "C:\\ProjCOLABAssistant\\src\\main\\resources\\static\\image\\assistiveaccessory\\";
+	@Value("${assistiviAccessoryImage.path}")
+	private String assistiviAccessoryImagePath;
 
 	@GetMapping("")
 	public ModelAndView index() {
@@ -60,10 +64,13 @@ public class AssistiveAccessoryController {
 			BindingResult result, RedirectAttributes redirect) {
 
 		assistiveaccessory = this.accessoryRepository.save(assistiveaccessory);
+		AccessoryPhoto accessoryPhoto = new AccessoryPhoto();
 
 		try {
 			byte[] bytes = file.getBytes(); 
-			Path path = Paths.get(UPLOADED_FOLDER + file.getOriginalFilename());
+			String imageName = new Timestamp(System.currentTimeMillis()).toString() + Long.toString(assistiveaccessory.getId());
+			Path path = Paths.get(assistiviAccessoryImagePath + imageName);
+			accessoryPhoto.setURI(path.toString());
 			Files.write(path, bytes);
 
 			redirect.addFlashAttribute("message", "Arquivo '" + file.getOriginalFilename() + "' enviado com sucesso!");

@@ -9,17 +9,14 @@ onClickUpload = function() {
 	reader.onload = function(event) {
 		document.getElementById('uploadedImg').setAttribute('src',
 				event.target.result);
-		console.log("reader.onload");
 
 		var el = document.getElementById('uploadedImg');
 		
 		vanilla.bind({
 			url : el.src
 		});
-		console.log(vanilla);
-		// on button click
+
 		vanilla.result('blob').then(function(blob) {
-			// do something with cropped blob
 		});
 
 	}
