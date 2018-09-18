@@ -5,7 +5,7 @@
         <div class="container">
             <nav th:replace="layout :: menu">(menu)</nav>
             <div class="border border-dark">
-            <form th:action="@{/user/savenew/(form)}" th:object="${user}" action="#" method="post">
+            <form th:action="@{/user/(form)}" th:object="${user}" action="#" method="post">
                     <input type="hidden" id="txtid" th:field="*{id}" />    
                     
                     <div class="form-group">
@@ -36,7 +36,7 @@
                     </div>
                     <div class="form-group">                    
                     <label for="slcEnabledUser">Usuario ativo?</label><br>
-                    <input type="checkbox" name="userEnabled" th:field="*{enabled}">Ativo<br>
+                    <input type="checkbox" name="enabled" th:field="${user.enabled}">Ativo<br>
                     </div>
                                         
                     <button type="submit" class="btn btn-primary">Enviar</button>

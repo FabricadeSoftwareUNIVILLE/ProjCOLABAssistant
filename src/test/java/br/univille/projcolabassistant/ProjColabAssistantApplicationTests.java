@@ -149,10 +149,10 @@ public class ProjColabAssistantApplicationTests {
 		cityRepository.save(c);
 		cityRepository.flush();
 		
-		this.mockMvc.perform(post("/user/new")
+		this.mockMvc.perform(post("/user")
 				.contentType(MediaType.APPLICATION_FORM_URLENCODED)
 				.param("form", "")
-				.content("id=0&name=waltinho&type=terapeuta&email=waltinho@teste.com&phone=12345678&adress=univille&city=1"))
+				.content("id=1&name=waltinho&type=professor&email=waltinho@teste.com&phone=12345678&address=univille&city=1&enabled=true"))
 		.andDo(print())
 		.andExpect(status().isMovedTemporarily())
 		.andExpect(view().name("redirect:/user"));
