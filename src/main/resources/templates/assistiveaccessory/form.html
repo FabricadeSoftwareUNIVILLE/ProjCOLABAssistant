@@ -3,6 +3,7 @@
 	<meta charset="UTF-8">
     <head th:include="layout :: htmlhead">
     </head>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
     <body>
         <div class="container assistive-accessory-container">
             <nav th:replace="layout :: menu">(menu)</nav>
@@ -36,15 +37,106 @@
                             <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}"></option>
                         </select>
                     </div>
+                    
+                    <!-- 
                     <div class="form-group assistive-accessory-group upload-img">
                         <label for="imgUpload">Imagem</label>
                         <input id="uploadeButton" type="file" name="accessoryImage" onclick="onClickUpload()"/>
                         <img id="uploadedImg" style="width: 400px; height:400px" th:src="${assistiveaccessory.principalPhoto.URI}"/>
                     </div>
+                     -->
+                    
+					<br>
+					<br>
+					<table style="width:100%">
+						<tr style="text-align:center">
+							<th>Principal</th>
+							<th>Imagem</th>
+							<th>Descrição</th>
+						</tr>
+	 					<tr class="form-group multiple-form-group input-group" style="display: table-row">
+	 						<td style="width:5%;text-align:center">
+		 						<input type="radio" name="mainphoto"/>
+	 						</td>
+	 						<td width="45%">
+		                        <div class="input-group-btn input-group-select">
+		                        	<input id="uploadedU" type="file" name="photos['image'][]" onclick="onClickUpload()"/>
+		                            <!-- <input type="hidden" class="input-group-select-val" name="photos['desc'][]" value=""> -->
+		                        </div>
+	                        </td>
+	                        <td width="50%">
+		                        <table style="width:100%">
+		                        	<tr>
+		                        		<td width="90%">
+		                        			<input type="text" name="photos['desc'][]" class="form-control">
+		                        		</td>
+		                        		<td width="10%">
+					                        <span class="input-group-btn">
+					                            <button type="button" class="btn btn-success btn-add">+</button>
+					                        </span>
+		                        		</td>
+		                        	</tr>
+		                        </table>
+		                   	</td>
+	                    </tr>
+                    </table>
+	
+                    
+                    
+                    
                     <button type="submit" class="btn btn-primary assistive-accessory-btn">Enviar</button>
                 </form>
 		</div>
         </div>
+        <script>
+        (function ($) {
+            $(function () {
+
+                var addFormGroup = function (event) {
+                    event.preventDefault();
+
+                    var $formGroup = $(this).closest('.form-group');
+                    var $multipleFormGroup = $formGroup.closest('.multiple-form-group');
+                    var $formGroupClone = $formGroup.clone();
+
+                    $(this)
+                        .toggleClass('btn-success btn-add btn-danger btn-remove')
+                        .html('–');
+
+                    $formGroupClone.find('input').val('');
+                    $formGroupClone.find('.concept').text('Phone');
+                    $formGroupClone.insertAfter($formGroup);
+
+                    var $lastFormGroupLast = $multipleFormGroup.find('.form-group:last');
+                    if ($multipleFormGroup.data('max') <= countFormGroup($multipleFormGroup)) {
+                        $lastFormGroupLast.find('.btn-add').attr('disabled', true);
+                    }
+                };
+
+                var removeFormGroup = function (event) {
+                    event.preventDefault();
+
+                    var $formGroup = $(this).closest('.form-group');
+                    var $multipleFormGroup = $formGroup.closest('.multiple-form-group');
+
+                    var $lastFormGroupLast = $multipleFormGroup.find('.form-group:last');
+                    if ($multipleFormGroup.data('max') >= countFormGroup($multipleFormGroup)) {
+                        $lastFormGroupLast.find('.btn-add').attr('disabled', false);
+                    }
+
+                    $formGroup.remove();
+                };
+
+                var countFormGroup = function ($form) {
+                    return $form.find('.form-group').length;
+                };
+
+                $(document).on('click', '.btn-add', addFormGroup);
+                $(document).on('click', '.btn-remove', removeFormGroup);
+
+            });
+        })(jQuery);
+        </script>
         <div th:include="layout :: footer" id="footer">(footer)</div>
     </body>
 </html>
