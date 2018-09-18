@@ -36,18 +36,10 @@ public class UserController {
 		return new ModelAndView("user/index","listuser", listUser);
 	}
 	
-	@PostMapping(value="/savenew")
-	public ModelAndView savenew(@Valid User user, BindingResult result, RedirectAttributes redirect) {
-        
-		user.setEnabled(true);
-		user.setType("TO");
-        user = this.userRepository.save(user);
-        
-        return new ModelAndView("redirect:/user");
-    }
 	@PostMapping(params="form")
     public ModelAndView save(@Valid User user, BindingResult result, RedirectAttributes redirect) {
         
+		user.setEnabled(true);
         user = this.userRepository.save(user);
         
         return new ModelAndView("redirect:/user");

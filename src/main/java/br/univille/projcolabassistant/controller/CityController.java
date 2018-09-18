@@ -33,7 +33,7 @@ public class CityController {
     }
     @GetMapping("/novo")
     public String createForm(@ModelAttribute City city) {
-        return "/city/form";
+        return "city/form";
     }
     @PostMapping(params="form")
     public ModelAndView save(@Valid City city, BindingResult result, RedirectAttributes redirect) {

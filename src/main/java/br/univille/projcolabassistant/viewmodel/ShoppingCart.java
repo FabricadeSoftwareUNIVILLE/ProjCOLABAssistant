@@ -1,4 +1,4 @@
-package br.univille.projcolabassistant.valueobject;
+package br.univille.projcolabassistant.viewmodel;
 
 import java.util.ArrayList;
 import java.util.Date;

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<meta charset="UTF-8">
+    <head th:include="layout :: htmlhead"></head>
+    <body>
+        <div class="container assistive-accessory-container">
+            <nav th:replace="layout :: menu">(menu)</nav>
+            <div class="border border-dark assistive-accessory-border">
+            <form th:action="@{/assistiveaccessory/new/(form)}" th:object="${assistiveaccessory}" action="#" method="post">
+                    <input type="hidden" id="id" th:field="*{id}" />    
+                    
+                    <div class="form-group assistive-accessory-group">
+                        <label for="txtname">Nome</label>
+                        <input type="text" class="form-control" id="txtname" placeholder="Insere o nome do acessório assistivo" th:field="*{name}" >
+                    </div>
+                    <div class="form-group assistive-accessory-group">
+                        <label for="txtdescription">Descrição</label>
+                        <input type="text" class="form-control" id="txtdescription" placeholder="Insere a descrição do acessório assistivo" th:field="*{description}" >
+                    </div>
+                    <div class="form-group assistive-accessory-group">
+                        <label for="txtprescription">Prescrição</label>
+                        <input type="text" class="form-control" id="txtprescription" placeholder="Insere a prescrição do acessório assistivo" th:field="*{prescription}">
+                    </div>
+                    <div class="form-group assistive-accessory-group">
+                        <label for="txtfunction">Função</label>
+                        <input type="text" class="form-control" id="txtfunction" placeholder="Insere a função do acessório assistivo" th:field="*{function}">
+                    </div>
+                    <div class="form-group assistive-accessory-group">
+                        <label for="txtcode">Código</label>
+                        <input type="text" class="form-control" id="txtcode" placeholder="Insere o código do acessório assistivo" th:field="*{code}">
+                    </div>
+                    <div class="form-group">
+                        <label for="slccategory">Categoria</label>
+                        <select class="form-control" id="slccategory" th:field="*{category}">
+                            <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}"></option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="slccolor">Cores</label>
+                        <select class="form-control" id="slccolor" th:field="*{colorList}" multiple="true">
+                            <option th:each="color : ${colors}" th:value="${color.id}" th:text="${color.name}"></option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="slccolor">Tamanhos</label>
+                        <select class="form-control" id="slccolor" th:field="*{sizeList}" multiple="true">
+                            <option th:each="size : ${sizes}" th:value="${size.id}" th:text="${size.name}"></option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary assistive-accessory-btn">Enviar</button>
+                </form>
+            </div>
+        </div>
+        <div th:include="layout :: footer" id="footer">(footer)</div>
+    </body>
+</html>

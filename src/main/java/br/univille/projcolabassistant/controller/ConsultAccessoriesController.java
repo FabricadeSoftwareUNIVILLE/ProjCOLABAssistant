@@ -24,5 +24,9 @@ public class ConsultAccessoriesController {
 				
 		return new ModelAndView("catalog/accessoryList", "listAccessory", listAccessory);
 	}
+	@GetMapping("/admin")
+	public ModelAndView admin() {
+		return new ModelAndView("admin/admin");
+	}
 
 }
