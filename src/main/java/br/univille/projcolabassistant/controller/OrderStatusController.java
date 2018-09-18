@@ -54,7 +54,7 @@ public class OrderStatusController {
 		public ModelAndView changeStatus(@PathVariable("id") OrderStatusLog req) {
 		
 		
-		List<StatusRequestChangeRegistry> listStatusReq = this.statusRequestChangeRegistryRepository.findByrequest(req);
+		List<OrderStatusLog> listStatusReq = this.statusRequestChangeRegistryRepository.findByrequest(req);
 		StatusRequestChangeRegistry newStatusRequestChangeRegistry = new StatusRequestChangeRegistry();
 		HashMap<String, Object> dados = new HashMap<String, Object>();
 		dados.put("requestbase",req);
