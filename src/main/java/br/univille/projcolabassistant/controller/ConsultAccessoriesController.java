@@ -9,13 +9,16 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import br.univille.projcolabassistant.model.AssistiveAccessory;
 import br.univille.projcolabassistant.model.Category;
+import br.univille.projcolabassistant.model.Institution;
 import br.univille.projcolabassistant.repository.ConsultAccessoriesRepository;
 import br.univille.projcolabassistant.viewmodel.AssistiveAccessoryViewModel;
+import br.univille.projcolabassistant.viewmodel.ItemShoppingCart;
 import br.univille.projcolabassistant.viewmodel.ShoppingCart;
 
 @Controller
@@ -42,7 +45,6 @@ public class ConsultAccessoriesController {
 		
 		HashMap<Category, List<AssistiveAccessory>> data = new HashMap<Category, List<AssistiveAccessory>>();
 		
-		
 		Category lastCategory = null;
 		List<AssistiveAccessory> listAssistiveAccessory= null;
 		for(AssistiveAccessoryViewModel item : listAccessoryViewModel) {
@@ -56,6 +58,23 @@ public class ConsultAccessoriesController {
 		}
 				
 		return new ModelAndView("catalog/accessoryList", "mapcategorylistAccessory", data);
+	}
+	@GetMapping("/additem/{id}")
+	public ModelAndView additem(@PathVariable("id") AssistiveAccessory assistiveAccessory,HttpSession session) {
+		
+		ShoppingCart shoppingCart = null;
+		shoppingCart = (ShoppingCart) session.getAttribute("carrinho");
+		if (shoppingCart == null) {
+			shoppingCart = new ShoppingCart();
+			session.setAttribute("carrinho", shoppingCart);
+		}
+		
+		ItemShoppingCart itemShop = new ItemShoppingCart();
+		itemShop.setAccessory(assistiveAccessory);
+		shoppingCart.getItensList().add(itemShop);
+		
+		
+		return new ModelAndView("redirect:/");
 	}
 
 }

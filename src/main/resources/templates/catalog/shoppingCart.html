@@ -22,27 +22,18 @@
 			 	<thead>
 			    	<tr>
 			      		<th scope="col">Produto</th>
+			      		<th scope="col">Nome</th>
 			      		<th scope="col">Descrição</th>
 			      		<th scope="col">Remover</th>
+			      		
 			    	</tr>
 			  	</thead>
 			  	<tbody>
-			    	<tr>
+			    	<tr th:each="umitem : ${shoppingcart.itensList}">
 			      		<td><img src="/image/item.png" alt="Card image cap"></td>
-			      		<td>Produto top de linha 1</td>
+			      		<td>Nome</td>
+			      		<td th:value="${umitem.accessory.name}"></td>
 			     		<td><span class="glyphicon glyphicon glyphicon-remove" aria-hidden="true"></span></td>
-			    	</tr>
-		
-			    	<tr>	      
-			      		<td><img src="/image/item.png" alt="Card image cap"></td>
-			      		<td>Produto top de linha 2</td>
-			      		<td><span class="glyphicon glyphicon glyphicon-remove" aria-hidden="true"></span></td>
-			    	</tr>
-			    
-			    	<tr>
-			      		<td><img src="/image/item.png" alt="Card image cap"></td>
-			      		<td>Produto top de linha 3</td>
-			      		<td><span class="glyphicon glyphicon glyphicon-remove" aria-hidden="true"></span></td>
 			    	</tr>
 			  </tbody>
 			</table>
