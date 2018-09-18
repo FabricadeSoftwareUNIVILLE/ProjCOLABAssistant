@@ -9,15 +9,5 @@ onClickUpload = function() {
 	reader.onload = function(event) {
 		document.getElementById('uploadedImg').setAttribute('src',
 				event.target.result);
-
-		var el = document.getElementById('uploadedImg');
-		
-		vanilla.bind({
-			url : el.src
-		});
-
-		vanilla.result('blob').then(function(blob) {
-		});
-
 	}
 }

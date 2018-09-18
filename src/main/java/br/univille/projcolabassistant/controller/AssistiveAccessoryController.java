@@ -27,6 +27,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import br.univille.projcolabassistant.model.AccessoryPhoto;
 import br.univille.projcolabassistant.model.AssistiveAccessory;
 import br.univille.projcolabassistant.model.Category;
+import br.univille.projcolabassistant.repository.AccessoryPhotoRepository;
 import br.univille.projcolabassistant.repository.AssistiveAccessoryRepository;
 import br.univille.projcolabassistant.repository.CategoryRepository;
 
@@ -37,9 +38,10 @@ public class AssistiveAccessoryController {
 	private AssistiveAccessoryRepository accessoryRepository;
 	@Autowired
 	private CategoryRepository categoryRepository;
+	@Autowired
+	private AccessoryPhotoRepository accessoryPhotoRepository;
 
-	@Value("${assistiviAccessoryImage.path}")
-	private String assistiviAccessoryImagePath;
+	private String imgPath = "C:\\ProjCOLABAssistant\\src\\main\\resources\\static\\image\\assistiveaccessory\\";
 
 	@GetMapping("")
 	public ModelAndView index() {
@@ -63,14 +65,21 @@ public class AssistiveAccessoryController {
 	public ModelAndView save(@RequestParam("accessoryImage") MultipartFile file, @Valid AssistiveAccessory assistiveaccessory,
 			BindingResult result, RedirectAttributes redirect) {
 
-		assistiveaccessory = this.accessoryRepository.save(assistiveaccessory);
 		AccessoryPhoto accessoryPhoto = new AccessoryPhoto();
 
 		try {
 			byte[] bytes = file.getBytes(); 
-			String imageName = new Timestamp(System.currentTimeMillis()).toString() + Long.toString(assistiveaccessory.getId());
-			Path path = Paths.get(assistiviAccessoryImagePath + imageName);
+			
+			String imageName = new Timestamp(System.currentTimeMillis()).getTime() + "_" + assistiveaccessory.getId() + ".png";
+			Path path = Paths.get(imgPath + imageName);
+			
 			accessoryPhoto.setURI(path.toString());
+			accessoryPhoto.setDescription("Oi");
+			accessoryPhotoRepository.save(accessoryPhoto);
+			
+			assistiveaccessory.setPrincipalPhoto(accessoryPhoto);
+			accessoryRepository.save(assistiveaccessory);
+			
 			Files.write(path, bytes);
 
 			redirect.addFlashAttribute("message", "Arquivo '" + file.getOriginalFilename() + "' enviado com sucesso!");
@@ -87,9 +96,9 @@ public class AssistiveAccessoryController {
 		List<Category> categories = categoryRepository.findAll();
 
 		HashMap<String, Object> dados = new HashMap<String, Object>();
+		System.out.println("Photo " + assistiveaccessory.getPrincipalPhoto().getURI());
 		dados.put("assistiveaccessory", assistiveaccessory);
 		dados.put("categories", categories);
-
 		return new ModelAndView("assistiveaccessory/form", dados);
 	}
 
