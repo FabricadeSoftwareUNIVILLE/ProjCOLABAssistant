@@ -18,21 +18,25 @@
 		</nav>
 
 		<div class="container">
-			<table class="table">
+			<div class="row">
+				<a th:href="@{'/conforder'}" class="btn btn-primary btn-confirm float-md-right">Confirmar Pedido</a>
+			</div>
+			
+			<table class="table table-sm">
 			 	<thead>
 			    	<tr>
-			      		<th scope="col">Produto</th>
-			      		<th scope="col">Nome</th>
-			      		<th scope="col">Descrição</th>
-			      		<th scope="col">Remover</th>
+			      		<th class="table-title" scope="col">Produto</th>
+			      		<th class="table-title" scope="col">Nome</th>
+			      		<th class="table-title" scope="col">Descrição</th>
+			      		<th class="table-title" scope="col">Remover</th>
 			      		
 			    	</tr>
 			  	</thead>
 			  	<tbody>
 			    	<tr th:each="umitem : ${shoppingcart.itensList}">
 			      		<td><img src="/image/item.png" alt="Card image cap"></td>
-			      		<td>Nome</td>
-			      		<td th:value="${umitem.accessory.name}"></td>
+			      		<td class="table-text" th:text="${umitem.accessory.name}"></td>
+			      		<td class="table-text" th:text="${umitem.accessory.description}"></td>
 			     		<td><span class="glyphicon glyphicon glyphicon-remove" aria-hidden="true"></span></td>
 			    	</tr>
 			  </tbody>

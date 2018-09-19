@@ -44,3 +44,17 @@ body{
 .glyphicon {
     font-size: 35px;
 }
+
+.btn-confirm{
+	margin: 5px;
+	font-size: 20px;
+	font-weight: bold;
+}
+
+.table-title{
+	font-size: 25px;
+}
+
+.table-text{
+	font-size: 20px;
+}
