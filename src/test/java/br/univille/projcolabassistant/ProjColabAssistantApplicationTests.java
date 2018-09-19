@@ -34,12 +34,13 @@ import br.univille.projcolabassistant.repository.AssistiveAccessoryRepository;
 import br.univille.projcolabassistant.repository.CategoryRepository;
 import br.univille.projcolabassistant.repository.CityRepository;
 import br.univille.projcolabassistant.repository.InstitutionRepository;
+import br.univille.projcolabassistant.repository.UserRepository;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
 public class ProjColabAssistantApplicationTests {
-	
+
 	@Autowired
 	private CategoryController categoryController;
 	
@@ -63,6 +64,8 @@ public class ProjColabAssistantApplicationTests {
 	
 	@Autowired
 	private CityRepository cityRepository; 
+	@Autowired
+	private UserRepository userRepository; 
 
 	@Autowired
 	private UserController controller;
@@ -81,14 +84,16 @@ public class ProjColabAssistantApplicationTests {
 	
 	
 	
+
+	private UserController userController;
 	@Test
 	public void contextLoads() {
 		//Verifica a existência da instância do controlador
-
 		assertThat(InstitutionController).isNotNull();
 		assertThat(controller).isNotNull();
 		assertThat(AcessoryColorController).isNotNull();
 		assertThat(cityController).isNotNull();
+		assertThat(userController).isNotNull();
 	}
 	
 	@Test
@@ -111,8 +116,15 @@ public class ProjColabAssistantApplicationTests {
 	    this.mockMvc.perform(get("/category")).andDo(print()).andExpect(status().isOk())
 	        .andExpect(xpath("/html/body/div/div/table/tbody/tr/td[2]/text()").string("roberta"));	      
 
+		this.mockMvc.perform(get("/Institution")).andDo(print()).andExpect(status().isOk())
+		.andExpect(xpath("/html/body/div/div/table/tbody/tr/td[1]/text()").string("univille"))
+		.andExpect(xpath("/html/body/div/div/table/tbody/tr/td[2]/text()").string("descricao"))
+		.andExpect(xpath("/html/body/div/div/table/tbody/tr/td[3]/text()").string("rua"))
+		.andExpect(xpath("/html/body/div/div/table/tbody/tr/td[4]/text()").string("123456"))
+		.andExpect(xpath("/html/body/div/div/table/tbody/tr/td[5]/text()").string("teste@teste"))
+		.andExpect(xpath("/html/body/div/div/table/tbody/tr/td[6]/text()").string("Joinville"));
 	}
-	
+
 	@Test
 	public void AccessoryColorController() throws Exception {
 	
@@ -233,5 +245,42 @@ public class ProjColabAssistantApplicationTests {
 		
 		assistiveAccessoryRepository.save(accessory);
 		
+	}
+
+	@Test
+	public void userTest() throws Exception {
+		this.mockMvc.perform(get("/user")).andDo(print()).andExpect(status().isOk());
+	}
+
+	@Test
+	public void userControllerTest() throws Exception {
+		this.mockMvc.perform(get("/user")).andExpect(status().isOk())
+		.andExpect(xpath("/html/body/div/div/table").exists());
+	}
+
+	@Test
+	public void userSaveTest() throws Exception {
+		userRepository.deleteAll();
+		City c = new City();	
+		c.setName("Joinville");
+		c.setState("SC");
+		
+		cityRepository.save(c);
+		cityRepository.flush();
+		
+		this.mockMvc.perform(post("/user")
+				.contentType(MediaType.APPLICATION_FORM_URLENCODED)
+				.param("form", "")
+				.content("id=1&name=waltinho&type=professor&email=waltinho@teste.com&phone=12345678&address=univille&city=1&enabled=true"))
+		.andDo(print())
+		.andExpect(status().isMovedTemporarily())
+		.andExpect(view().name("redirect:/user"));
+
+		this.mockMvc.perform(get("/user")).andDo(print()).andExpect(status().isOk())
+		.andExpect(xpath("/html/body/div/div/table/tbody/tr/td[1]/text()").string("waltinho"))
+		.andExpect(xpath("/html/body/div/div/table/tbody/tr/td[2]/text()").string("waltinho@teste.com"))
+		.andExpect(xpath("/html/body/div/div/table/tbody/tr/td[3]/text()").string("12345678"))
+		.andExpect(xpath("/html/body/div/div/table/tbody/tr/td[4]/text()").string("univille"));
+
 	}
 }

@@ -10,18 +10,22 @@
                     
                     <div class="form-group">
                         <label for="txtnome">Nome</label>
-                        <input type="text" class="form-control" id="txtnome" placeholder="Nome" th:field="*{name}" >
+                        <input type="text" class="form-control" id="txtname" placeholder="Nome" th:field="*{name}" required>
                     </div>
                     <div class="form-group">
+                        <label for="txttype">Ocupacao</label>
+                        <input type="text" class="form-control" id="txttype" placeholder="Ocupacao" th:field="*{type}" >
+                    </div>                    
+                    <div class="form-group">
                         <label for="txtemail">Email</label>
-                        <input type="text" class="form-control" id="txtemail" placeholder="Email" th:field="*{email}" >
+                        <input type="text" class="form-control" id="txtemail" placeholder="Email" th:field="*{email}" required>
                     </div>
                     <div class="form-group">
                         <label for="txtphone">Telefone</label>
-                        <input type="text" class="form-control" id="txtphone" placeholder="Telefone" th:field="*{phone}">
+                        <input type="text" class="form-control" id="txtphone" placeholder="Telefone" th:field="*{phone}" required>
                     </div>
                     <div class="form-group">
-                        <label for="txtaddress">Endereço</label>
+                        <label for="txtaddress">Endereco</label>
                         <input type="text" class="form-control" id="txtaddress" placeholder="Endereco" th:field="*{address}">
                     </div>
                     <div class="form-group">
@@ -30,6 +34,11 @@
                             <option th:each="city : ${listcity}" th:value="${city.id}" th:text="${city.name}"></option>
                         </select>
                     </div>
+                    <div class="form-group">                    
+                    <label for="slcEnabledUser">Usuario ativo?</label><br>
+                    <input type="checkbox" name="enabled" th:field="${user.enabled}">Ativo<br>
+                    </div>
+                                        
                     <button type="submit" class="btn btn-primary">Enviar</button>
                 </form>
             </div>
