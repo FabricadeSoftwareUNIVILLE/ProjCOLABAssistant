@@ -9,6 +9,6 @@ import br.univille.projcolabassistant.model.OrderStatusLog;
 
 @Repository
 public interface OrderStatusLogRepository extends JpaRepository<OrderStatusLog, Long>{
-	public List<OrderStatusLog> findByrequest(RequestForTreatment request);
+	
 }
 
