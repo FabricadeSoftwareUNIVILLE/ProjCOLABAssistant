@@ -5,6 +5,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -62,28 +63,36 @@ public class AssistiveAccessoryController {
 	}
 
 	@PostMapping(value = "/new")
-	public ModelAndView save(@RequestParam("accessoryImage") MultipartFile file, @Valid AssistiveAccessory assistiveaccessory,
-			BindingResult result, RedirectAttributes redirect) {
-
-		AccessoryPhoto accessoryPhoto = new AccessoryPhoto();
-
+	public ModelAndView save(@RequestParam("photos[]") List<MultipartFile> files, @RequestParam("desc[]") List<String> descriptions, @Valid AssistiveAccessory assistiveAccessory) {
 		try {
-			byte[] bytes = file.getBytes(); 
+			int index = 0;
+			List<AccessoryPhoto> photos = new ArrayList<>();
 			
-			String imageName = new Timestamp(System.currentTimeMillis()).getTime() + "_" + assistiveaccessory.getId() + ".png";
-			Path path = Paths.get(imgPath + imageName);
+			for (MultipartFile file : files) {
+				AccessoryPhoto accessoryPhoto = new AccessoryPhoto();
+				byte[] bytes = file.getBytes(); 
+				
+				String imageName = new Timestamp(System.currentTimeMillis()).getTime() + "_" + assistiveAccessory.getId() + "_" + index + ".png";
+				Path path = Paths.get(imgPath + imageName);
 			
-			accessoryPhoto.setURI(path.toString());
-			accessoryPhoto.setDescription("Oi");
-			accessoryPhotoRepository.save(accessoryPhoto);
+				accessoryPhoto.setURI(path.toString());
+				accessoryPhoto.setDescription(descriptions.get(index));
+				
+				if (accessoryPhoto != null) {
+					accessoryPhotoRepository.save(accessoryPhoto);
+				}
+				
+				photos.add(accessoryPhoto);
+				
+				Files.write(path, bytes);
+				
+				index++;
+			}
 			
-			assistiveaccessory.setPrincipalPhoto(accessoryPhoto);
-			accessoryRepository.save(assistiveaccessory);
-			
-			Files.write(path, bytes);
-
-			redirect.addFlashAttribute("message", "Arquivo '" + file.getOriginalFilename() + "' enviado com sucesso!");
-
+			if (assistiveAccessory != null) {
+				assistiveAccessory.setPhotoList(photos);
+				accessoryRepository.save(assistiveAccessory);
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -96,7 +105,6 @@ public class AssistiveAccessoryController {
 		List<Category> categories = categoryRepository.findAll();
 
 		HashMap<String, Object> dados = new HashMap<String, Object>();
-		System.out.println("Photo " + assistiveaccessory.getPrincipalPhoto().getURI());
 		dados.put("assistiveaccessory", assistiveaccessory);
 		dados.put("categories", categories);
 		return new ModelAndView("assistiveaccessory/form", dados);
@@ -107,25 +115,4 @@ public class AssistiveAccessoryController {
 		this.accessoryRepository.deleteById(id);
 		return new ModelAndView("redirect:/assistiveaccessory");
 	}
-
-	/*
-	 * @PostMapping("/upload") public String singleFileUpload(@RequestParam("file")
-	 * MultipartFile file, RedirectAttributes redirectAttributes) {
-	 * 
-	 * if (file.isEmpty()) { redirectAttributes.addFlashAttribute("message",
-	 * "Please select a file to upload"); return "redirect:uploadStatus"; }
-	 * 
-	 * try { byte[] bytes = file.getBytes(); Path path = Paths.get(UPLOADED_FOLDER +
-	 * file.getOriginalFilename()); Files.write(path, bytes);
-	 * 
-	 * redirectAttributes.addFlashAttribute("message", "You successfully uploaded '"
-	 * + file.getOriginalFilename() + "'");
-	 * 
-	 * } catch (IOException e) { e.printStackTrace(); }
-	 * 
-	 * return "redirect:/uploadStatus"; }
-	 * 
-	 * @GetMapping("/uploadStatus") public String uploadStatus() { return
-	 * "uploadStatus"; }
-	 */
 }
