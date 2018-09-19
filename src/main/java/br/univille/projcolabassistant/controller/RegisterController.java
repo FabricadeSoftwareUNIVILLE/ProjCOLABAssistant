@@ -44,6 +44,7 @@ public class RegisterController {
 	@PostMapping(params = "form")
 	public ModelAndView save(@Valid User user, BindingResult result, RedirectAttributes redirect) {
 		user.setType("Terapeuta");
+		user.setEnabled(true);
 		user = this.userRepository.save(user);
 		return new ModelAndView("redirect:/");
 	}

@@ -39,7 +39,7 @@ public class UserController {
 	@PostMapping(params="form")
     public ModelAndView save(@Valid User user, BindingResult result, RedirectAttributes redirect) {
         
-		user.setEnabled(true);
+		
         user = this.userRepository.save(user);
         
         return new ModelAndView("redirect:/user");

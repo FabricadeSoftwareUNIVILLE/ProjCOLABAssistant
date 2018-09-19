@@ -29,8 +29,8 @@ import br.univille.projcolabassistant.repository.CityRepository;
 import br.univille.projcolabassistant.repository.InstitutionRepository;
 import br.univille.projcolabassistant.repository.OrderRequestRepository;
 import br.univille.projcolabassistant.repository.UserRepository;
-import br.univille.projcolabassistant.valueobject.ItemShoppingCart;
-import br.univille.projcolabassistant.valueobject.ShoppingCart;
+import br.univille.projcolabassistant.viewmodel.ItemShoppingCart;
+import br.univille.projcolabassistant.viewmodel.ShoppingCart;
 
 @Controller
 @RequestMapping("/order")
