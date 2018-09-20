@@ -5,21 +5,44 @@
         <link href="https://fonts.googleapis.com/css?family=Roboto:500" rel="stylesheet">
         <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
     	<link rel="stylesheet" th:href="@{/css/accessoryList.css}" />
+    	<link rel="stylesheet" th:href="@{/css/form.assistive.accessory.css}" />
     </head>
     <body>
-    	<nav th:fragment="menu" class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <a class="navbar-brand" href="/">Projeto Colab</a>
+
+        <nav th:fragment="menu" class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <a class="navbar-brand" href="/admin">Admin Colab</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
                 <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                   <li class="nav-item active">
-                    <a class="nav-link" href="/">Home</a>
+                    <a class="nav-link" href="/">Catálogo</a>
+                  </li>
+                  <li class="nav-item active">
+                    <a class="nav-link" href="/assistiveaccessory">Acessórios</a>
+                  </li>
+                  <li class="nav-item active">
+                    <a class="nav-link" href="/city">Cidades</a>
+                  </li>
+                  <li class="nav-item active">                  
+                    <a class="nav-link" href="/category">Categorias</a>
+                  </li>
+                  <li class="nav-item active">
+                    <a class="nav-link" href="/accessorycolor">Cores</a>
+                  </li>
+                  <li class="nav-item active">
+                    <a class="nav-link" href="/institution">Instituições</a>
+                  </li>
+                  <li class="nav-item active">
+                    <a class="nav-link" href="/user">Usuários</a>
                   </li>
                   <li class="nav-item active">
                     <a class="nav-link" href="/report">Relatórios</a>
                   </li>
+                  <form th:action="@{/logout}" method="post">
+		            <input type="submit" value="Sair" class="btn"/>
+		        </form>
                 </ul>
             </div>
         </nav>

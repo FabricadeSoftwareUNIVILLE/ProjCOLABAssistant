@@ -7,6 +7,7 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,8 +22,9 @@ import br.univille.projcolabassistant.model.City;
 import br.univille.projcolabassistant.model.Institution;
 import br.univille.projcolabassistant.repository.CityRepository;
 import br.univille.projcolabassistant.repository.InstitutionRepository;
-@RequestMapping("/Institution")
+@RequestMapping("/institution")
 @Controller
+@PreAuthorize("hasRole('ROLE_ADMIN')")
 public class InstitutionController {
 	
     @Autowired
@@ -36,14 +38,14 @@ public class InstitutionController {
 	public ModelAndView index() {
 		List<Institution> listInstitution = this.InstitutionRepository.findAll();
 
-		return new ModelAndView("Institution/index","listainst",listInstitution);
+		return new ModelAndView("institution/index","listainst",listInstitution);
 	}
 	
 	@GetMapping("/novo")
     public ModelAndView createForm(@ModelAttribute Institution institution) {
 		List<City> listaCidades = cityRepository.findAll();
 		
-		return new ModelAndView("Institution/form","listacidades",listaCidades);
+		return new ModelAndView("institution/form","listacidades",listaCidades);
     }
 	
     @PostMapping(params="form")
@@ -51,7 +53,7 @@ public class InstitutionController {
         
     	institution = this.InstitutionRepository.save(institution);
         
-        return new ModelAndView("redirect:/Institution");
+        return new ModelAndView("redirect:/institution");
     }
     
     @GetMapping(value="/alterar/{id}")
@@ -70,7 +72,7 @@ public class InstitutionController {
     @GetMapping(value="remover/{id}")
     public ModelAndView remover(@PathVariable ("id") Long id, RedirectAttributes redirect) {
         this.InstitutionRepository.deleteById(id);
-        return new ModelAndView("redirect:/Institution");
+        return new ModelAndView("redirect:/institution");
     }
 
     

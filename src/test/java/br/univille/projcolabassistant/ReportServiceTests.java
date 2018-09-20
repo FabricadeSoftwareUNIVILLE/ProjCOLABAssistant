@@ -1,12 +1,13 @@
 package br.univille.projcolabassistant;
 
+import static br.univille.projcolabassistant.constants.Constants.ANY_END_DATE;
+import static br.univille.projcolabassistant.constants.Constants.ANY_START_DATE;
 import static br.univille.projcolabassistant.constants.Constants.EXPECTED_FILES;
 import static br.univille.projcolabassistant.constants.Constants.RESULT_NOT_FOUND_FILE;
-import static br.univille.projcolabassistant.constants.Constants.ANY_START_DATE;
-import static br.univille.projcolabassistant.constants.Constants.ANY_END_DATE;
-import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.when;
 import static java.util.Arrays.asList;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.mockito.Mockito.when;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -27,14 +28,21 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.thymeleaf.TemplateEngine;
 
+import br.univille.projcolabassistant.model.AccessoryColor;
+import br.univille.projcolabassistant.model.AccessoryPhoto;
+import br.univille.projcolabassistant.model.AccessorySize;
+import br.univille.projcolabassistant.model.AssistiveAccessory;
+import br.univille.projcolabassistant.model.Category;
 import br.univille.projcolabassistant.model.City;
 import br.univille.projcolabassistant.model.Institution;
+import br.univille.projcolabassistant.model.OrderItems;
 import br.univille.projcolabassistant.model.OrderRequest;
 import br.univille.projcolabassistant.model.User;
 import br.univille.projcolabassistant.repository.InstitutionRepository;
 import br.univille.projcolabassistant.repository.OrderRequestRepository;
 import br.univille.projcolabassistant.repository.UserRepository;
 import br.univille.projcolabassistant.service.impl.ReportServiceImpl;
+import br.univille.projcolabassistant.viewmodel.OrderSumByCategory;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -50,7 +58,8 @@ public class ReportServiceTests {
 
 	@Mock
 	private OrderRequestRepository mockOrderRepository;
-
+	
+	
 	@Autowired
 	private TemplateEngine templateEngine;
 
@@ -78,7 +87,26 @@ public class ReportServiceTests {
 	private final long FEV_15_2018 = 1518660000000L;
 	private final long MAR_10_2018 = 1520650800000L;
 	private final long APR_01_2018 = 1522551600000L;
-
+	
+	private Category categoryA;
+	private Category categoryB;
+	
+	private AccessoryPhoto photoA;
+	
+	private AssistiveAccessory assistiveAccessoryA;
+	private AssistiveAccessory assistiveAccessoryB;
+	
+	private OrderItems orderItemsA;
+	private OrderItems orderItemsB;
+	
+	private AccessorySize accessorySizeA; 
+	
+	private AccessoryColor accessoryColorA; 
+	private AccessoryColor accessoryColorB;
+	
+	private OrderSumByCategory orderSumCategoryA;
+	private OrderSumByCategory orderSumCategoryB;
+	
     @Before
     public void setUp() {
     	reportService.setTemplateEngine(templateEngine);
@@ -99,6 +127,25 @@ public class ReportServiceTests {
 		dummyPedidoA = new OrderRequest(40001, new Date(JAN_01_2018), new Date(JAN_20_2018), 100, dummyUniville, dummyUserAdmin, dummyUserAna);
 		dummyPedidoB = new OrderRequest(40002, new Date(JAN_02_2018), new Date(FEV_05_2018), 200, dummyHospital, dummyUserAdmin, dummyUserAna);
 		dummyPedidoC = new OrderRequest(40003, new Date(FEV_15_2018), new Date(MAR_10_2018), 100, dummyHospital, dummyUserAdmin, dummyUserJoao);
+		
+		categoryA = new Category(00001,"Categoria A");
+		categoryB = new Category(00002,"Categoria B");
+		
+		photoA = new AccessoryPhoto(00001,"PhotoSupimpa.jpg","Descricao de teste",00001);
+		
+		assistiveAccessoryA = new AssistiveAccessory(00001,"00001","Descrição do primeiro acessório","O primeiro acessório serve para testar","Teste 00001","Prescricao teste",categoryA,photoA);
+		assistiveAccessoryB = new AssistiveAccessory(00002,"00002","Descrição do segundo acessório"," O segundo acessório serve para verificar se o primeiro funcionou","Teste 00002","Prescricao teste2",categoryB,photoA);
+		
+		accessorySizeA = new AccessorySize(00001,"Nome Tamanho A", 00001);
+		
+		accessoryColorA = new AccessoryColor(00001,"Vermelho");
+		accessoryColorB = new AccessoryColor(00002,"Preto");
+		
+		orderItemsA = new OrderItems(00001,10,assistiveAccessoryA,accessorySizeA,accessoryColorA);
+		orderItemsB = new OrderItems(00002,35,assistiveAccessoryB,accessorySizeA,accessoryColorA);
+		
+		orderSumCategoryA = new OrderSumByCategory(00003, "Categoria A", 10);
+		orderSumCategoryB = new OrderSumByCategory(00004, "Categoria B", 35);
     }
 
     //==============================
@@ -109,13 +156,8 @@ public class ReportServiceTests {
     public void getAllUsersReportTest() {
 		when(mockUserRepository.searchWithFilters("", "")).thenReturn(asList(dummyUserPedro, dummyUserAna, dummyUserJoao));
 
-		File returnedFile = reportService.generateUserReport("", "", "");
-		File expectedFile = new File(EXPECTED_FILES + "expected_result_all_users.pdf");
-
-		String returnedContent = getPDFContent(returnedFile);
-		String expectedContent = getPDFContent(expectedFile);
-
-		assertEquals(expectedContent, returnedContent);
+		File returnedFile = reportService.generateUserReport("", "", "", true);
+		assertNotNull(returnedFile);
 
 		returnedFile.delete();
     }
@@ -124,13 +166,8 @@ public class ReportServiceTests {
     public void getReportsFilteredByNameTest() {
 		when(mockUserRepository.searchWithFilters("Barbosa", "")).thenReturn(asList(dummyUserPedro, dummyUserAna));
 
-		File returnedFile = reportService.generateUserReport("Barbosa", "", "");
-		File expectedFile = new File(EXPECTED_FILES + "expected_result_filter_name.pdf");
-
-		String returnedContent = getPDFContent(returnedFile);
-		String expectedContent = getPDFContent(expectedFile);
-
-		assertEquals(expectedContent, returnedContent);
+		File returnedFile = reportService.generateUserReport("Barbosa", "", "", true);
+		assertNotNull(returnedFile);
 
 		returnedFile.delete();
     }
@@ -139,13 +176,8 @@ public class ReportServiceTests {
     public void getReportsFilteredByTypeTest() {
 		when(mockUserRepository.searchWithFiltersWithStatus("", "", "ADMIN")).thenReturn(asList(dummyUserPedro, dummyUserJoao));
 
-		File returnedFile = reportService.generateUserReport("", "", "ADMIN");
-		File expectedFile = new File(EXPECTED_FILES + "expected_result_filter_status.pdf");
-
-		String returnedContent = getPDFContent(returnedFile);
-		String expectedContent = getPDFContent(expectedFile);
-
-		assertEquals(expectedContent, returnedContent);
+		File returnedFile = reportService.generateUserReport("", "", "ADMIN", true);
+		assertNotNull(returnedFile);
 
 		returnedFile.delete();
     }
@@ -154,7 +186,7 @@ public class ReportServiceTests {
     public void getZeroUsersReportTest() {
 		when(mockUserRepository.searchWithFiltersWithStatus("Nonexistent User", "Nonexistent Email", "Nonexistent Status")).thenReturn(new ArrayList<User>());
 
-		File returnedFile = reportService.generateUserReport("Nonexistent User", "Nonexistent Email", "Nonexistent Status");
+		File returnedFile = reportService.generateUserReport("Nonexistent User", "Nonexistent Email", "Nonexistent Status", true);
 		File expectedFile = new File(RESULT_NOT_FOUND_FILE);
 
 		String returnedContent = getPDFContent(returnedFile);
@@ -442,4 +474,25 @@ public class ReportServiceTests {
 
 	    return parsedText;
     }
+    
+    //===========================================
+    //      Order Sum by Category Tests      
+    //===========================================
+    
+    @Test
+    public void returnOrderSumByCategoryTest() {
+		when(mockOrderRepository.searchOrderSumByCategory("ria")).thenReturn(asList(orderSumCategoryA, orderSumCategoryB));
+    	
+    	File returnedFile = reportService.generateOrderSumByCategoryReport("ria");
+		File expectedFile = new File(EXPECTED_FILES + "expected_order_sum_result.pdf");
+		
+		String returnedContent = getPDFContent(returnedFile);
+		String expectedContent = getPDFContent(expectedFile);
+		
+		assertEquals(returnedContent, expectedContent);
+		
+		returnedFile.delete();
+    	
+    }
+    
 }

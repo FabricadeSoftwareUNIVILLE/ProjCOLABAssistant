@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8"/>
+	<style>
+		#ordersumbycategories {
+		    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+		    border-collapse: collapse;
+		    width: 100%;
+		}
+		
+		#ordersumbycategories td, #ordersumbycategories th {
+		    border: 1px solid #ddd;
+		    padding: 8px;
+		}
+		
+		#ordersumbycategories tr:nth-child(even){background-color: #f2f2f2;}
+		
+		#ordersumbycategories tr:hover {background-color: #ddd;}
+		
+		#ordersumbycategories th {
+		    padding-top: 12px;
+		    padding-bottom: 12px;
+		    text-align: left;
+		    background-color: #4CAF50;
+		    color: white;
+		}
+	</style>
+</head>
+<body>
+	<table id="ordersumbycategories">
+		<tr>
+			<th>Id</th>
+			<th>Categoria</th>
+			<th>Total Peças</th>
+		</tr>
+		<th:block th:each="ordersumbycategory : ${ordersumbycategories}">
+			<tr>
+				<td th:text="${ordersumbycategory.idCategory}"></td>
+				<td th:text="${ordersumbycategory.nameCategory}"></td>
+				<td th:text="${ordersumbycategory.sumOrderCategory}"></td>
+			</tr>
+		</th:block>
+	</table>
+</body>
+</html>

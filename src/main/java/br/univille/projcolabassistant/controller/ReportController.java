@@ -1,7 +1,7 @@
 package br.univille.projcolabassistant.controller;
 
-import static br.univille.projcolabassistant.util.Util.toDate;
 import static br.univille.projcolabassistant.constants.Constants.DEFAULT_NOT_FOUND_FILE;
+import static br.univille.projcolabassistant.util.Util.toDate;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,6 +24,7 @@ import br.univille.projcolabassistant.service.ReportService;
 
 @Controller
 @RequestMapping("/report")
+@PreAuthorize("hasRole('ROLE_ADMIN')")
 public class ReportController {
 	@Autowired
 	private ReportService reportService;
@@ -56,7 +58,10 @@ public class ReportController {
 	}
 	
 
-
+	@GetMapping("/orderCategory")
+  public String createOrderSumByCategoryReport() {
+    return "report/orderCategory-report";
+  }
 
 	@RequestMapping(value="/download/category", 
 			method=RequestMethod.GET,
@@ -85,12 +90,13 @@ public class ReportController {
 		}
 	}
 
+
 	@RequestMapping(value="/download/user", 
 			method=RequestMethod.GET,
 			produces=MediaType.APPLICATION_OCTET_STREAM_VALUE)
-	public void generateAndDownloadUserReport(String nameFilter, String emailFilter, String typeFilter, HttpServletResponse response) {
+	public void generateAndDownloadUserReport(String nameFilter, String emailFilter, String typeFilter, boolean orderByDesc, HttpServletResponse response) {
 		try {
-			File file = this.reportService.generateUserReport(nameFilter, emailFilter, typeFilter);
+			File file = this.reportService.generateUserReport(nameFilter, emailFilter, typeFilter, orderByDesc);
 
 			response.setContentType("application/pdf");   
 			response.setHeader("Content-Disposition", "attachment; filename = relatorio_usuario.pdf");
@@ -177,5 +183,35 @@ public class ReportController {
 			ex.printStackTrace();
 		}
 	}
-
+	
+	@RequestMapping(value="/download/orderCategory",
+			method=RequestMethod.GET,
+			produces=MediaType.APPLICATION_OCTET_STREAM_VALUE)
+	public void generateAndDownloadOrderSumByCategoryReport(@RequestParam("categoryFilter") String categoryFilter, 
+													 HttpServletResponse response) {
+		System.out.println(categoryFilter);
+		try {
+			File file = this.reportService.generateOrderSumByCategoryReport(categoryFilter);
+			
+			response.setContentType("application/pdf");
+			response.setHeader("Content-Disposition", "attachment; filename = relatorio_num_pecas_categoria.pdf");
+			
+			OutputStream responseOutput = response.getOutputStream();
+			FileInputStream fileInput = new FileInputStream(file);
+			
+			IOUtils.copy(fileInput, responseOutput);
+			
+			responseOutput.close();
+			fileInput.close();
+			
+			System.out.println("file.getName() = " + file.getName());
+			
+			if(!file.getName().equals(DEFAULT_NOT_FOUND_FILE)) {
+				file.delete();
+			}
+		}
+		catch (Exception ex) {
+			ex.printStackTrace();
+		}
+	}
 }

@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-    <head th:include="layout :: htmlhead"></head>
+
+
+    <head th:include="layout :: htmlhead"><meta charset="UTF-8"></head>
     <body>
+    	<nav th:replace="layout :: menu">(menu)</nav>
         <div class="container">
-            <nav th:replace="layout :: menu">(menu)</nav>
              <a href="form.html" th:href="@{/category/novo}" class="btn btn-primary btn-lg" role="button">Nova</a>
             <div class="border border-dark">
                 <table class="table">
@@ -30,13 +32,13 @@
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title">Confirmar exclusão de categoria</h5>
+                            <h5 class="modal-title">Confirmar exclusÃ£o de categoria</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">X</span>
                             </button>
                         </div>
                         <div class="modal-body">
-                            <p>Você tem certeza que deseja excluir a categoria?</p>
+                            <p>VocÃª tem certeza que deseja excluir a categoria?</p>
                         </div>
                         <div class="modal-footer">
                             <a href="#" class="btn btn-warning btn-lg" id="btnConf" role="button">Sim</a>
