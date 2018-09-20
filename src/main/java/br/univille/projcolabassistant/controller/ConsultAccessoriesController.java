@@ -95,5 +95,9 @@ public class ConsultAccessoriesController {
 		
 		return new ModelAndView("admin/admin");
 	}
+	@GetMapping("/about")
+	public ModelAndView aboutPage() {
+		return new ModelAndView("catalog/about");
+	}
 
 }
