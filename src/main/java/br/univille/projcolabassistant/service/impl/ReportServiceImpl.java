@@ -117,6 +117,7 @@ public class ReportServiceImpl implements ReportService {
 			File outputFile = new File(REPORTS_PATH + reportType + randomId() + ".pdf");
 			FileOutputStream outputStream = new FileOutputStream(outputFile);
 	
+			
 			ITextRenderer renderer = new ITextRenderer();
 			renderer.setDocumentFromString(processedHtml);
 			renderer.layout();
