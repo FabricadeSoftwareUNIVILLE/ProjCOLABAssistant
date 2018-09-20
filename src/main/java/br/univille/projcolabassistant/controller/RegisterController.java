@@ -5,6 +5,8 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,6 +30,9 @@ public class RegisterController {
 	
 	@Autowired
     private CityRepository cityRepository;
+	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 
 	@GetMapping("")
 	public ModelAndView index(@ModelAttribute User user) {
@@ -43,8 +48,9 @@ public class RegisterController {
 	
 	@PostMapping(params = "form")
 	public ModelAndView save(@Valid User user, BindingResult result, RedirectAttributes redirect) {
-		user.setType("Terapeuta");
+		user.setType("ROLE_USER");
 		user.setEnabled(true);
+		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		user = this.userRepository.save(user);
 		return new ModelAndView("redirect:/");
 	}

@@ -4,16 +4,17 @@
 <meta charset="UTF-8">
 </head>
 <body>
+	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+		<img src="/image/logoColab.jpg" class="logo">
+		<div class="collapse navbar-collapse" id="navbarNav">
+			<ul class="navbar-nav">
+				<li class="nav-item active"></li>
+				<li class="navbar-brand">Registro de Terapeuta</li>
+			</ul>
+		</div>
+	</nav>
 	<div class="container">
-		<nav class="navbar navbar-expand-lg navbar-light bg-light">
-			<img src="/image/logoColab.jpg" class="logo">
-			<div class="collapse navbar-collapse" id="navbarNav">
-				<ul class="navbar-nav">
-					<li class="nav-item active"></li>
-					<li class="navbar-brand">Registro de Terapeuta</li>
-				</ul>
-			</div>
-		</nav>
+		
 		<div class="border border-dark">
 			<form th:action="@{/register/(form)}" th:object="${user}" action="#"
 				method="post">
@@ -44,6 +45,16 @@
                             <option th:each="umacidade : ${listacidades}" th:value="${umacidade.id}" th:text="${umacidade.name}"></option>
                         </select>
                     </div>
+                <div class="form-group">
+					<label for="txtfone">Usuário</label> <input type="text"
+						class="form-control" id="txtfone" placeholder="Nome do seu usuário"
+						th:field="*{username}">
+				</div>
+				<div class="form-group">
+					<label for="txtfone">Senha</label> <input type="password"
+						class="form-control" id="txtfone" placeholder="Senha"
+						th:field="*{password}">
+				</div>
 				<button type="submit" class="btn btn-primary">Enviar</button>
 			</form>
 		</div>

@@ -3,8 +3,8 @@
 	<head th:include="layout :: htmlhead">
 		<meta charset="UTF-8">
 	</head>
+	<nav class="navbar navbar-expand-lg navbar-light bg-light">
 	<body>
-		<nav class="navbar navbar-expand-lg navbar-light bg-light">
 			<img src="/image/logoColab.jpg" class="logo">
 			<div class="collapse navbar-collapse" id="navbarNav">
 				<ul class="navbar-nav">
@@ -13,6 +13,10 @@
 				</ul>
 			</div>
 			<a class="nav-link" href="/register">Registrar Usuário</a>
+			<a class="nav-link" href="/admin">Admin</a>
+			<form th:action="@{/logout}" method="post">
+		            <input type="submit" value="Sair" class="btn"/>
+		        </form>	
 		</nav>
 
 		<div class="container">

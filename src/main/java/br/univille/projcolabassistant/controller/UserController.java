@@ -2,10 +2,13 @@ package br.univille.projcolabassistant.controller;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,13 +26,17 @@ import br.univille.projcolabassistant.repository.UserRepository;
 
 @Controller
 @RequestMapping("/user")
+@PreAuthorize("hasRole('ROLE_ADMIN')")
 public class UserController {
 	
 	@Autowired
     private UserRepository userRepository;
 	@Autowired
     private CityRepository cityRepository;
-		
+	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
+	
 	@GetMapping("")
     public ModelAndView index() {
 		List<User> listUser = this.userRepository.findAll();				
@@ -38,10 +45,10 @@ public class UserController {
 	
 	@PostMapping(params="form")
     public ModelAndView save(@Valid User user, BindingResult result, RedirectAttributes redirect) {
-        
-		
-        user = this.userRepository.save(user);
-        
+        Optional<User> oldUser = this.userRepository.findById(user.getId());
+		if(oldUser.isPresent())
+			user.setPassword(oldUser.get().getPassword());
+		user = this.userRepository.save(user);
         return new ModelAndView("redirect:/user");
     }
 	
@@ -58,6 +65,24 @@ public class UserController {
 		dados.put("listcity", listCity);
 		dados.put("user",user);
         return new ModelAndView("user/form", dados);
+    }
+	
+	@GetMapping(value="/modifypassword/{id}")
+    public ModelAndView modifyPasswordForm(@PathVariable("id") User user) {
+		HashMap<String, Object> dados = new HashMap<String, Object>();
+		dados.put("user",user);
+        return new ModelAndView("user/formpassword", dados);
+    }
+	
+	@PostMapping(params="form",value="/savepassword")
+    public ModelAndView savePassword(@Valid User user, BindingResult result, RedirectAttributes redirect) {
+        Optional<User> oldUserOpt = this.userRepository.findById(user.getId());
+		if(oldUserOpt.isPresent()) {
+			User oldUser = oldUserOpt.get();
+			oldUser.setPassword(passwordEncoder.encode(user.getPassword()));
+			this.userRepository.save(oldUser);
+		}
+        return new ModelAndView("redirect:/user");
     }
 	
 	@GetMapping(value="remove/{id}")
