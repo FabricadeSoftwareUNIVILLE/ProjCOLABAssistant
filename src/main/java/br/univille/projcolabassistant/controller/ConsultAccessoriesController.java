@@ -7,9 +7,9 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,7 +19,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import br.univille.projcolabassistant.model.AssistiveAccessory;
 import br.univille.projcolabassistant.model.Category;
-import br.univille.projcolabassistant.model.Institution;
 import br.univille.projcolabassistant.repository.ConsultAccessoriesRepository;
 import br.univille.projcolabassistant.viewmodel.AssistiveAccessoryViewModel;
 import br.univille.projcolabassistant.viewmodel.ItemShoppingCart;
@@ -86,7 +85,7 @@ public class ConsultAccessoriesController {
 		
 		for(GrantedAuthority item : auth.getAuthorities()) {
 			if(item.getAuthority().equals("ROLE_USER"))
-				return new ModelAndView("redirect:/");
+				throw new AccessDeniedException("403 returned");
 		}
 		
 		return new ModelAndView("admin/admin");

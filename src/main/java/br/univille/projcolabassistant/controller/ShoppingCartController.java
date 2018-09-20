@@ -3,6 +3,7 @@ package br.univille.projcolabassistant.controller;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +16,7 @@ import br.univille.projcolabassistant.viewmodel.ShoppingCart;
 
 @Controller
 @RequestMapping("/MyList")
+@PreAuthorize("hasRole('ROLE_USER')")
 public class ShoppingCartController {
 
 	@Autowired
