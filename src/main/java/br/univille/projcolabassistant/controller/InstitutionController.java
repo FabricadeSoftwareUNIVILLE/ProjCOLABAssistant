@@ -7,6 +7,7 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,6 +24,7 @@ import br.univille.projcolabassistant.repository.CityRepository;
 import br.univille.projcolabassistant.repository.InstitutionRepository;
 @RequestMapping("/institution")
 @Controller
+@PreAuthorize("hasRole('ROLE_ADMIN')")
 public class InstitutionController {
 	
     @Autowired

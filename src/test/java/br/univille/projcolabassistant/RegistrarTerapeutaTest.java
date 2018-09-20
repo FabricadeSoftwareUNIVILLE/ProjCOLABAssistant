@@ -21,6 +21,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import br.univille.projcolabassistant.controller.RegisterController;
 import br.univille.projcolabassistant.model.City;
 import br.univille.projcolabassistant.repository.CityRepository;
+import br.univille.projcolabassistant.repository.UserRepository;
 
 
 
@@ -36,6 +37,9 @@ public class RegistrarTerapeutaTest {
     private CityRepository cityRepository;
     @Autowired
     private MockMvc mockMvc;
+    
+    @Autowired
+	private UserRepository userRepository;
     
     @Test
     public void contextLoads() {
@@ -61,6 +65,7 @@ public class RegistrarTerapeutaTest {
     	cityRepository.save(c);
     	cityRepository.flush();
     	
+    	userRepository.deleteAll();
     	
         this.mockMvc.perform(post("/register")
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED)

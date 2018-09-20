@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head th:include="layout :: htmlhead"></head>
+	<body>
+		<nav class="navbar navbar-expand-lg navbar-light bg-light">
+				<img src="/image/logoColab.jpg" class="logo">
+				<div class="collapse navbar-collapse" id="navbarNav">
+					<ul class="navbar-nav">
+						<li class="nav-item active"></li>
+						<li class="navbar-brand">Catálogo de Acessórios</li>
+					</ul>
+				</div>
+				<a class="nav-link" href="/register">Registrar Usuário</a>
+				<a class="nav-link" href="/admin">Admin</a>
+				<form th:action="@{/logout}" method="post">
+			            <input type="submit" value="Sair" class="btn"/>
+			        </form>	
+			</nav>
+		<div class="container">
+			
+			<h1 th:text="${status}"></h1>
+			<h2 th:text="${message}"></h2>
+			<a href="/">Home</a>
+		</div>
+		<div th:include="layout :: footer" id="footer">(footer)</div>
+	</body>
+</html>

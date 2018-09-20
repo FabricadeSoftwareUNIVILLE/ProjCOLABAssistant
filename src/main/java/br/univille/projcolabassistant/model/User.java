@@ -21,6 +21,9 @@ public class User extends AbstractReportObject {
 	private String name;
 	private String email;
 	private String type;
+	@Column(unique=true)
+	private String username;
+	private String password;
 	private String phone;
 	@Column(length = 1000)
 	private String address;
@@ -30,12 +33,28 @@ public class User extends AbstractReportObject {
 	private City city = new City();
 	@ManyToMany(cascade = { CascadeType.MERGE, CascadeType.REFRESH })
 	private List<Institution> institutionList = new ArrayList<Institution>();
-	
+
 	public User() {
 		this.setReportType("users");
 		this.setTemplatePath("report/user-pdf-template");
 	}
-	
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
 	public User(long id, String name, String email, String type, String phone, String address, boolean enabled) {
 		this.id = id;
 		this.name = name;
@@ -44,7 +63,7 @@ public class User extends AbstractReportObject {
 		this.phone = phone;
 		this.address = address;
 		this.enabled = enabled;
-		
+
 		this.setReportType("users");
 		this.setTemplatePath("report/user-pdf-template");
 	}

@@ -12,6 +12,8 @@ import br.univille.projcolabassistant.model.User;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long>{
 	
+	public User findByUsername(String username);
+	
 	@Query("SELECT u FROM User u WHERE "
 			+ "u.name  LIKE %:nameFilter% AND "
 			+ "u.email LIKE %:emailFilter% "
