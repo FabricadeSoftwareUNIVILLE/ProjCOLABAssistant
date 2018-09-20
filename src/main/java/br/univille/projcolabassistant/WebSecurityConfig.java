@@ -23,7 +23,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private MyUserDetailsService userDetailsService;
 	private String[] resources = new String[]{
-            "/", "/register/**","/pictureCheckCode","/include/**",
+            "/", "/register/**","/webjars/**","/include/**",
             "/css/**","/icons/**","/image/**","/js/**","/layer/**"
     };
 	@Override

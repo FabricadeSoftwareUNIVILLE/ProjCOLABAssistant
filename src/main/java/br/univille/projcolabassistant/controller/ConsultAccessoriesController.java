@@ -1,13 +1,13 @@
 package br.univille.projcolabassistant.controller;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -20,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 import br.univille.projcolabassistant.model.AssistiveAccessory;
 import br.univille.projcolabassistant.model.Category;
 import br.univille.projcolabassistant.repository.ConsultAccessoriesRepository;
+import br.univille.projcolabassistant.service.MyUserDetailsService;
 import br.univille.projcolabassistant.viewmodel.AssistiveAccessoryViewModel;
 import br.univille.projcolabassistant.viewmodel.ItemShoppingCart;
 import br.univille.projcolabassistant.viewmodel.ShoppingCart;
@@ -33,7 +34,10 @@ public class ConsultAccessoriesController {
 
 	@Autowired
 	private ConsultAccessoriesRepository consultAccessoriesRepository;
-
+	
+	@Autowired
+	private MyUserDetailsService userDetailsService;
+	
 	@GetMapping("")
 	public ModelAndView index(HttpSession session) {
 		
@@ -81,11 +85,12 @@ public class ConsultAccessoriesController {
 	}
 	@GetMapping("/admin")
 	public ModelAndView admin() {
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		
-		for(GrantedAuthority item : auth.getAuthorities()) {
+		Collection<? extends GrantedAuthority> colRoles = userDetailsService.getUserRoles();
+		
+		for(GrantedAuthority item : colRoles) {
 			if(item.getAuthority().equals("ROLE_USER"))
-				throw new AccessDeniedException("403 returned");
+				return new ModelAndView("redirect:/");
 		}
 		
 		return new ModelAndView("admin/admin");

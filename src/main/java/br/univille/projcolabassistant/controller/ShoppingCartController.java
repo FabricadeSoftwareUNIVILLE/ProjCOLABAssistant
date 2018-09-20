@@ -11,6 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import br.univille.projcolabassistant.model.OrderItems;
 import br.univille.projcolabassistant.model.OrderRequest;
+import br.univille.projcolabassistant.service.MyUserDetailsService;
 import br.univille.projcolabassistant.viewmodel.ItemShoppingCart;
 import br.univille.projcolabassistant.viewmodel.ShoppingCart;
 
@@ -21,7 +22,10 @@ public class ShoppingCartController {
 
 	@Autowired
 	private ShoppingCart shoppingCart;
-
+	
+	@Autowired
+	private MyUserDetailsService userDetailsService;
+	
 	@GetMapping("")
 	public ModelAndView index(HttpSession session) {
 
@@ -40,6 +44,9 @@ public class ShoppingCartController {
 
 		ShoppingCart itemCart = new ShoppingCart();
 		OrderRequest orderrequest = new OrderRequest();
+		
+		//Método que retorna a instância da classe User logada no sistema
+		orderrequest.setUserRequest(userDetailsService.getUserLogged());
 		
 		ShoppingCart shoppingCart = null;
 		shoppingCart = (ShoppingCart) session.getAttribute("carrinho");

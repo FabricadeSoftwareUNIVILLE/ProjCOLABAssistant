@@ -13,6 +13,7 @@
                             <th scope="col">Email</th>
                             <th scope="col">Telefone</th>
                             <th scope="col">Endereco</th>
+                            <th scope="col">UsuÃ¡rio</th>
                             <th scope="col"></th>
                         </tr>
                     </thead>
@@ -22,6 +23,7 @@
                             <td th:text="${user.email}"></td>
                             <td th:text="${user.phone}"></td>
                             <td th:text="${user.address}"></td>
+                            <td th:text="${user.username}"></td>
                             <td>
                                 <a href="form.html" th:href="@{'/user/modify/' + ${user.id}}" class="btn btn-secondary btn-lg" role="button">Alterar</a>
                                 <a href="form.html" th:href="@{'/user/modifypassword/' + ${user.id}}" class="btn btn-secondary btn-lg" role="button">Alterar Senha</a>
@@ -35,13 +37,13 @@
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title">Confirmação de exclusão</h5>
+                            <h5 class="modal-title">Confirmaï¿½ï¿½o de exclusï¿½o</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">X</span>
                             </button>
                         </div>
                         <div class="modal-body">
-                            <p>Confirmar a exclusão deste registro do Usuario?</p>
+                            <p>Confirmar a exclusï¿½o deste registro do Usuario?</p>
                         </div>
                         <div class="modal-footer">
                             <a href="#" class="btn btn-warning btn-lg" id="btnConf" role="button">Sim</a>

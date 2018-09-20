@@ -13,10 +13,6 @@
                         <input type="text" class="form-control" id="txtname" placeholder="Nome" th:field="*{name}" required>
                     </div>
                     <div class="form-group">
-                        <label for="txttype">Ocupacao</label>
-                        <input type="text" class="form-control" id="txttype" placeholder="Ocupacao" th:field="*{type}" >
-                    </div>                    
-                    <div class="form-group">
                         <label for="txtemail">Email</label>
                         <input type="text" class="form-control" id="txtemail" placeholder="Email" th:field="*{email}" required>
                     </div>
@@ -35,10 +31,17 @@
                         </select>
                     </div>
                     <div class="form-group">
-					<label for="txtfone">Usuário</label> <input type="text"
-						class="form-control" id="txtfone" placeholder="Nome do seu usuário"
+					<label for="txtusuario">Usuário</label> <input type="text"
+						class="form-control" id="txtusuario" placeholder="Nome do seu usuário"
 						th:field="*{username}">
 					</div>
+					<div class="form-group">
+						<label for="txttipo">Tipo</label> 
+						<select class="form-control" id="txttipo" th:field="*{type}">
+				            <option value="ROLE_USER">Profissional da Saúde</option>
+				            <option value="ROLE_ADMIN">COLAB</option>
+				        </select>
+				    </div>
                     <div class="form-group">                    
 	                    <label for="slcEnabledUser">Usuario ativo?</label><br>
 	                    <select class="form-control" id="slcEnabledUser" th:field="*{enabled}">

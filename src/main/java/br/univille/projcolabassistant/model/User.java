@@ -21,6 +21,7 @@ public class User extends AbstractReportObject {
 	private String name;
 	private String email;
 	private String type;
+	@Column(unique=true)
 	private String username;
 	private String password;
 	private String phone;
