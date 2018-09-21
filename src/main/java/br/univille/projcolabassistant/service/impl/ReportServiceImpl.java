@@ -9,6 +9,8 @@ import static br.univille.projcolabassistant.util.Util.randomId;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -95,7 +97,25 @@ public class ReportServiceImpl implements ReportService {
 		
 		return createPDFReport(OrderSumByCategory);
 	}
-
+	
+	@Override
+	public File generateLateOrderReport() {
+		
+		List<OrderRequest> orders;
+		
+		/* Date Today = new Date();
+		   String Today = new SimpleDateFormat("dd/MM/yyyy").format(Today);
+		*/
+		Calendar calendar = Calendar.getInstance();
+		
+		System.out.println(calendar.getTime());
+		
+		// orders = this.orderRequestRepository.searchLate(Today);
+		orders = this.orderRequestRepository.searchLate(calendar.getTime());
+			
+		return createPDFReport(orders);
+	}
+	
 	@SuppressWarnings("unchecked")
 	private File createPDFReport(Object reportObjects) {
 		try {

@@ -1,0 +1,52 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8"/>
+	<style>
+		#orders {
+		    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+		    border-collapse: collapse;
+		    width: 100%;
+		}
+		
+		#orders td, #orders th {
+		    border: 1px solid #ddd;
+		    padding: 8px;
+		}
+		
+		#orders tr:nth-child(even){background-color: #f2f2f2;}
+		
+		#orders tr:hover {background-color: #ddd;}
+		
+		#orders th {
+		    padding-top: 12px;
+		    padding-bottom: 12px;
+		    text-align: left;
+		    background-color: #4CAF50;
+		    color: white;
+		}
+	</style>
+</head>
+<body>
+	<table id="orders">
+		<tr>
+			<th>Código</th>
+			<th>Data do Pedido&nbsp;</th>
+			<th>Data de Conclusão</th>
+			<th>Status</th>
+			<th>Usuário Responsável</th>
+			<th>Usuário Requisitante</th>
+		</tr>
+		<th:block th:each="order : ${orders}">
+			<tr>
+				<td th:text="${order.id}"></td>
+				<td th:text="${#dates.format(order.orderDate, 'dd-MMM-yyyy')}"></td>
+				<td th:text="${#dates.format(order.orderFinshDate, 'dd-MMM-yyyy')}"></td>
+				<td th:text="${order.status}"></td>
+				<td th:text="${order.user.name}"></td>
+                <td th:text="${order.userRequest.name}"></td>
+			</tr>
+		</th:block>
+	</table>
+</body>
+</html>

@@ -8,4 +8,5 @@ public interface ReportService {
 	File generateInstitutionReport(String nameFilter, String emailFilter, String cityFilter);
 	File generateOrderReport(Date creationDateStart, Date creationDateEnd, Date finishedDateStart, Date finishedDateEnd, String userName, Integer status);
 	File generateOrderSumByCategoryReport(String categoryFilter);
+	File generateLateOrderReport();
 }

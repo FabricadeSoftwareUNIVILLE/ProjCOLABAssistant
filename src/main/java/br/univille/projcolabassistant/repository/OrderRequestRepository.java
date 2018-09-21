@@ -42,5 +42,9 @@ public interface OrderRequestRepository extends JpaRepository<OrderRequest, Long
 	
 	@Query("SELECT NEW br.univille.projcolabassistant.viewmodel.OrderSumByCategory(c.id,c.name,SUM(o.quantity)) FROM OrderItems o, IN(o.accessory) a, IN(a.category) c  where c.name LIKE %:categoryName% GROUP BY c.id")
 	public List<OrderSumByCategory> searchOrderSumByCategory(@Param("categoryName") String categoryName);
+	
+	@Query("SELECT x FROM OrderRequest x WHERE " 
+			+ "x.orderFinshDate > :Today")
+	public List <OrderRequest> searchLate(@Param("Today") Date Today);
 
 }

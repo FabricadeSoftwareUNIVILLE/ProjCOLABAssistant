@@ -51,6 +51,11 @@ public class ReportController {
         return "report/orderCategory-report";
     }
 	
+	@GetMapping("/lateOrder")
+    public String createLateOrder() {
+        return "report/lateOrder-report";
+    }
+	
 	@RequestMapping(value="/download/user", 
             		method=RequestMethod.GET,
             		produces=MediaType.APPLICATION_OCTET_STREAM_VALUE)
@@ -155,6 +160,35 @@ public class ReportController {
 			
 			response.setContentType("application/pdf");
 			response.setHeader("Content-Disposition", "attachment; filename = relatorio_num_pecas_categoria.pdf");
+			
+			OutputStream responseOutput = response.getOutputStream();
+			FileInputStream fileInput = new FileInputStream(file);
+			
+			IOUtils.copy(fileInput, responseOutput);
+			
+			responseOutput.close();
+			fileInput.close();
+			
+			System.out.println("file.getName() = " + file.getName());
+			
+			if(!file.getName().equals(DEFAULT_NOT_FOUND_FILE)) {
+				file.delete();
+			}
+		}
+		catch (Exception ex) {
+			ex.printStackTrace();
+		}
+	}
+	
+	@RequestMapping(value="/download/lateOrder",
+			method=RequestMethod.GET,
+			produces=MediaType.APPLICATION_OCTET_STREAM_VALUE)
+	public void generateAndDownloadLateOrderReport(HttpServletResponse response){
+		try {
+			File file = this.reportService.generateLateOrderReport();
+			
+			response.setContentType("application/pdf");
+			response.setHeader("Content-Disposition", "attachment; filename = relatorio_pedidos_atrasados.pdf");
 			
 			OutputStream responseOutput = response.getOutputStream();
 			FileInputStream fileInput = new FileInputStream(file);
