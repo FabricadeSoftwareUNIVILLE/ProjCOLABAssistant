@@ -16,7 +16,7 @@ public class OrderStatusLog {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long id;
-	private int status;
+	private int statusLog;
 	@Temporal(value=TemporalType.TIMESTAMP)
 	private Date date;
 	@ManyToOne(cascade= {CascadeType.MERGE,CascadeType.REFRESH})
@@ -34,11 +34,11 @@ public class OrderStatusLog {
 	public void setId(long id) {
 		this.id = id;
 	}
-	public int getStatus() {
-		return status;
+	public int getStatusLog() {
+		return statusLog;
 	}
-	public void setStatus(int status) {
-		this.status = status;
+	public void setStatusLog(int statusLog) {
+		this.statusLog = statusLog;
 	}
 	public Date getDate() {
 		return date;

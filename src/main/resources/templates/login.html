@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 	<head th:include="layout :: htmlhead"></head>
+	<link type="text/css" rel="stylesheet" th:href="@{/css/accessoryList.css}" />
 	<body>
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
 			<img src="/image/logoColab.jpg" class="logo">
@@ -20,19 +21,19 @@
 					<div id="login-column" class="col-md-6">
 						<div id="login-box" class="col-md-12">
 							<form id="login-form" th:action="@{/login}" method="post">
-								<h3 class="text-center text-info">Login</h3>
+								<h3 class="text-center">Login</h3>
 								<div class="form-group">
-									<label for="username" class="text-info">Username:</label><br>
+									<label for="username">Username:</label><br>
 									<input type="text" name="username" id="username"
 										class="form-control">
 								</div>
 								<div class="form-group">
-									<label for="password" class="text-info">Password:</label><br>
+									<label for="password" >Password:</label><br>
 									<input type="password" name="password" id="password"
 										class="form-control">
 								</div>
 								<div class="form-group">
-									<input type="submit" name="submit" class="btn btn-info btn-md"
+									<input type="submit" name="submit" class="btn btn-md"
 										value="submit">
 								</div>
 								<a href="/register">Criar sua conta</a>

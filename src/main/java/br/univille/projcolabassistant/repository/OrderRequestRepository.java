@@ -72,5 +72,7 @@ public interface OrderRequestRepository extends JpaRepository<OrderRequest, Long
 										       @Param("finishedDateStart") Date finishedDateStart,
 								               @Param("finishedDateEnd") Date finishedDateEnd,
 								               @Param("userName") String userName);
-
+	
+	public List<OrderRequest> findByorderFinshDateNotNullOrderByOrderDateAsc();
+	public List<OrderRequest> findByorderFinshDateNullOrderByOrderDateAsc();
 }
