@@ -60,8 +60,13 @@
 	 						</td>
 	 						<td width="45%">
 		                        <div class="input-group-btn input-group-select">
-		                        	<input id="uploadedU" type="file" name="photos[]" onclick="onClickUpload()"/>
-		                            <!-- <input type="hidden" class="input-group-select-val" name="photos['desc'][]" value=""> -->
+		                        	<input style="display:none" id="uploadedU" type="file" name="photos[]" onclick="onClickImage()"/>
+		                        	<div th:if="${!assistiveaccessory.photoList.isEmpty()}">
+									   <label id="labelForImage" for="uploadedU" th:utext="${assistiveaccessory.photoList.get(0).URI}"></label>
+									</div>
+									<div th:if="${assistiveaccessory.photoList.isEmpty()}">
+									   <label id="labelForImage" for="uploadedU">Select a file</label>
+									</div>
 		                        </div>
 	                        </td>
 	                        <td width="50%">
@@ -89,6 +94,21 @@
 		</div>
         </div>
         <script>
+        function onClickImage (event) {
+        	console.log("Oi");
+        } 
+        
+        //=================================
+        var files = document.getElementById('uploadedU');
+        var imageFilesLabel = document.getElementById('labelForImage');
+		files.addEventListener("change", function (event) {
+		  	if (files.files.length > 0) {
+		  		imageFilesLabel.innerHTML = event.path[0].value;
+		    	return;
+		  	}
+		});
+        //=================================
+        
         (function ($) {
             $(function () {
 
@@ -133,7 +153,6 @@
 
                 $(document).on('click', '.btn-add', addFormGroup);
                 $(document).on('click', '.btn-remove', removeFormGroup);
-
             });
         })(jQuery);
         </script>

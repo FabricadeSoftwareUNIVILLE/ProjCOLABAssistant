@@ -76,7 +76,13 @@ public class AssistiveAccessoryController {
 				Path path = Paths.get(imgPath + imageName);
 			
 				accessoryPhoto.setURI(path.toString());
-				accessoryPhoto.setDescription(descriptions.get(index));
+				
+				if(!descriptions.isEmpty()) {
+					accessoryPhoto.setDescription(descriptions.get(index));
+				}
+				else {
+					accessoryPhoto.setDescription("");
+				}
 				
 				if (accessoryPhoto != null) {
 					accessoryPhotoRepository.save(accessoryPhoto);
