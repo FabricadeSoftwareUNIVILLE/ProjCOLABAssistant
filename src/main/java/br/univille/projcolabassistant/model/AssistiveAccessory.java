@@ -40,7 +40,29 @@ public class AssistiveAccessory extends AbstractReportObject{
 	private List<AccessoryPhoto> photoList = new ArrayList<AccessoryPhoto>();
 	@OneToOne(cascade = CascadeType.ALL)
 	private AccessoryPhoto principalPhoto = new AccessoryPhoto();
+	private String printTime;
+	private String amountOfInput;
 	
+	
+	public String getPrintTime() {
+		return printTime;
+	}
+
+	public void setPrintTime(String printTime) {
+		this.printTime = printTime;
+	}
+
+
+	public String getAmountOfInput() {
+		return amountOfInput;
+	}
+
+
+	public void setAmountOfInput(String amountOfInput) {
+		this.amountOfInput = amountOfInput;
+	}
+
+
 	public AssistiveAccessory() {
 		this.setReportType("assistiveaccessory");
 		this.setTemplatePath("report/accessory-pdf-template.html");

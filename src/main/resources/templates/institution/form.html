@@ -27,7 +27,10 @@
                         <label for="slcemail">Email</label>
 						 <input type="text" th:field="*{email}" class="form-control" id="txtemail" placeholder="email"/>
                     </div>
-                    
+                    <div class="form-group">
+                        <label for="txttechnicalManager">Responsável Técnico</label>
+						 <input type="text" th:field="*{technicalManager}" class="form-control" id="txttechnicalManager" placeholder="Nome"/>
+                    </div>
                     <div class="form-group">
                         <label for="slcCidade">Cidade</label>
                         <select class="form-control" id="slccity" th:field="*{city}">

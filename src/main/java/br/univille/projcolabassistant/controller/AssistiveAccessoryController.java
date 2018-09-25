@@ -18,9 +18,11 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.univille.projcolabassistant.model.AccessoryColor;
+import br.univille.projcolabassistant.model.AccessorySize;
 import br.univille.projcolabassistant.model.AssistiveAccessory;
 import br.univille.projcolabassistant.model.Category;
 import br.univille.projcolabassistant.repository.AccessoryColorRepository;
+import br.univille.projcolabassistant.repository.AccessorySizeRepository;
 import br.univille.projcolabassistant.repository.AssistiveAccessoryRepository;
 import br.univille.projcolabassistant.repository.CategoryRepository;
 
@@ -34,6 +36,8 @@ public class AssistiveAccessoryController {
     private CategoryRepository categoryRepository;
 	@Autowired
     private AccessoryColorRepository accessoryColorRepository;
+	@Autowired
+	private AccessorySizeRepository accessorySizeRepository;
 	
     @GetMapping("")
     public ModelAndView index() {
@@ -46,11 +50,13 @@ public class AssistiveAccessoryController {
     public ModelAndView createForm(@ModelAttribute AssistiveAccessory assistiveaccessory) {
     	List<Category> categories = categoryRepository.findAll();
     	List<AccessoryColor> colors = accessoryColorRepository.findAll();
+    	List<AccessorySize> sizes = accessorySizeRepository.findAll();
     	
     	HashMap<String, Object> dados = new HashMap<String, Object>();
     	dados.put("assistiveaccessory", assistiveaccessory);
     	dados.put("categories",categories);
     	dados.put("colors", colors);
+    	dados.put("sizes", sizes);
     	
         return new ModelAndView("assistiveaccessory/form",dados);
     }
@@ -67,11 +73,13 @@ public class AssistiveAccessoryController {
     public ModelAndView alterarForm(@PathVariable("id") AssistiveAccessory assistiveaccessory) {
     	List<Category> categories = categoryRepository.findAll();
     	List<AccessoryColor> colors = accessoryColorRepository.findAll();
+    	List<AccessorySize> sizes = accessorySizeRepository.findAll();
     	
     	HashMap<String, Object> dados = new HashMap<String, Object>();
     	dados.put("assistiveaccessory", assistiveaccessory);
     	dados.put("categories",categories);
     	dados.put("colors", colors);
+    	dados.put("sizes", sizes);
     	
         return new ModelAndView("assistiveaccessory/form",dados);
     }

@@ -42,6 +42,11 @@
 				            <option value="ROLE_ADMIN">COLAB</option>
 				        </select>
 				    </div>
+				    <div class="form-group">
+						<label for="txtcrmCrefito">CRM / CREFITO</label> <input type="text" required
+						class="form-control" id="txtcrmCrefito" placeholder="Número"
+						th:field="*{crmCrefito}">
+					</div>
                     <div class="form-group">                    
 	                    <label for="slcEnabledUser">Usuario ativo?</label><br>
 	                    <select class="form-control" id="slcEnabledUser" th:field="*{enabled}">

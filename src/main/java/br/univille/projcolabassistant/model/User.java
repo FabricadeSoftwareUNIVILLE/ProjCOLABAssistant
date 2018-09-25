@@ -28,6 +28,7 @@ public class User extends AbstractReportObject {
 	@Column(length = 1000)
 	private String address;
 	private boolean enabled = true;
+	private String crmCrefito;
 
 	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.REFRESH })
 	private City city = new City();
@@ -138,5 +139,13 @@ public class User extends AbstractReportObject {
 
 	public void setInstitutionList(List<Institution> institutionList) {
 		this.institutionList = institutionList;
+	}
+
+	public String getCrmCrefito() {
+		return crmCrefito;
+	}
+
+	public void setCrmCrefito(String crmCrefito) {
+		this.crmCrefito = crmCrefito;
 	}
 }
