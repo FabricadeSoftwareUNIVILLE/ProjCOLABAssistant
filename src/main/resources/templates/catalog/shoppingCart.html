@@ -3,6 +3,7 @@
 	<head th:include="layout :: htmlhead">
 		<meta charset="UTF-8">
 	</head>
+	<link type="text/css" rel="stylesheet" th:href="@{/css/accessoryList.css}" />
 	<body>
 		<nav class="navbar navbar-expand-lg navbar-light bg-light">
 			<img src="/image/logoColab.jpg" class="logo">
@@ -28,6 +29,7 @@
 			      		<th class="table-title" scope="col">Produto</th>
 			      		<th class="table-title" scope="col">Nome</th>
 			      		<th class="table-title" scope="col">Descrição</th>
+			      		<th class="table-title" scope="col">Tamanho</th>
 			      		<th class="table-title" scope="col">Remover</th>
 			      		
 			    	</tr>
@@ -37,6 +39,14 @@
 			      		<td><img src="/image/item.png" alt="Card image cap"></td>
 			      		<td class="table-text" th:text="${umitem.accessory.name}"></td>
 			      		<td class="table-text" th:text="${umitem.accessory.description}"></td>
+			      		
+			      		<td class="table-text">
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    <a class="dropdown-item" href="#">Action</a>
+    <a class="dropdown-item" href="#">Another action</a>
+    <a class="dropdown-item" href="#">Something else here</a>
+  </div>
+    					</td>
 			     		<td><span class="glyphicon glyphicon glyphicon-remove" aria-hidden="true"></span></td>
 			    	</tr>
 			  </tbody>

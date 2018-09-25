@@ -35,7 +35,6 @@ public class ShoppingCartController {
 			shoppingCart = new ShoppingCart();
 			session.setAttribute("carrinho", shoppingCart);
 		}
-
 		return new ModelAndView("catalog/shoppingCart", "shoppingcart", shoppingCart);
 	}
 
@@ -61,19 +60,20 @@ public class ShoppingCartController {
 			OrderItems orderitem = new OrderItems();
 			orderitem.setQuantity(item.getQuantity());
 			orderitem.setAccessory(item.getAccessory());
-			//orderitem.setAccessoryColor(item.getAccessory().get);
-			//orderitem.setAccessorySize(size);
+			orderitem.setAccessoryColor(item.getColor());
+			//orderitem.setAccessorySize(item.getAccessory());
 
 			orderrequest.getItensList().add(orderitem);
 		}
-		/*orderrequest.setUser(user);
-		orderrequest.setOrderFinshDate(new Date());
-		orderrequest.setOrderDate(new Date());
-		orderrequest.setOrderFinshDate(new Date());
-		orderrequest.setUserRequest(user);
-		orderrequest.setInstitution(inst);
-		orderRequestRepository.save(orderrequest);*/
+		orderrequest.setUser(userDetailsService.getUserLogged());
+		orderrequest.setOrderFinshDate(null);
+		//orderrequest.setOrderDate(new Date());
+		orderrequest.setUserRequest(userDetailsService.getUserLogged());
+		//orderrequest.setInstitution();
+		//orderRequestRepository.save(orderrequest);
 
+		shoppingCart.getItensList().clear();
+		
 		return new ModelAndView("catalog/shoppingCart");
 	}
 }

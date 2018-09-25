@@ -37,9 +37,10 @@
 				<div class="card col-xs-12 col-sm-4 col-md-3 col-lg-2"  th:each="umaccessory : ${umitem.value}">
 					<img class="card-img-top" src="/image/item.png" alt="Card image cap">
 					<div class="card-body">
-						<h5 class="card-text" th:text="${umaccessory.name}"></h5>
-						<p class="card-title" th:text="${umaccessory.description}"></p>
-						<a th:href="@{'/additem/' + ${umaccessory.id}}"  class="btn btn-success">Adicionar</a>
+						<h5 class="card-text" th:text="${umaccessory.assistiveAccessory.name}"></h5>
+						<p class="card-title" th:text="${umaccessory.assistiveAccessory.description}"></p>
+						<p class="card-title" th:text="${umaccessory.accessoryColor.name}"></p>
+						<a th:href="@{'/additem/' + ${umaccessory.assistiveAccessory.id} + '/'+ ${umaccessory.accessoryColor.id}}"  class="btn btn-success">Adicionar</a>
 					</div>
 				</div>
 			</div>
