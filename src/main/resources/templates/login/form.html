@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head th:include="layout :: htmlhead"></head>
+    <body>
+        <div class="container">
+            <nav th:replace="layout :: menu">(menu)</nav>
+            <div class="border border-dark">
+                <form>
+                	<label for="login" class="form-control" id="login"> Login: </label>
+                    <input type="text" id="login" placeholder="Usuário">
+                    <div class="form-group">
+                        <label for="txtuser">Password: </label>
+                        <input type="password" class="form-control" id="txtpassword" placeholder="Password">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Sign in</button>
+                </form>
+            </div>
+        </div>
+        <div th:include="layout :: footer" id="footer">(footer)</div>
+    </body>
+</html>

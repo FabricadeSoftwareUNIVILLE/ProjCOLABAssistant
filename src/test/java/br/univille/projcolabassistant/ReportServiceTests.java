@@ -111,10 +111,10 @@ public class ReportServiceTests {
     public void setUp() {
     	reportService.setTemplateEngine(templateEngine);
 
-    	dummyUserPedro = new User(12548049127L, "Pedro Barbosa", "pedro@test.com", "ADMIN", "(47) 1111-2222", "Av. Macieira - 777", true);
-		dummyUserAna = new User(34144262579L, "Ana Barbosa", "ana@test.com", "BASIC", "(47) 3333-4444", "Av. Laranjeira - 888", true);
-		dummyUserJoao = new User(48038862175L, "Joao Silva", "joao@test.com", "ADMIN", "(47) 5555-6666", "Av. Bananeira - 999", true);
-		dummyUserAdmin = new User(48038862175L, "System Admin", "admin@univille.br", "ADMIN", "(47) 7777-8888", "Av. Admin - 999", true);
+    	dummyUserPedro = new User(12548049127L, "Pedro Barbosa", "pedro@test.com", "ADMIN", "(47) 1111-2222", "Av. Macieira - 777", true, "12345");
+		dummyUserAna = new User(34144262579L, "Ana Barbosa", "ana@test.com", "BASIC", "(47) 3333-4444", "Av. Laranjeira - 888", true, "12345");
+		dummyUserJoao = new User(48038862175L, "Joao Silva", "joao@test.com", "ADMIN", "(47) 5555-6666", "Av. Bananeira - 999", true, "12345");
+		dummyUserAdmin = new User(48038862175L, "System Admin", "admin@univille.br", "ADMIN", "(47) 7777-8888", "Av. Admin - 999", true, "12345");
 
 		dummyJoinville = new City(10001, "Joinville", "SC");
 		dummyCuritiba = new City(10002, "Curitiba", "PR");
