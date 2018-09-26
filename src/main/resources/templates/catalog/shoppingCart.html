@@ -19,38 +19,40 @@
 		</nav>
 
 		<div class="container">
-			<div class="row">
-				<a th:href="@{'/conforder'}" class="btn btn-primary btn-confirm float-md-right">Confirmar Pedido</a>
-			</div>
+			<form th:action="@{/MyList/(form)}" th:object="${shoppingcart}" action="#" method="post">
 			
-			<table class="table table-sm">
-			 	<thead>
-			    	<tr>
-			      		<th class="table-title" scope="col">Produto</th>
-			      		<th class="table-title" scope="col">Nome</th>
-			      		<th class="table-title" scope="col">Descrição</th>
-			      		<th class="table-title" scope="col">Tamanho</th>
-			      		<th class="table-title" scope="col">Remover</th>
-			      		
-			    	</tr>
-			  	</thead>
-			  	<tbody>
-			    	<tr th:each="umitem : ${shoppingcart.itensList}">
-			      		<td><img src="/image/item.png" alt="Card image cap"></td>
-			      		<td class="table-text" th:text="${umitem.accessory.name}"></td>
-			      		<td class="table-text" th:text="${umitem.accessory.description}"></td>
-			      		
-			      		<td class="table-text">
-  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-    <a class="dropdown-item" href="#">Action</a>
-    <a class="dropdown-item" href="#">Another action</a>
-    <a class="dropdown-item" href="#">Something else here</a>
-  </div>
-    					</td>
-			     		<td><span class="glyphicon glyphicon glyphicon-remove" aria-hidden="true"></span></td>
-			    	</tr>
-			  </tbody>
-			</table>
+				<select class="form-control" id="slcinstitution" th:field="${shoppingcart.institution}" >
+                    <option th:each="oneInst : ${listInstitution}" th:value="${oneInst.id}" th:text="${oneInst.name}"></option>
+                </select>
+			
+				<table class="table table-sm">
+				 	<thead>
+				    	<tr>
+				      		<th class="table-title" scope="col">Produto</th>
+				      		<th class="table-title" scope="col">Nome</th>
+				      		<th class="table-title" scope="col">Descrição</th>
+				      		<th class="table-title" scope="col">Tamanho</th>
+				      		<th class="table-title" scope="col">Remover</th>
+				      		
+				    	</tr>
+				  	</thead>
+				  	<tbody>
+				    	<tr th:each="umitem, stat : ${shoppingcart.itensList}">
+				    		<input type="hidden" th:field="${shoppingcart.itensList[__${stat.index}__]}"/>
+				      		<td><img src="/image/item.png" alt="Card image cap"></td>
+				      		<td class="table-text" th:text="${umitem.accessory.name}"></td>
+				      		<td class="table-text" th:text="${umitem.accessory.description}"></td>
+		 					<td align="center">
+			 					<select class="form-control" id="slccity" th:field="${shoppingcart.itensList[__${stat.index}__].size}" >
+		                            <option th:each="onesize : ${umitem.accessory.sizeList}" th:value="${onesize.id}" th:text="${onesize.name}"></option>
+		                        </select>
+		                    </td>
+				     		<td><span class="glyphicon glyphicon glyphicon-remove" aria-hidden="true"></span></td>
+				    	</tr>
+				  </tbody>
+				</table>
+				<button type="submit" class="btn btn-primary">Confirmar pedido</button>
+			</form>
 		</div>
 	</body>
 </html>

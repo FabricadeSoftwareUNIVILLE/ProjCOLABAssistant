@@ -8,12 +8,25 @@ import java.util.List;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import br.univille.projcolabassistant.model.Institution;
+
 @Component
 @Scope
 public class ShoppingCart {
 	private String userSessionID;
 	private Date date;
 	private List<ItemShoppingCart> itensList = new ArrayList<ItemShoppingCart>();
+	private Institution institution = new Institution();
+	
+	
+	
+	
+	public Institution getInstitution() {
+		return institution;
+	}
+	public void setInstitution(Institution institution) {
+		this.institution = institution;
+	}
 	public String getUserSessionID() {
 		return userSessionID;
 	}

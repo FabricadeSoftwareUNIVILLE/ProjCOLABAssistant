@@ -1,5 +1,6 @@
 package br.univille.projcolabassistant.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
@@ -20,8 +21,10 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.univille.projcolabassistant.model.City;
+import br.univille.projcolabassistant.model.Institution;
 import br.univille.projcolabassistant.model.User;
 import br.univille.projcolabassistant.repository.CityRepository;
+import br.univille.projcolabassistant.repository.InstitutionRepository;
 import br.univille.projcolabassistant.repository.UserRepository;
 
 @Controller
@@ -36,7 +39,8 @@ public class UserController {
 	
 	@Autowired
 	private PasswordEncoder passwordEncoder;
-	
+	@Autowired
+	private InstitutionRepository institutionRepository;
 	@GetMapping("")
     public ModelAndView index() {
 		List<User> listUser = this.userRepository.findAll();				
@@ -55,15 +59,22 @@ public class UserController {
 	@GetMapping("/new")
     public ModelAndView createForm(@ModelAttribute User user) {
         List<City> listCity = cityRepository.findAll();
-        return new ModelAndView("user/form", "listcity", listCity);
+        List<Institution> listInstitution = institutionRepository.findAll();
+        HashMap<String, Object> dados = new HashMap<String, Object>();
+        dados.put("listcity", listCity);
+        dados.put("listInstitution", listInstitution);
+        
+        return new ModelAndView("user/form", dados);
     }
 	
 	@GetMapping(value="/modify/{id}")
     public ModelAndView modifyForm(@PathVariable("id") User user) {
 		List<City> listCity = cityRepository.findAll();
+		List<Institution> listInstitution = institutionRepository.findAll();
 		HashMap<String, Object> dados = new HashMap<String, Object>();
 		dados.put("listcity", listCity);
 		dados.put("user",user);
+		dados.put("listInstitution", listInstitution);
         return new ModelAndView("user/form", dados);
     }
 	
