@@ -9,6 +9,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import br.univille.projcolabassistant.model.OrderRequest;
+import br.univille.projcolabassistant.model.OrderStatusLog;
 import br.univille.projcolabassistant.viewmodel.OrderSumByCategory;
 
 @Repository
@@ -72,5 +73,10 @@ public interface OrderRequestRepository extends JpaRepository<OrderRequest, Long
 										       @Param("finishedDateStart") Date finishedDateStart,
 								               @Param("finishedDateEnd") Date finishedDateEnd,
 								               @Param("userName") String userName);
+	
+
+	//Foi utilizado os mesmos métodos para listar as ordens de serviço, consideramos que era um padrão, por isso os adicionamos aqui
+	public List<OrderStatusLog> findByorderFinshDateNotNullOrderByOrderDateAsc();
+	public List<OrderStatusLog> findByorderFinshDateNullOrderByOrderDateAsc();
 
 }
