@@ -62,13 +62,14 @@
 		                        <div class="input-group-btn input-group-select">
 		                        	<input style="display:none" id="uploadedU" type="file" name="photos[]" onclick="onClickImage()"/>
 		                        	<div th:if="${!assistiveaccessory.photoList.isEmpty()}">
-									   <label id="labelForImage" for="uploadedU" th:utext="${assistiveaccessory.photoList.get(0).URI}"></label>
+									   <label id="labelForImage" for="uploadedU" th:text="${assistiveaccessory.photoList.get(0).URI.replaceAll('^.*\\', '')}"></label>
 									</div>
 									<div th:if="${assistiveaccessory.photoList.isEmpty()}">
 									   <label id="labelForImage" for="uploadedU">Select a file</label>
 									</div>
 		                        </div>
 	                        </td>
+	                        
 	                        <td width="50%">
 		                        <table style="width:100%">
 		                        	<tr>
@@ -85,9 +86,6 @@
 		                   	</td>
 	                    </tr>
                     </table>
-	
-                    
-                    
                     
                     <button type="submit" class="btn btn-primary assistive-accessory-btn">Enviar</button>
                 </form>
@@ -103,7 +101,7 @@
         var imageFilesLabel = document.getElementById('labelForImage');
 		files.addEventListener("change", function (event) {
 		  	if (files.files.length > 0) {
-		  		imageFilesLabel.innerHTML = event.path[0].value;
+		  		imageFilesLabel.innerHTML = event.path[0].value.replace(/^.*\\/g, "red");
 		    	return;
 		  	}
 		});

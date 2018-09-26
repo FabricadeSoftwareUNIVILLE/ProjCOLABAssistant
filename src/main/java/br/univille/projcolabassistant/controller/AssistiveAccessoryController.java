@@ -8,13 +8,12 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -70,6 +69,7 @@ public class AssistiveAccessoryController {
 			
 			for (MultipartFile file : files) {
 				AccessoryPhoto accessoryPhoto = new AccessoryPhoto();
+				
 				byte[] bytes = file.getBytes(); 
 				
 				String imageName = new Timestamp(System.currentTimeMillis()).getTime() + "_" + assistiveAccessory.getId() + "_" + index + ".png";
