@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head th:include="layout :: htmlhead">
+		<meta charset="UTF-8">
+	</head>
+	<link type="text/css" rel="stylesheet" th:href="@{/css/accessoryList.css}" />
+	<body>
+		<nav class="navbar navbar-expand-lg navbar-light bg-light">
+		<img src="/image/logoColabmini.jpg">
+			<div class="container-fluid" id="navbarNav">
+				<ul class="navbar-nav">
+					<li class="nav-item active"></li>
+					<li class="navbar-brand">Sobre o sistema COLAB Assistant</li>
+					
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="/MyList"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span></a></li>
+				</ul>
+			</div>
+			<a class="nav-link" href="/register">Registrar Usuário</a>
+			<a class="nav-link" href="/admin">Admin</a>
+			<form th:action="@{/logout}" method="post">
+		            <input type="submit" value="Sair" class="btn"/>
+		        </form>	
+		</nav>
+		<div class="container">
+			<div class="row">
+				<img src="/image/fabrica.png" class="img-responsive" style="margin: 0 auto;"/>
+			</div>
+			<div class="row">
+				Objetivo: gerenciar o processo de solicitação dos acessórios assistivos produzidos pelo projeto COLAB para os pacientes das unidades de saúde e hospitais de Joinville.
+			</div>
+			<div class="row">
+				Alunos que participaram do projeto, 3 série do Bacharelado em Engenharia de Software 2018
+			</div>
+			<div class="row">
+				<ul>
+				<li>ANNE CAROLINE FERREIRA DOS SANTOS SOARES</li>
+				<li>BRUNO HENRIQUE CRISTOFOLINI</li>
+				<li>DANIELI FABIANI GARCIA</li>
+				<li>DANYEL DOS REIS</li>
+				<li>EDERSON RUAN RAVIZZA</li>
+				<li>EDUARDO PHILLIPE DE BORBA LEE</li>
+				<li>ELI FLORENCIO PEREIRA</li>
+				<li>ERICK RICARDO BUDAL</li>
+				<li>FELIPE AUGUSTO BORGES</li>
+				<li>GABRIEL KLAUBERG</li>
+				<li>GEÓRGIA JANDIRA SPIRANDELI</li>
+				<li>GUILHERME SIEWERT</li>
+				<li>JOÃO MARCOS ELIAS MATIAS</li>
+				<li>KARLOS EDUARDO PFAFFENZELLER</li>
+				<li>LEONARDO SCHMÜCKER</li>
+				<li>LUAN FERNANDO DE SOUZA FERREIRA</li>
+				<li>LUAN MARCELO LACOWICZ</li>
+				<li>LUCA FENRIS ELERT</li>
+				<li>LUCAS RYUICHI MARTINEZ NAKAGAWA</li>
+				<li>LUIZ EDUARDO MAGALHÃES FERREIRA</li>
+				<li>MAICON CERUTTI</li>
+				<li>MARCELO ALVES JUNIOR</li>
+				<li>MARCOS ALEXANDRE JUNGTON MOREIRA</li>
+				<li>MARCUS DE MELO MOREIRA</li>
+				<li>NELSON BASILIO KLINGENFUSS</li>
+				<li>PAULO STOCKER</li>
+				<li>RAYSSA GABRIELI DOS SANTOS</li>
+				<li>SABRINA BOING MOREIRA</li>
+				<li>STEFFANY CAMILA MATTEI CRUZ</li>
+				<li>THÁFILA KRUM DE FREITAS</li>
+				</ul>
+			</div>
+			<div class="row">
+				Professor MSc. Walter Silvestre Coan
+			</div>		
+		</div>
+	</body>
+</html>

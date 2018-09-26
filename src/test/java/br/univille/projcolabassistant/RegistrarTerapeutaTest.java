@@ -21,6 +21,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import br.univille.projcolabassistant.controller.RegisterController;
 import br.univille.projcolabassistant.model.City;
 import br.univille.projcolabassistant.repository.CityRepository;
+import br.univille.projcolabassistant.repository.UserRepository;
 
 
 
@@ -36,6 +37,9 @@ public class RegistrarTerapeutaTest {
     private CityRepository cityRepository;
     @Autowired
     private MockMvc mockMvc;
+    
+    @Autowired
+	private UserRepository userRepository;
     
     @Test
     public void contextLoads() {
@@ -61,6 +65,7 @@ public class RegistrarTerapeutaTest {
     	cityRepository.save(c);
     	cityRepository.flush();
     	
+    	userRepository.deleteAll();
     	
         this.mockMvc.perform(post("/register")
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED)
@@ -68,15 +73,17 @@ public class RegistrarTerapeutaTest {
                 .content("id=0&name=Bruno Henrique Cristofolini&email=bruno@gmail.com&phone=(47) 9 8897-7354&address=Rua Tajsdsaj&city=1"))
                 .andDo(print())
                 .andExpect(status().isMovedTemporarily())
-                .andExpect(view().name("redirect:/user"));
+                .andExpect(view().name("redirect:/"));
         
         this.mockMvc.perform(get("/user")).andDo(print()).andExpect(status().isOk())
         .andExpect(xpath("/html/body/div/div/table/tbody/tr/td[1]/text()").string("Bruno Henrique Cristofolini"))
         .andExpect(xpath("/html/body/div/div/table/tbody/tr/td[2]/text()").string("bruno@gmail.com"))
         .andExpect(xpath("/html/body/div/div/table/tbody/tr/td[3]/text()").string("(47) 9 8897-7354"))
-        .andExpect(xpath("/html/body/div/div/table/tbody/tr/td[4]/text()").string("Rua Tajsdsaj"))
-        .andExpect(xpath("/html/body/div/div/table/tbody/tr/td[5]/text()").string("Joinville"));
-            
+        .andExpect(xpath("/html/body/div/div/table/tbody/tr/td[4]/text()").string("Rua Tajsdsaj"));
+        
+        cityRepository.deleteAll();
+        cityRepository.flush();
+ 
     }
 
 

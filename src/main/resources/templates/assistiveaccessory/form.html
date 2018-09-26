@@ -20,8 +20,8 @@
 		}
 	</style>
     <body>
+        <nav th:replace="layout :: menu">(menu)</nav>
         <div class="container assistive-accessory-container">
-            <nav th:replace="layout :: menu">(menu)</nav>
             <div class="border border-dark assistive-accessory-border">
             <form th:action="@{/assistiveaccessory/new/(form)}" th:object="${assistiveaccessory}" action="#" method="post" enctype="multipart/form-data">
                     <input type="hidden" id="id" th:field="*{id}" />    
@@ -46,21 +46,38 @@
                         <label for="txtcode">Código</label>
                         <input type="text" class="form-control" id="txtcode" placeholder="Insere o código do acessório assistivo" th:field="*{code}">
                     </div>
+                    <div class="form-group assistive-accessory-group">
+                        <label for="txtprintTime">Tempo de impressão</label>
+                        <input type="text" class="form-control" id="txtprintTime" placeholder="" th:field="*{printTime}">
+                    </div>
+                    <div class="form-group assistive-accessory-group">
+                        <label for="txtamountOfInput">Quantidade de Insumo</label>
+                        <input type="text" class="form-control" id="txtamountOfInput" placeholder="" th:field="*{amountOfInput}">
+                    </div>
                     <div class="form-group">
                         <label for="slccategory">Categoria</label>
                         <select class="form-control" id="slccategory" th:field="*{category}">
                             <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}"></option>
                         </select>
                     </div>
-                    
-                    <!-- 
-                    <div class="form-group assistive-accessory-group upload-img">
-                        <label for="imgUpload">Imagem</label>
-                        <input id="uploadeButton" type="file" name="accessoryImage" onclick="onClickUpload()"/>
-                        <img id="uploadedImg" style="width: 400px; height:400px" th:src="${assistiveaccessory.principalPhoto.URI}"/>
+                    <div class="form-group">
+                        <label for="slccolor">Cores</label>
+                        <select class="form-control" id="slccolor" th:field="*{colorList}" multiple="true">
+                            <option th:each="color : ${colors}" th:value="${color.id}" th:text="${color.name}"></option>
+                        </select>
                     </div>
-                     -->
-                    
+                    <div class="form-group">
+                        <label for="slcsize">Tamanhos</label>
+                        <select class="form-control" id="slcsize" th:field="*{sizeList}" multiple="true">
+                            <option th:each="size : ${sizes}" th:value="${size.id}" th:text="${size.name}"></option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="slcmaterial">Materiais</label>
+                        <select class="form-control" id="slcmaterial" th:field="*{materialList}" multiple="true">
+                            <option th:each="material : ${materials}" th:value="${material.id}" th:text="${material.name}"></option>
+                        </select>
+                    </div>
 					<br>
 					<br>
 					<table style="width:100%">
@@ -101,7 +118,6 @@
 		                   	</td>
 	                    </tr>
                     </table>
-                    
                     <button type="submit" class="btn btn-primary assistive-accessory-btn">Enviar</button>
                 </form>
 		</div>
@@ -111,7 +127,6 @@
         	console.log("Oi");
         } 
         
-        //=================================
         var files = document.getElementById('uploadedU');
         var imageFilesLabel = document.getElementById('labelForImage');
 		files.addEventListener("change", function (event) {
@@ -120,7 +135,6 @@
 		    	return;
 		  	}
 		});
-        //=================================
         
         (function ($) {
             $(function () {

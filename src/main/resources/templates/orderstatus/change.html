@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head th:include="layout :: htmlhead"><meta charset="UTF-8"></head>
+    <body>
+        <nav th:replace="layout :: menu">(menu)</nav>
+        <div class="container">
+        	<h2>Atualizar Status</h2>
+            <div class="border border-dark" th:object="${orderRequest}">
+                <div class="form-group">
+                    <label for="txtname">Data</label>
+                    <input type="text" disabled="disabled" class="form-control" th:field="*{orderDate}" >
+                </div>
+                <div class="form-group">
+                    <label for="txtname">Data</label>
+                    <input type="text" disabled="disabled" class="form-control" th:field="*{orderFinshDate}" >
+                </div>
+                <div class="form-group">
+                    <label for="txtname">Status</label>
+                    <input type="text" disabled="disabled" class="form-control" th:field="*{status}" >
+                </div>
+                <div class="form-group">
+                    <label for="txtname">Instituição</label>
+                    <input type="text" disabled="disabled" class="form-control" th:field="*{institution.name}" >
+                </div>
+                <div class="form-group">
+                    <label for="txtname">Solicitante</label>
+                    <input type="text" disabled="disabled" class="form-control" th:field="*{userRequest.name}" >
+                </div>
+                <div class="form-group">
+                    <label for="txtname">Responsável COLAB</label>
+                    <input type="text" disabled="disabled" class="form-control" th:field="*{user.name}" >
+                </div>
+                <div class="card px-0">
+				    <div class="card-header">Itens do Pedido</div>
+				    <div class="card-body">
+				    	<table class="table">
+		                    <thead class="thead-light"> 
+		                        <tr>
+		                            <th scope="col">Quantidade</th>
+		                            <th scope="col">Acessório</th>
+		                            <th scope="col">Tamanho</th>
+		                            <th scope="col">Cor</th>
+		                        </tr>
+		                    </thead>
+		                    <tbody>
+		                        <tr scope="row" th:each="orderItem : *{itensList}">
+		                            <td th:text="${orderItem.quantity}"></td>
+		                            <td th:text="${orderItem.accessory.name + ' (' + orderItem.accessory.code + ')'}"></td>
+		                            <td th:text="${orderItem.accessorySize.name}"></td>
+		                            <td th:text="${orderItem.accessoryColor.name}"></td>
+		                        </tr>
+		                    </tbody>
+		                </table>
+				    </div>
+				</div>
+				<div class="card px-0">
+				    <div class="card-header">Histórico</div>
+				    <div class="card-body">
+				    	<table class="table">
+		                    <thead class="thead-light"> 
+		                        <tr>
+		                            <th scope="col">Data</th>
+		                            <th scope="col">Usuário Responsável</th>
+		                            <th scope="col">Novo Status</th>
+		                        </tr>
+		                    </thead>
+		                    <tbody>
+		                        <tr scope="row" th:each="item : *{orderStatusLogList}">
+		                            <td th:text="${item.date}"></td>
+		                            <td th:if="${item.user != null}" th:text="${item.user.name}"></td>
+		                            <td th:if="${item.user == null}">Não definido</td>
+		                            <td>
+		                            	<ul class="list-unstyled">
+								            <li th:if="${item.statusLog == 0}">Nova solicitação</li>
+								            <li th:if="${item.statusLog == 10}">Em análise equipe COLAB</li>
+								            <li th:if="${item.statusLog == 20}">Em Produção</li>
+								            <li th:if="${item.statusLog == 30}">Pronto</li>
+								            <li th:if="${item.statusLog == 40}">Entregue</li>
+								            <li th:if="${item.statusLog == 50}">Finalizado</li>
+								        </ul>
+		                            </td>
+		                        </tr>
+		                    </tbody>
+		                </table>
+				    </div>
+				</div>
+				
+				<div class="card px-0">
+				    <div class="card-header">Histórico</div>
+				    <div class="card-body">
+					<form th:action="@{/orderstatus/{id}/(form,id=${orderRequest.id})}" th:object="${newOrderStatusLog}" action="#" method="post">
+	                    <input type="hidden" id="txtid" th:field="${newOrderStatusLog.id}" />
+	                   
+	                    <div class="form-group">
+					        <label for="slcsexo">Novo Status</label>
+					        <select class="form-control" id="statusLog" th:field="${newOrderStatusLog.statusLog}">
+					            <option th:value="10">Em análise equipe COLAB</option>
+					            <option th:value="20">Em Produção</option>
+					            <option th:value="30">Pronto</option>
+					            <option th:value="40">Entregue</option>
+					            <option th:value="50">Finalizado</option>
+					        </select>
+					    </div>
+	                    <button type="submit" class="btn btn-primary">Enviar</button>
+	                </form>
+	                </div>
+	            </div>
+					    
+                <a href="/orderstatus" class="btn btn-primary">Retornar</a>
+            </div>
+        </div>	
+        <div th:include="layout :: footer" id="footer">(footer)</div>
+    </body>
+</html>

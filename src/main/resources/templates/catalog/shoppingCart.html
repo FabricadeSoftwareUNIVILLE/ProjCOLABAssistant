@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head th:include="layout :: htmlhead">
+		<meta charset="UTF-8">
+	</head>
+	<body>
+		<nav class="navbar navbar-expand-lg navbar-light bg-light">
+			<img src="/image/logoColabmini.jpg">
+			<div class="container-fluid" id="navbarNav">
+				<ul class="navbar-nav">
+					<li class="nav-item active"></li>
+					<li class="navbar-brand">Minha Lista</li>
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					
+				</ul>
+			</div>
+		</nav>
+
+		<div class="container">
+			<div class="row">
+				<a th:href="@{'/conforder'}" class="btn btn-primary btn-confirm float-md-right">Confirmar Pedido</a>
+			</div>
+			
+			<table class="table table-sm">
+			 	<thead>
+			    	<tr>
+			      		<th class="table-title" scope="col">Produto</th>
+			      		<th class="table-title" scope="col">Nome</th>
+			      		<th class="table-title" scope="col">Descrição</th>
+			      		<th class="table-title" scope="col">Remover</th>
+			      		
+			    	</tr>
+			  	</thead>
+			  	<tbody>
+			    	<tr th:each="umitem : ${shoppingcart.itensList}">
+			      		<td><img src="/image/item.png" alt="Card image cap"></td>
+			      		<td class="table-text" th:text="${umitem.accessory.name}"></td>
+			      		<td class="table-text" th:text="${umitem.accessory.description}"></td>
+			     		<td><span class="glyphicon glyphicon glyphicon-remove" aria-hidden="true"></span></td>
+			    	</tr>
+			  </tbody>
+			</table>
+		</div>
+	</body>
+</html>

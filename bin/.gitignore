@@ -1,4 +1,5 @@
 /target/
+
 !.mvn/wrapper/maven-wrapper.jar
 
 ### STS ###
@@ -23,3 +24,6 @@
 /dist/
 /nbdist/
 /.nb-gradle/
+
+### Eclipse Spring Boot ### (não tenho certeza, fiz backup)
+/bin/

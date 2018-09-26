@@ -21,6 +21,8 @@ public class Institution extends AbstractReportObject {
 	private String address;
 	private String phone;
 	private String email;
+	private String technicalManager;
+
 
 	@ManyToOne(cascade={CascadeType.MERGE,CascadeType.REFRESH})
 	private City city = new City();
@@ -85,6 +87,14 @@ public class Institution extends AbstractReportObject {
 	}
 	public void setCity(City city) {
 		this.city = city;
+	}
+
+	public String getTechnicalManager() {
+		return technicalManager;
+	}
+
+	public void setTechnicalManager(String technicalManager) {
+		this.technicalManager = technicalManager;
 	}
 	
 }

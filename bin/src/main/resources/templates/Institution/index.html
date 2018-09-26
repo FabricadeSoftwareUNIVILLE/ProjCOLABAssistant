@@ -2,12 +2,12 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
-<head th:include="layout :: htmlhead"></head>
+<head th:include="layout :: htmlhead"> <meta charset="UTF-8"></head>
 
 <body>
 	<div class="container">
 		<nav th:replace="layout :: menu">(menu)</nav>
-		<a href="form.html" th:href="@{/Institution/novo}" class="btn btn-primary btn-lg" role="button">Novo</a>
+		<a href="form.html" th:href="@{/institution/novo}" class="btn btn-primary btn-lg" role="button">Novo</a>
 		<div class="border border-dark">
 			<table class="table">
 				<thead class="thead-light">
@@ -17,6 +17,7 @@
 						<th scope="col">Address</th>
 						<th scope="col">Phone</th>
 						<th scope="col">Email</th>
+						<th scope="col">City</th>
 						<th scope="col"></th>
 					</tr>
 				</thead>
@@ -27,16 +28,48 @@
 						<td th:text="${uminst.address}"></td>
 						<td th:text="${uminst.phone}"></td>
 						<td th:text="${uminst.email}"></td>
-						<td><a href="#" class="btn btn-secondary btn-lg" role="button">Alterar</a> 
-							<a href="#"	class="btn btn-warning btn-lg" role="button">Excluir</a>
+						<td th:text="${uminst.city.name}"></td>
+						<td>
+								<a href="form.html" th:href="@{'/institution/alterar/' + ${uminst.id}}" class="btn btn-secondary btn-lg" role="button">Alterar</a>
+								<a href="#" class="btn btn-warning btn-lg" role="button" data-toggle="modal" data-target="#confirmaExclusao" th:data-id="${uminst.id}">Excluir</a>
+
 						</td>
 					</tr>
 					</tbody>
 					</table>
 					</div>
 					</div>
-					<div th:include="layout :: footer" id="footer">(footer)</div>
-				
+					
+					 <div class="modal fade" id="confirmaExclusao" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Confirmação de exclusão</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">X</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <p>Confirma a exclusão deste registro da instituicao?</p>
+                        </div>
+                        <div class="modal-footer">
+                            <a href="#" class="btn btn-warning btn-lg" id="btnConf" role="button">Sim</a>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+       	<div th:include="layout :: footer" id="footer">(footer)</div>
+				<script th:inline="javascript">
+          /*<![CDATA[*/
+               $('#confirmaExclusao').on('show.bs.modal', function (event) {
+                  var button = $(event.relatedTarget)
+                  var recipient = button.data('id')
+                  var modal = $(this)
+                  modal.find('#btnConf').attr("href","/institution/remover/" + recipient)
+                })
+           /*]]>*/
+        </script> 
 			
 </body>
 </html>

@@ -2,37 +2,48 @@
 <html xmlns:th="http://www.thymeleaf.org">
 	<head th:include="layout :: htmlhead">
 		<meta charset="UTF-8">
+		
 	</head>
+	<link type="text/css" rel="stylesheet" th:href="@{/css/accessoryList.css}" />
 	<body>
 		<nav class="navbar navbar-expand-lg navbar-light bg-light">
-			<img src="/image/logoColab.jpg" class="logo">
-			<div class="collapse navbar-collapse" id="navbarNav">
+		<img src="/image/logoColabmini.jpg">
+			<div class="container-fluid" id="navbarNav">
 				<ul class="navbar-nav">
 					<li class="nav-item active"></li>
 					<li class="navbar-brand">Catálogo de Acessórios</li>
+					
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="/MyList"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span></a></li>
 				</ul>
 			</div>
+			<a class="nav-link" href="/register">Registrar Usuário</a>
+			<a class="nav-link" href="/admin">Admin</a>
+			<a class="nav-link" href="/about">Sobre</a>
+			<form th:action="@{/logout}" method="post">
+		            <input type="submit" value="Sair" class="btn"/>
+		        </form>	
 		</nav>
-
-		<div class="container">
+					
+		<div class="container" th:each="umitem : ${mapcategorylistAccessory}">
 			<div class="row">
 				<div class="card-banner" align="center">
-					<h2>Alimentação</h2>
+					<span class="category-title" th:text="${umitem.key.name}"> </span>
 				</div>
 			</div>
-			<div class="container">
-				<div class="row">
-					<div class="card col-md-3" th:each="umpac : ${listAccessory}">
-						<img class="card-img-top" src="/image/item.png"
-							alt="Card image cap">
-						<div class="card-body">
-							<h5 class="card-title" th:text="${umpac.assistiveAccessory.name}"></h5>
-							<p class="card-text" th:text="${umpac.assistiveAccessory.description}"></p>
-							<a href="#" class="btn btn-primary">Mais</a>
-						</div>
+			
+			<div class="row">
+				<div class="card col-xs-12 col-sm-4 col-md-3 col-lg-2"  th:each="umaccessory : ${umitem.value}">
+					<img class="card-img-top" src="/image/item.png" alt="Card image cap">
+					<div class="card-body">
+						<h5 class="card-text" th:text="${umaccessory.name}"></h5>
+						<p class="card-title" th:text="${umaccessory.description}"></p>
+						<a th:href="@{'/additem/' + ${umaccessory.id}}"  class="btn btn-success">Adicionar</a>
 					</div>
 				</div>
 			</div>
+			
 		</div>
 	</body>
 </html>

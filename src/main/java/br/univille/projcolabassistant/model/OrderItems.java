@@ -1,6 +1,5 @@
 package br.univille.projcolabassistant.model;
 
-
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -20,6 +19,16 @@ public class OrderItems {
 	private AccessorySize accessorySize = new AccessorySize();
 	@ManyToOne(cascade= {CascadeType.MERGE,CascadeType.REFRESH})
 	private AccessoryColor accessoryColor = new AccessoryColor();
+	public OrderItems() {
+		
+	}
+	public OrderItems(int id, int quantity, AssistiveAccessory assistiveAccessory, AccessorySize accessorySize, AccessoryColor accessoryColor) {
+		this.id = id;
+		this.quantity = quantity;
+		this.accessory = assistiveAccessory;
+		this.accessorySize = accessorySize;
+		this.accessoryColor = accessoryColor;
+	}
 	public long getId() {
 		return id;
 	}

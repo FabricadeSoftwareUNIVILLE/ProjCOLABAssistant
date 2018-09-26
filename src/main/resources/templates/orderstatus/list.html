@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <meta charset="UTF-8">
+    <head th:include="layout :: htmlhead"></head>
+    <body>
+		<nav th:replace="layout :: menu">(menu)</nav>
+        <div class="container">
+            
+            <h2>Ordem de serviço pendentes</h2>
+            <div class="border border-dark">
+                <table class="table">
+                    <thead class="thead-light"> 
+                        <tr>
+                            <th scope="col">Status</th>
+                            <th scope="col">Data</th>
+                            <th scope="col">Solicitante</th>
+                            <th scope="col">Instituição</th>
+                            <th scope="col">Responsável COLAB</th>
+                            <th scope="col">Número de acessórios</th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr scope="row" th:each="order : ${listOrder}">
+                            <td>
+                            <div class="progress">
+							  <div class="progress-bar" role="progressbar" th:style="'width: ' + (${order.status} * 2) + '%;'" th:aria-valuenow="${order.status}" aria-valuemin="0" aria-valuemax="50"></div>
+							</div>
+                            <ul class="list-unstyled">
+					            <li th:if="${order.status == 0}">Nova solicitação</li>
+					            <li th:if="${order.status == 10}">Em análise equipe COLAB</li>
+					            <li th:if="${order.status == 20}">Em Produção</li>
+					            <li th:if="${order.status == 30}">Pronto</li>
+					            <li th:if="${order.status == 40}">Entregue</li>
+					            <li th:if="${order.status == 50}">Finalizado</li>
+					        </ul>
+                            </td>
+                            <td th:text="${order.orderDate}"></td>
+                            <td th:text="${order.userRequest.name}"></td>
+                            <td th:text="${order.institution.name}"></td>
+                            <td th:if="${order.user != null}" th:text="${order.user.name}"></td>
+                            <td th:if="${order.user == null}"></td>
+                            
+                            <td th:text="${#lists.size(order.itensList)}"></td>
+                            
+                            <td>
+                                <a href="form.html" th:href="@{'/orderstatus/detail/' + ${order.id}}" class="btn btn-secondary btn-lg" role="button">Detalhar</a>
+                                <a href="form.html" th:href="@{'/orderstatus/change/' + ${order.id}}" class="btn btn-warning btn-lg" role="button">Atualizar Status</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <h2>Ordem de serviço finalizadas</h2>
+            <div class="border border-dark">
+                <table class="table">
+                    <thead class="thead-light"> 
+                        <tr>
+                            <th scope="col">Status</th>
+                            <th scope="col">Data</th>
+                            <th scope="col">Solicitante</th>
+                            <th scope="col">Instituição</th>
+                            <th scope="col">Responsável COLAB</th>
+                            <th scope="col">Número de acessórios</th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr scope="row" th:each="order : ${listOrderDone}">
+                            <td>
+                            <div class="progress">
+							  <div class="progress-bar" role="progressbar" th:style="'width: ' + (${order.status} * 2) + '%;'" th:aria-valuenow="${order.status}" aria-valuemin="0" aria-valuemax="50"></div>
+							</div>
+                            <ul class="list-unstyled">
+					            <li th:if="${order.status == 0}">Nova solicitação</li>
+					            <li th:if="${order.status == 10}">Em análise equipe COLAB</li>
+					            <li th:if="${order.status == 20}">Em Produção</li>
+					            <li th:if="${order.status == 30}">Pronto</li>
+					            <li th:if="${order.status == 40}">Entregue</li>
+					            <li th:if="${order.status == 50}">Finalizado</li>
+					        </ul>
+                            </td>
+                            <td th:text="${order.orderDate}"></td>
+                            <td th:text="${order.userRequest.name}"></td>
+                            <td th:text="${order.institution.name}"></td>
+                            <td th:if="${order.user != null}" th:text="${order.user.name}"></td>
+                            <td th:if="${order.user == null}"></td>
+                            
+                            <td th:text="${#lists.size(order.itensList)}"></td>
+                            
+                            <td>
+                                <a href="form.html" th:href="@{'/orderstatus/detail/' + ${order.id}}" class="btn btn-secondary btn-lg" role="button">Detalhar</a>
+                                <a href="form.html" th:href="@{'/orderstatus/change/' + ${order.id}}" class="btn btn-warning btn-lg" role="button">Atualizar Status</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div th:include="layout :: footer" id="footer">(footer)</div>
+    </body>
+</html>
