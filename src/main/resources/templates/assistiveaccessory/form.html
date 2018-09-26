@@ -4,6 +4,21 @@
     <head th:include="layout :: htmlhead">
     </head>
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <style>
+		.image-name {
+			background-color: #007bff;
+			border-color: #007bff;
+			padding: 3px 10px;
+			color: #fff;
+			border-radius: 4px;
+			border: 1px;
+		}
+		
+		.image-name:active {
+			background-color: #0062cc;
+    		border-color: #005cbf;
+		}
+	</style>
     <body>
         <div class="container assistive-accessory-container">
             <nav th:replace="layout :: menu">(menu)</nav>
@@ -61,11 +76,11 @@
 	 						<td width="45%">
 		                        <div class="input-group-btn input-group-select">
 		                        	<input style="display:none" id="uploadedU" type="file" name="photos[]" onclick="onClickImage()"/>
-		                        	<div th:if="${!assistiveaccessory.photoList.isEmpty()}">
-									   <label id="labelForImage" for="uploadedU" th:text="${assistiveaccessory.photoList.get(0).URI.replaceAll('^.*\\', '')}"></label>
+		                        	<div th:if="${!assistiveaccessory.photoList.isEmpty()}" style="text-align: center;">
+									   <label id="labelForImage" class="image-name" for="uploadedU" th:text="${assistiveaccessory.photoList.get(0).URI.replaceAll('^.*\\', '')}"></label>
 									</div>
-									<div th:if="${assistiveaccessory.photoList.isEmpty()}">
-									   <label id="labelForImage" for="uploadedU">Select a file</label>
+									<div th:if="${assistiveaccessory.photoList.isEmpty()}" style="text-align: center;">
+									   <label id="labelForImage" class="image-name" for="uploadedU">Select a file</label>
 									</div>
 		                        </div>
 	                        </td>
