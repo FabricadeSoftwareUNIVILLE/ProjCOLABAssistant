@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -31,7 +32,7 @@ public class AssistiveAccessory extends AbstractReportObject{
 	private String code;
 	@ManyToOne(cascade = { CascadeType.MERGE, CascadeType.REFRESH })
 	private Category category = new Category();
-	@ManyToMany(cascade = { CascadeType.MERGE, CascadeType.REFRESH })
+	@ManyToMany(cascade = { CascadeType.MERGE, CascadeType.REFRESH },fetch=FetchType.EAGER)
 	private List<AccessorySize> sizeList = new ArrayList<AccessorySize>();
 	@ManyToMany(cascade = { CascadeType.MERGE, CascadeType.REFRESH })
 	private List<AccessoryColor> colorList = new ArrayList<AccessoryColor>();

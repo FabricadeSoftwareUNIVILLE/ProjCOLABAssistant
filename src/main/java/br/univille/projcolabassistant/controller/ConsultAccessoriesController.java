@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import br.univille.projcolabassistant.model.AccessoryColor;
 import br.univille.projcolabassistant.model.AssistiveAccessory;
 import br.univille.projcolabassistant.model.Category;
 import br.univille.projcolabassistant.repository.ConsultAccessoriesRepository;
@@ -50,24 +51,24 @@ public class ConsultAccessoriesController {
 		
 		List<AssistiveAccessoryViewModel> listAccessoryViewModel = this.consultAccessoriesRepository.findAllAssistiveAccessoryViewModel();
 		
-		HashMap<Category, List<AssistiveAccessory>> data = new HashMap<Category, List<AssistiveAccessory>>();
+		HashMap<Category, List<AssistiveAccessoryViewModel>> data = new HashMap<Category, List<AssistiveAccessoryViewModel>>();
 		
 		Category lastCategory = null;
-		List<AssistiveAccessory> listAssistiveAccessory= null;
+		List<AssistiveAccessoryViewModel> listAssistiveAccessory= null;
 		for(AssistiveAccessoryViewModel item : listAccessoryViewModel) {
 			if(lastCategory != item.getAssistiveAccessory().getCategory()) {
 				lastCategory = item.getAssistiveAccessory().getCategory();
-				listAssistiveAccessory= new  ArrayList<AssistiveAccessory>();
+				listAssistiveAccessory= new  ArrayList<AssistiveAccessoryViewModel>();
 				
 				data.put(lastCategory, listAssistiveAccessory);
 			}
-			listAssistiveAccessory.add(item.getAssistiveAccessory());
+			listAssistiveAccessory.add(item);
 		}
 				
 		return new ModelAndView("catalog/accessoryList", "mapcategorylistAccessory", data);
 	}
-	@GetMapping("/additem/{id}")
-	public ModelAndView additem(@PathVariable("id") AssistiveAccessory assistiveAccessory,HttpSession session) {
+	@GetMapping("/additem/{idaccessory}/{idcolor}")
+	public ModelAndView additem(@PathVariable("idaccessory") AssistiveAccessory assistiveAccessory,@PathVariable("idcolor") AccessoryColor accessoryColor,HttpSession session) {
 		
 		ShoppingCart shoppingCart = null;
 		shoppingCart = (ShoppingCart) session.getAttribute("carrinho");
@@ -78,6 +79,7 @@ public class ConsultAccessoriesController {
 		
 		ItemShoppingCart itemShop = new ItemShoppingCart();
 		itemShop.setAccessory(assistiveAccessory);
+		itemShop.setColor(accessoryColor);
 		shoppingCart.getItensList().add(itemShop);
 		
 		

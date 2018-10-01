@@ -3,6 +3,8 @@ package br.univille.projcolabassistant.viewmodel;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import br.univille.projcolabassistant.model.AccessoryColor;
+import br.univille.projcolabassistant.model.AccessorySize;
 import br.univille.projcolabassistant.model.AssistiveAccessory;
 
 @Component
@@ -12,6 +14,15 @@ public class ItemShoppingCart {
 	private long sequence;
 	private int quantity;
 	private AssistiveAccessory accessory = new AssistiveAccessory();
+	private AccessoryColor color = new AccessoryColor();
+	private AccessorySize size = new AccessorySize();
+	
+	public AccessoryColor getColor() {
+		return color;
+	}
+	public void setColor(AccessoryColor color) {
+		this.color = color;
+	}
 	public long getSequence() {
 		return sequence;
 	}
@@ -29,5 +40,11 @@ public class ItemShoppingCart {
 	}
 	public void setAccessory(AssistiveAccessory accessory) {
 		this.accessory = accessory;
+	}
+	public AccessorySize getSize() {
+		return size;
+	}
+	public void setSize(AccessorySize size) {
+		this.size = size;
 	}
 }
