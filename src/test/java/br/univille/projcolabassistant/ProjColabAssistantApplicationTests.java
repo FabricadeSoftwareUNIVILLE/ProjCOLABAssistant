@@ -25,6 +25,8 @@ import br.univille.projcolabassistant.controller.CategoryController;
 import br.univille.projcolabassistant.controller.CityController;
 import br.univille.projcolabassistant.controller.InstitutionController;
 import br.univille.projcolabassistant.controller.UserController;
+import br.univille.projcolabassistant.model.AccessoryColor;
+import br.univille.projcolabassistant.model.AccessorySize;
 import br.univille.projcolabassistant.model.AssistiveAccessory;
 import br.univille.projcolabassistant.model.Category;
 import br.univille.projcolabassistant.model.City;
@@ -91,7 +93,7 @@ public class ProjColabAssistantApplicationTests {
 
 	@Autowired
 	private UserController userController;
-
+	
 	@Test
 	public void contextLoads() {
 		//Verifica a existência da instância do controlador
@@ -213,10 +215,7 @@ public class ProjColabAssistantApplicationTests {
 		cityRepository.flush();
 
 	}
-	@Test
-	public void consultAccessories() throws Exception {
-		this.mockMvc.perform(get("/")).andDo(print()).andExpect(status().isOk());
-	}
+	
 
 	@Test
 	public void cityController() throws Exception {
@@ -263,7 +262,63 @@ public class ProjColabAssistantApplicationTests {
 		assistiveAccessoryRepository.save(accessory);
 
 	}
+	
+	@Test
+	public void consultAccessories() throws Exception {
+		
+		
+		categoryRepository.deleteAll();
+		accessorysizeRepository.deleteAll();
+		accessorycolorRepository.deleteAll();
+		assistiveAccessoryRepository.deleteAll();
+		
+		Category c = new Category();
+		c.setName("categoria 1");
+		categoryRepository.save(c);
+		
+		Category c2 = new Category();
+		c2.setName("categoria 2");
+		categoryRepository.save(c2);
 
+		AccessorySize size = new AccessorySize();
+		size.setName("pequeno");
+		
+		AccessorySize size2 = new AccessorySize();
+		size2.setName("grande");
+		
+		accessorysizeRepository.save(size);
+		accessorysizeRepository.save(size2);
+		
+		AccessoryColor color = new AccessoryColor();
+		color.setName("azul");
+		accessorycolorRepository.save(color);
+		
+		AccessoryColor color2 = new AccessoryColor();
+		color2.setName("verde");
+		accessorycolorRepository.save(color2);
+		
+		AssistiveAccessory a = new AssistiveAccessory();
+		a.setCategory(c);
+		a.getSizeList().add(size);
+		a.getColorList().add(color);
+		a.setDescription("Descricao teste");
+		
+		AssistiveAccessory b = new AssistiveAccessory();
+		b.setCategory(c2);
+		b.getSizeList().add(size2);
+		b.getColorList().add(color2);
+		b.setDescription("Segunda Descricao teste");
+		
+		assistiveAccessoryRepository.save(b);
+		
+		this.mockMvc.perform(get("/")).andDo(print()).andExpect(status().isOk())
+		.andExpect(xpath("/html/body/div/div/div/span/text()").string("categoria 1"))
+		.andExpect(xpath("/html/body/div/div/div/div/p/text()").string("Descricao teste"))
+		.andExpect(xpath("/html/body/div/div/div/span/text()").string("categoria 2"))
+		.andExpect(xpath("/html/body/div/div/div/div/p/text()").string("Segunda Descricao teste"));
+		
+	}
+	
 	@Test
 	public void userTest() throws Exception {
 		this.mockMvc.perform(get("/user")).andDo(print()).andExpect(status().isOk());
