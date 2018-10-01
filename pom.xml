@@ -13,7 +13,6 @@
 	<description>Projeto COLAB Assistant</description>
  
  
- 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
@@ -105,7 +104,7 @@
 			<artifactId>spring-boot-starter-security</artifactId>
 		</dependency>
 	</dependencies>
-
+	
 	<build>
 		<plugins>
 			<plugin>
@@ -115,16 +114,19 @@
 			<plugin>
 				<groupId>com.spotify</groupId>
 				<artifactId>docker-maven-plugin</artifactId>
-				<version>0.4.14</version>
+				<version>1.1.1</version>
 				<configuration>
 				 <imageName>colabassistantdockerimage</imageName>
                  <baseImage>frolvlad/alpine-oraclejdk8:slim</baseImage>
-                 <entryPoint>["java", "-jar", "/${project.build.finalName}.jar", "-Dspring.profiles.active=prod"]</entryPoint>
+                 <exposes>
+		            <expose>80</expose>
+		         </exposes>
+                 <entryPoint>["java", "-Dspring.profiles.active=prod", "-jar", "/${project.build.finalName}.war"]</entryPoint>
 					<resources>
 						<resource>
 							<targetPath>/</targetPath>
 							<directory>${project.build.directory}</directory>
-							<include>${project.build.finalName}.jar</include>
+							<include>${project.build.finalName}.war</include>
 						</resource>
 					</resources>
 				</configuration>

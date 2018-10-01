@@ -50,9 +50,15 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="slccolor">Tamanhos</label>
-                        <select class="form-control" id="slccolor" th:field="*{sizeList}" multiple="true">
+                        <label for="slcsize">Tamanhos</label>
+                        <select class="form-control" id="slcsize" th:field="*{sizeList}" multiple="true">
                             <option th:each="size : ${sizes}" th:value="${size.id}" th:text="${size.name}"></option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="slcmaterial">Materiais</label>
+                        <select class="form-control" id="slcmaterial" th:field="*{materialList}" multiple="true">
+                            <option th:each="material : ${materials}" th:value="${material.id}" th:text="${material.name}"></option>
                         </select>
                     </div>
                     <button type="submit" class="btn btn-primary assistive-accessory-btn">Enviar</button>

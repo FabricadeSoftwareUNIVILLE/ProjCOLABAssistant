@@ -21,10 +21,12 @@ import br.univille.projcolabassistant.model.AccessoryColor;
 import br.univille.projcolabassistant.model.AccessorySize;
 import br.univille.projcolabassistant.model.AssistiveAccessory;
 import br.univille.projcolabassistant.model.Category;
+import br.univille.projcolabassistant.model.Material;
 import br.univille.projcolabassistant.repository.AccessoryColorRepository;
 import br.univille.projcolabassistant.repository.AccessorySizeRepository;
 import br.univille.projcolabassistant.repository.AssistiveAccessoryRepository;
 import br.univille.projcolabassistant.repository.CategoryRepository;
+import br.univille.projcolabassistant.repository.MaterialRepository;
 
 @Controller
 @RequestMapping("/assistiveaccessory")
@@ -38,6 +40,8 @@ public class AssistiveAccessoryController {
     private AccessoryColorRepository accessoryColorRepository;
 	@Autowired
 	private AccessorySizeRepository accessorySizeRepository;
+	@Autowired
+	private MaterialRepository materialRepository;
 	
     @GetMapping("")
     public ModelAndView index() {
@@ -51,12 +55,16 @@ public class AssistiveAccessoryController {
     	List<Category> categories = categoryRepository.findAll();
     	List<AccessoryColor> colors = accessoryColorRepository.findAll();
     	List<AccessorySize> sizes = accessorySizeRepository.findAll();
+    	List<Material> materials= materialRepository.findAll();
+    	
     	
     	HashMap<String, Object> dados = new HashMap<String, Object>();
     	dados.put("assistiveaccessory", assistiveaccessory);
     	dados.put("categories",categories);
     	dados.put("colors", colors);
     	dados.put("sizes", sizes);
+    	dados.put("materials", materials);
+    	
     	
         return new ModelAndView("assistiveaccessory/form",dados);
     }
@@ -74,12 +82,14 @@ public class AssistiveAccessoryController {
     	List<Category> categories = categoryRepository.findAll();
     	List<AccessoryColor> colors = accessoryColorRepository.findAll();
     	List<AccessorySize> sizes = accessorySizeRepository.findAll();
+    	List<Material> materials= materialRepository.findAll();
     	
     	HashMap<String, Object> dados = new HashMap<String, Object>();
     	dados.put("assistiveaccessory", assistiveaccessory);
     	dados.put("categories",categories);
     	dados.put("colors", colors);
     	dados.put("sizes", sizes);
+    	dados.put("materials", materials);
     	
         return new ModelAndView("assistiveaccessory/form",dados);
     }

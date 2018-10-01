@@ -7,6 +7,12 @@ Desenvolver um sistema de informação para auxiliar na troca de informações s
 ## Ambiente de testes
 https://colabassistant.herokuapp.com
 
+## Rodando app no Docker
+
+mvn -DskipTests clean package docker:build
+
+docker-compose up -d
+
 ## Configuração do ambiente
 **Criação do banco de dados**
 

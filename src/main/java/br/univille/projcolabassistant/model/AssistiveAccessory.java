@@ -42,8 +42,19 @@ public class AssistiveAccessory extends AbstractReportObject{
 	private AccessoryPhoto principalPhoto = new AccessoryPhoto();
 	private String printTime;
 	private String amountOfInput;
+	@ManyToMany(cascade = { CascadeType.MERGE, CascadeType.REFRESH })
+	private List<Material> materialList = new ArrayList<Material>();
 	
 	
+	
+	public List<Material> getMaterialList() {
+		return materialList;
+	}
+
+	public void setMaterialList(List<Material> materialList) {
+		this.materialList = materialList;
+	}
+
 	public String getPrintTime() {
 		return printTime;
 	}
