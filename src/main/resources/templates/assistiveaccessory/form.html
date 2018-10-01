@@ -1,12 +1,29 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 	<meta charset="UTF-8">
-    <head th:include="layout :: htmlhead"></head>
+    <head th:include="layout :: htmlhead">
+    </head>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <style>
+		.image-name {
+			background-color: #007bff;
+			border-color: #007bff;
+			padding: 3px 10px;
+			color: #fff;
+			border-radius: 4px;
+			border: 1px;
+		}
+		
+		.image-name:active {
+			background-color: #0062cc;
+    		border-color: #005cbf;
+		}
+	</style>
     <body>
         <nav th:replace="layout :: menu">(menu)</nav>
         <div class="container assistive-accessory-container">
             <div class="border border-dark assistive-accessory-border">
-            <form th:action="@{/assistiveaccessory/new/(form)}" th:object="${assistiveaccessory}" action="#" method="post">
+            <form th:action="@{/assistiveaccessory/new/(form)}" th:object="${assistiveaccessory}" action="#" method="post" enctype="multipart/form-data">
                     <input type="hidden" id="id" th:field="*{id}" />    
                     
                     <div class="form-group assistive-accessory-group">
@@ -61,10 +78,111 @@
                             <option th:each="material : ${materials}" th:value="${material.id}" th:text="${material.name}"></option>
                         </select>
                     </div>
+					<br>
+					<br>
+					<table style="width:100%">
+						<tr style="text-align:center">
+							<th>Principal</th>
+							<th>Imagem</th>
+							<th>Descrição</th>
+						</tr>
+	 					<tr class="form-group multiple-form-group input-group" style="display: table-row">
+	 						<td style="width:5%;text-align:center">
+		 						<input type="radio" name="mainphoto"/>
+	 						</td>
+	 						<td width="45%">
+		                        <div class="input-group-btn input-group-select">
+		                        	<input style="display:none" id="uploadedU" type="file" name="photos[]" onclick="onClickImage()"/>
+		                        	<div th:if="${!assistiveaccessory.photoList.isEmpty()}" style="text-align: center;">
+									   <label id="labelForImage" class="image-name" for="uploadedU" th:text="${assistiveaccessory.photoList.get(0).URI.replaceAll('^.*\\', '')}"></label>
+									</div>
+									<div th:if="${assistiveaccessory.photoList.isEmpty()}" style="text-align: center;">
+									   <label id="labelForImage" class="image-name" for="uploadedU">Select a file</label>
+									</div>
+		                        </div>
+	                        </td>
+	                        
+	                        <td width="50%">
+		                        <table style="width:100%">
+		                        	<tr>
+		                        		<td width="90%">
+		                        			<input type="text" name="desc[]" class="form-control">
+		                        		</td>
+		                        		<td width="10%">
+					                        <span class="input-group-btn">
+					                            <button type="button" class="btn btn-success btn-add">+</button>
+					                        </span>
+		                        		</td>
+		                        	</tr>
+		                        </table>
+		                   	</td>
+	                    </tr>
+                    </table>
                     <button type="submit" class="btn btn-primary assistive-accessory-btn">Enviar</button>
                 </form>
-            </div>
+		</div>
         </div>
+        <script>
+        function onClickImage (event) {
+        	console.log("Oi");
+        } 
+        
+        var files = document.getElementById('uploadedU');
+        var imageFilesLabel = document.getElementById('labelForImage');
+		files.addEventListener("change", function (event) {
+		  	if (files.files.length > 0) {
+		  		imageFilesLabel.innerHTML = event.path[0].value.replace(/^.*\\/g, "red");
+		    	return;
+		  	}
+		});
+        
+        (function ($) {
+            $(function () {
+
+                var addFormGroup = function (event) {
+                    event.preventDefault();
+
+                    var $formGroup = $(this).closest('.form-group');
+                    var $multipleFormGroup = $formGroup.closest('.multiple-form-group');
+                    var $formGroupClone = $formGroup.clone();
+
+                    $(this)
+                        .toggleClass('btn-success btn-add btn-danger btn-remove')
+                        .html('–');
+
+                    $formGroupClone.find('input').val('');
+                    $formGroupClone.find('.concept').text('Phone');
+                    $formGroupClone.insertAfter($formGroup);
+
+                    var $lastFormGroupLast = $multipleFormGroup.find('.form-group:last');
+                    if ($multipleFormGroup.data('max') <= countFormGroup($multipleFormGroup)) {
+                        $lastFormGroupLast.find('.btn-add').attr('disabled', true);
+                    }
+                };
+
+                var removeFormGroup = function (event) {
+                    event.preventDefault();
+
+                    var $formGroup = $(this).closest('.form-group');
+                    var $multipleFormGroup = $formGroup.closest('.multiple-form-group');
+
+                    var $lastFormGroupLast = $multipleFormGroup.find('.form-group:last');
+                    if ($multipleFormGroup.data('max') >= countFormGroup($multipleFormGroup)) {
+                        $lastFormGroupLast.find('.btn-add').attr('disabled', false);
+                    }
+
+                    $formGroup.remove();
+                };
+
+                var countFormGroup = function ($form) {
+                    return $form.find('.form-group').length;
+                };
+
+                $(document).on('click', '.btn-add', addFormGroup);
+                $(document).on('click', '.btn-remove', removeFormGroup);
+            });
+        })(jQuery);
+        </script>
         <div th:include="layout :: footer" id="footer">(footer)</div>
     </body>
 </html>

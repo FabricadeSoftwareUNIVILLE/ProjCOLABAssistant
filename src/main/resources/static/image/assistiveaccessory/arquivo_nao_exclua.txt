@@ -1,0 +1,2 @@
+arquivo para poder commitar esta pasta que armazenará as imagens dos acessórios
+o git ignorará a pasta caso não tenha nenhum arquivo
