@@ -1,11 +1,13 @@
 package br.univille.projcolabassistant.model;
 
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class AccessoryPhoto {
@@ -16,7 +18,18 @@ public class AccessoryPhoto {
 	private String description;
 	@Column(length=5000)
 	private String URI;
+	@ManyToOne(cascade= {CascadeType.REFRESH,CascadeType.MERGE},optional=true)
+	private AccessoryColor accessoryColor;
+
 	
+	public AccessoryColor getAccessoryColor() {
+		return accessoryColor;
+	}
+
+	public void setAccessoryColor(AccessoryColor accessoryColor) {
+		this.accessoryColor = accessoryColor;
+	}
+
 	public AccessoryPhoto() {
 	}
 	

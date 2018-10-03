@@ -80,29 +80,53 @@
                     </div>
 					<br>
 					<br>
+					<table style="width:100%" th:if="*{!photoList.isEmpty()}">
+						<tr style="text-align:center">
+							<th>Imagem</th>
+							<th>Cor</th>
+							<th>Descrição</th>
+							<th></th>
+						</tr>
+	 					<tr class="form-group multiple-form-group input-group" style="display: table-row" th:each="oneimage, stat : *{photoList}">
+	 						<input type="hidden" th:field="*{photoList[__${stat.index}__]}"/>
+	 						<td width="40%" style="text-align: center;">
+		                        <img th:src="${'/assistiveaccessory/image-byte-array/'+oneimage.URI}">
+	                        </td>
+	                        <td width="25%">
+		                        <select class="form-control" th:field="*{photoList[__${stat.index}__].accessoryColor}">
+		                            <option th:each="color : ${colors}" th:value="${color.id}" th:text="${color.name}"></option>
+		                        </select>
+	                        </td>
+	                        <td width="25%">
+	                        	<input type="text" th:field="*{photoList[__${stat.index}__].description}" class="form-control">
+		                   	</td>
+		                   	<td width="25%">
+		                   		<a href="form.html" th:href="'/assistiveaccessory/removephoto/' + ${assistiveaccessory.id} + '/' + ${oneimage.id}" class="btn btn-secondary btn-lg" role="button">Remover</a>
+		                   	</td>
+	                    </tr>
+                    </table>
+					
+					
 					<table style="width:100%">
 						<tr style="text-align:center">
-							<th>Principal</th>
 							<th>Imagem</th>
+							<th>Cor</th>
 							<th>Descrição</th>
 						</tr>
 	 					<tr class="form-group multiple-form-group input-group" style="display: table-row">
-	 						<td style="width:5%;text-align:center">
-		 						<input type="radio" name="mainphoto"/>
-	 						</td>
-	 						<td width="45%">
+	 						<td width="50%">
 		                        <div class="input-group-btn input-group-select">
-		                        	<input style="display:none" id="uploadedU" type="file" name="photos[]" onclick="onClickImage()"/>
-		                        	<div th:if="${!assistiveaccessory.photoList.isEmpty()}" style="text-align: center;">
-									   <label id="labelForImage" class="image-name" for="uploadedU" th:text="${assistiveaccessory.photoList.get(0).URI.replaceAll('^.*\\', '')}"></label>
-									</div>
-									<div th:if="${assistiveaccessory.photoList.isEmpty()}" style="text-align: center;">
-									   <label id="labelForImage" class="image-name" for="uploadedU">Select a file</label>
-									</div>
+		                        	<input id="uploadedU" type="file" name="photos[]" onclick="onClickImage()"/>
 		                        </div>
 	                        </td>
 	                        
-	                        <td width="50%">
+	                        <td width="25%">
+		                        <select class="form-control" name="colorphotos[]">
+		                            <option th:each="color : ${colors}" th:value="${color.id}" th:text="${color.name}"></option>
+		                        </select>
+	                        </td>
+	                        
+	                        <td width="25%">
 		                        <table style="width:100%">
 		                        	<tr>
 		                        		<td width="90%">
@@ -127,57 +151,51 @@
         	console.log("Oi");
         } 
         
-        var files = document.getElementById('uploadedU');
-        var imageFilesLabel = document.getElementById('labelForImage');
-		files.addEventListener("change", function (event) {
-		  	if (files.files.length > 0) {
-		  		imageFilesLabel.innerHTML = event.path[0].value.replace(/^.*\\/g, "red");
-		    	return;
-		  	}
-		});
-        
         (function ($) {
             $(function () {
-
+            	var contador = 0;
                 var addFormGroup = function (event) {
                     event.preventDefault();
-
                     var $formGroup = $(this).closest('.form-group');
                     var $multipleFormGroup = $formGroup.closest('.multiple-form-group');
                     var $formGroupClone = $formGroup.clone();
-
                     $(this)
                         .toggleClass('btn-success btn-add btn-danger btn-remove')
                         .html('–');
-
                     $formGroupClone.find('input').val('');
+                    //$formGroupClone.find('input').attr('id', "uploadedU"+contador);
+                    //$formGroupClone.find('label').attr('for', "uploadedU"+contador);
+                    
+                    //var files = $formGroupClone.find('input');
+                    //var imageFilesLabel = $formGroupClone.find('label');
+            		//files.on("change", function (event) {
+            		// 	if (files.length > 0) {
+            		  		//imageFilesLabel.innerHTML = event.path[0].value.replace(/^.*\\/g, "red");
+            		//    	return;
+            		//  	}
+            		//});
+                    
+                    contador++;
                     $formGroupClone.find('.concept').text('Phone');
                     $formGroupClone.insertAfter($formGroup);
-
                     var $lastFormGroupLast = $multipleFormGroup.find('.form-group:last');
                     if ($multipleFormGroup.data('max') <= countFormGroup($multipleFormGroup)) {
                         $lastFormGroupLast.find('.btn-add').attr('disabled', true);
                     }
                 };
-
                 var removeFormGroup = function (event) {
                     event.preventDefault();
-
                     var $formGroup = $(this).closest('.form-group');
                     var $multipleFormGroup = $formGroup.closest('.multiple-form-group');
-
                     var $lastFormGroupLast = $multipleFormGroup.find('.form-group:last');
                     if ($multipleFormGroup.data('max') >= countFormGroup($multipleFormGroup)) {
                         $lastFormGroupLast.find('.btn-add').attr('disabled', false);
                     }
-
                     $formGroup.remove();
                 };
-
                 var countFormGroup = function ($form) {
                     return $form.find('.form-group').length;
                 };
-
                 $(document).on('click', '.btn-add', addFormGroup);
                 $(document).on('click', '.btn-remove', removeFormGroup);
             });

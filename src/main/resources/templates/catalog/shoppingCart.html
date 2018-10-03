@@ -6,25 +6,26 @@
 	<link type="text/css" rel="stylesheet" th:href="@{/css/accessoryList.css}" />
 	<body>
 		<nav class="navbar navbar-expand-lg navbar-light bg-light">
-			<img src="/image/logoColabmini.jpg">
+		<img src="/image/logoColabmini.jpg">
 			<div class="container-fluid" id="navbarNav">
 				<ul class="navbar-nav">
 					<li class="nav-item active"></li>
-					<li class="navbar-brand">Minha Lista</li>
-				</ul>
-				<ul class="nav navbar-nav navbar-right">
+					<li class="navbar-brand">Meu pedido - Confirmação</li>
 					
 				</ul>
 			</div>
+			<a class="nav-link" href="/">Home</a>
+			<a class="nav-link" href="/register">Registrar Usuário</a>
+			<a class="nav-link" href="/admin">Admin</a>
+			<a class="nav-link" href="/about">Sobre</a>
+			<form th:action="@{/logout}" method="post">
+		            <input type="submit" value="Sair" class="btn"/>
+		        </form>	
 		</nav>
 
 		<div class="container">
-			<form th:action="@{/MyList/(form)}" th:object="${shoppingcart}" action="#" method="post">
-			
-				<select class="form-control" id="slcinstitution" th:field="${shoppingcart.institution}" >
-                    <option th:each="oneInst : ${listInstitution}" th:value="${oneInst.id}" th:text="${oneInst.name}"></option>
-                </select>
-			
+			<form th:action="@{/mylist/(form)}" th:object="${shoppingcart}" action="#" method="post">
+				
 				<table class="table table-sm">
 				 	<thead>
 				    	<tr>
@@ -32,6 +33,7 @@
 				      		<th class="table-title" scope="col">Nome</th>
 				      		<th class="table-title" scope="col">Descrição</th>
 				      		<th class="table-title" scope="col">Tamanho</th>
+				      		<th class="table-title" scope="col">Quantidade</th>
 				      		<th class="table-title" scope="col">Remover</th>
 				      		
 				    	</tr>
@@ -39,18 +41,39 @@
 				  	<tbody>
 				    	<tr th:each="umitem, stat : ${shoppingcart.itensList}">
 				    		<input type="hidden" th:field="${shoppingcart.itensList[__${stat.index}__]}"/>
-				      		<td><img src="/image/item.png" alt="Card image cap"></td>
+				    		<input type="hidden" th:field="${shoppingcart.itensList[__${stat.index}__].accessory}"/>
+				    		<input type="hidden" th:field="${shoppingcart.itensList[__${stat.index}__].photo}"/>
+				      		<td>
+				      		<img class="card-img-top" th:src="${'/image-byte-array/' + umitem.photo.URI}" alt="Card image cap"/>
+				      		</td>
 				      		<td class="table-text" th:text="${umitem.accessory.name}"></td>
 				      		<td class="table-text" th:text="${umitem.accessory.description}"></td>
+				      		
 		 					<td align="center">
 			 					<select class="form-control" id="slccity" th:field="${shoppingcart.itensList[__${stat.index}__].size}" >
 		                            <option th:each="onesize : ${umitem.accessory.sizeList}" th:value="${onesize.id}" th:text="${onesize.name}"></option>
 		                        </select>
 		                    </td>
-				     		<td><span class="glyphicon glyphicon glyphicon-remove" aria-hidden="true"></span></td>
+		                    <td class="table-text">
+				      			<input type="text" required th:field="${shoppingcart.itensList[__${stat.index}__].quantity}"/>
+				      		</td>
+				     		<td><a th:href="'/mylist/remove/'+${shoppingcart.itensList[__${stat.index}__].sequence}"><span class="glyphicon glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>
 				    	</tr>
 				  </tbody>
 				</table>
+				<div class="form-group">
+                    <label for="slcinstitution">Instituição solicitante</label>
+                    <select class="form-control" id="slcinstitution" th:field="${shoppingcart.institution}" >
+                        <option th:each="oneInst : ${listInstitution}" th:value="${oneInst.id}" th:text="${oneInst.name}"></option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="txtdescription">Descrição do pedido</label>
+                    <textarea rows="20" cols="80" class="form-control" id="txtdescription" th:field="${shoppingcart.description}">
+                    </textarea>
+                </div>
+                
+                
 				<button type="submit" class="btn btn-primary">Confirmar pedido</button>
 			</form>
 		</div>

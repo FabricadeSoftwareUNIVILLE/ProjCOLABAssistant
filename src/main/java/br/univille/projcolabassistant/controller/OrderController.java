@@ -92,7 +92,6 @@ public class OrderController {
 		assistive.getColorList().add(accessoryColor);
 		assistive.getSizeList().add(size);
 		assistive.getPhotoList().add(accessoryPhoto);
-		assistive.setPrincipalPhoto(accessoryPhoto);
 		assistiveAccessoryRepository.save(assistive);
 		
 		ItemShoppingCart item1 = new ItemShoppingCart();

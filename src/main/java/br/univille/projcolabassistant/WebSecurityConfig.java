@@ -23,9 +23,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private MyUserDetailsService userDetailsService;
 	private String[] resources = new String[]{
-            "/","/about", "/register/**","/webjars/**","/include/**",
+            "/","/about","/image-byte-array/**", "/register/**","/webjars/**","/include/**",
             "/css/**","/icons/**","/image/**","/js/**","/layer/**"
     };
+	
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.authenticationProvider(authenticationProvider());

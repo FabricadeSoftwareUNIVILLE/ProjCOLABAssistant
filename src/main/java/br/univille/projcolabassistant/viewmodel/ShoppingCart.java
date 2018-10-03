@@ -17,9 +17,7 @@ public class ShoppingCart {
 	private Date date;
 	private List<ItemShoppingCart> itensList = new ArrayList<ItemShoppingCart>();
 	private Institution institution = new Institution();
-	
-	
-	
+	private String description;
 	
 	public Institution getInstitution() {
 		return institution;
@@ -44,5 +42,11 @@ public class ShoppingCart {
 	}
 	public void setItensList(List<ItemShoppingCart> itensList) {
 		this.itensList = itensList;
+	}
+	public String getDescription() {
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
 	}
 }

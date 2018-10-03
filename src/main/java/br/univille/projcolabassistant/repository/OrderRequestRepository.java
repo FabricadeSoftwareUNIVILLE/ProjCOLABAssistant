@@ -9,6 +9,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import br.univille.projcolabassistant.model.OrderRequest;
+import br.univille.projcolabassistant.model.User;
 import br.univille.projcolabassistant.viewmodel.OrderSumByCategory;
 
 @Repository
@@ -75,4 +76,7 @@ public interface OrderRequestRepository extends JpaRepository<OrderRequest, Long
 	
 	public List<OrderRequest> findByorderFinshDateNotNullOrderByOrderDateAsc();
 	public List<OrderRequest> findByorderFinshDateNullOrderByOrderDateAsc();
+	
+	public List<OrderRequest> findByUserRequestAndOrderFinshDateNotNullOrderByOrderDateAsc(User userRequest);
+	public List<OrderRequest> findByUserRequestAndOrderFinshDateNullOrderByOrderDateAsc(User userRequest);
 }

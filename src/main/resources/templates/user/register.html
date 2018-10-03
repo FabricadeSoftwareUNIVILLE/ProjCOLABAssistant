@@ -57,6 +57,12 @@
 						th:field="*{password}">
 				</div>
 				<div class="form-group">
+                        <label for="slccolor">Instituições</label>
+                        <select class="form-control" id="slcinstitution" th:field="*{institutionList}" multiple="true">
+                            <option th:each="oneinst : ${listInstitution}" th:value="${oneinst.id}" th:text="${oneinst.name}"></option>
+                        </select>
+                    </div>
+				<div class="form-group">
 					<label for="txtcrmCrefito">CRM / CREFITO</label> <input type="text" required
 						class="form-control" id="txtcrmCrefito" placeholder="Número"
 						th:field="*{crmCrefito}">

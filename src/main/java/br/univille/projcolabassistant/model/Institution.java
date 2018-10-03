@@ -23,7 +23,7 @@ public class Institution extends AbstractReportObject {
 	private String email;
 	private String technicalManager;
 
-
+	
 	@ManyToOne(cascade={CascadeType.MERGE,CascadeType.REFRESH})
 	private City city = new City();
 	

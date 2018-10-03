@@ -36,11 +36,9 @@ public class AssistiveAccessory extends AbstractReportObject{
 	private List<AccessorySize> sizeList = new ArrayList<AccessorySize>();
 	@ManyToMany(cascade = { CascadeType.MERGE, CascadeType.REFRESH })
 	private List<AccessoryColor> colorList = new ArrayList<AccessoryColor>();
-	@OneToMany(cascade = CascadeType.ALL)
+	@OneToMany(cascade = CascadeType.ALL,orphanRemoval=true)
 	@JoinColumn(name = "accessoryphoto_id")
 	private List<AccessoryPhoto> photoList = new ArrayList<AccessoryPhoto>();
-	@OneToOne(cascade = CascadeType.ALL)
-	private AccessoryPhoto principalPhoto = new AccessoryPhoto();
 	private String printTime;
 	private String amountOfInput;
 	@ManyToMany(cascade = { CascadeType.MERGE, CascadeType.REFRESH })
@@ -81,7 +79,7 @@ public class AssistiveAccessory extends AbstractReportObject{
 	}
 	
 	
-	public AssistiveAccessory(int id, String code, String description, String prescription, String function, String name, Category category, AccessoryPhoto principalPhoto) {
+	public AssistiveAccessory(int id, String code, String description, String prescription, String function, String name, Category category) {
 		// TODO Auto-generated constructor stub
 		this.id = id;
 		this.code = code;
@@ -90,7 +88,7 @@ public class AssistiveAccessory extends AbstractReportObject{
 		this.function = function;
 		this.name = name;
 		this.category = category;
-		this.principalPhoto = principalPhoto;
+		//this.principalPhoto = principalPhoto;
 		this.setReportType("assistiveaccessory");
 		this.setTemplatePath("report/accessory-pdf-template.html");
 	}
@@ -174,13 +172,5 @@ public class AssistiveAccessory extends AbstractReportObject{
 
 	public void setPhotoList(List<AccessoryPhoto> photoList) {
 		this.photoList = photoList;
-	}
-
-	public AccessoryPhoto getPrincipalPhoto() {
-		return principalPhoto;
-	}
-
-	public void setPrincipalPhoto(AccessoryPhoto principalPhoto) {
-		this.principalPhoto = principalPhoto;
 	}
 }

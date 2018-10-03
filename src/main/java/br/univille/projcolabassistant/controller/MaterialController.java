@@ -36,7 +36,7 @@ public class MaterialController {
     
     @GetMapping("/novo")
     public String createForm(@ModelAttribute Material Material) {
-        return "Material/form";
+        return "material/form";
     }
     
     @PostMapping(params="form")
@@ -50,7 +50,7 @@ public class MaterialController {
     @GetMapping(value="/update/{id}")
     public ModelAndView alterarForm(@PathVariable("id") Material material) {
     	
-        return new ModelAndView("Material/form","material",material);
+        return new ModelAndView("material/form","material",material);
     }
     
     @GetMapping(value="delete/{id}")

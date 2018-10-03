@@ -53,6 +53,11 @@
 		                </table>
 				    </div>
 				</div>
+				<div class="form-group">
+                    <label for="txtdescription">Descrição</label>
+                    <textarea rows="20" cols="80" type="text" disabled="disabled" id="txtdescription" class="form-control" th:field="*{description}" >
+                    </textarea>
+                </div>
 				<div class="card px-0">
 				    <div class="card-header">Histórico</div>
 				    <div class="card-body">
@@ -77,6 +82,7 @@
 								            <li th:if="${item.statusLog == 30}">Pronto</li>
 								            <li th:if="${item.statusLog == 40}">Entregue</li>
 								            <li th:if="${item.statusLog == 50}">Finalizado</li>
+								            <li th:if="${item.statusLog == 90}">Recusado pelo COLAB</li>
 								        </ul>
 		                            </td>
 		                        </tr>
@@ -99,6 +105,7 @@
 					            <option th:value="30">Pronto</option>
 					            <option th:value="40">Entregue</option>
 					            <option th:value="50">Finalizado</option>
+					            <option th:value="90">Recusado pelo COLAB</option>
 					        </select>
 					    </div>
 	                    <button type="submit" class="btn btn-primary">Enviar</button>

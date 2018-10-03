@@ -4,6 +4,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import br.univille.projcolabassistant.model.AccessoryColor;
+import br.univille.projcolabassistant.model.AccessoryPhoto;
 import br.univille.projcolabassistant.model.AccessorySize;
 import br.univille.projcolabassistant.model.AssistiveAccessory;
 
@@ -14,14 +15,15 @@ public class ItemShoppingCart {
 	private long sequence;
 	private int quantity;
 	private AssistiveAccessory accessory = new AssistiveAccessory();
-	private AccessoryColor color = new AccessoryColor();
+	private AccessoryPhoto photo = new AccessoryPhoto();
 	private AccessorySize size = new AccessorySize();
 	
-	public AccessoryColor getColor() {
-		return color;
+	
+	public AccessoryPhoto getPhoto() {
+		return photo;
 	}
-	public void setColor(AccessoryColor color) {
-		this.color = color;
+	public void setPhoto(AccessoryPhoto photo) {
+		this.photo = photo;
 	}
 	public long getSequence() {
 		return sequence;

@@ -1,5 +1,6 @@
 package br.univille.projcolabassistant.controller;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -17,8 +18,10 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.univille.projcolabassistant.model.City;
+import br.univille.projcolabassistant.model.Institution;
 import br.univille.projcolabassistant.model.User;
 import br.univille.projcolabassistant.repository.CityRepository;
+import br.univille.projcolabassistant.repository.InstitutionRepository;
 import br.univille.projcolabassistant.repository.UserRepository;
 
 @Controller
@@ -34,17 +37,19 @@ public class RegisterController {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
+	@Autowired
+	private InstitutionRepository institutionRepository;
+	
 	@GetMapping("")
 	public ModelAndView index(@ModelAttribute User user) {
 		List<City> listaCidades = cityRepository.findAll();
-        return new ModelAndView("user/register","listacidades",listaCidades);
+        List<Institution> listInstitution = institutionRepository.findAll();
+        HashMap<String, Object> dados = new HashMap<String, Object>();
+        dados.put("listacidades",listaCidades);
+        dados.put("listInstitution", listInstitution);
+        return new ModelAndView("user/register",dados);
 	}
 	
-	@GetMapping("/register")
-    public ModelAndView createForm1(@ModelAttribute User user) {
-        List<City> listaCidades = cityRepository.findAll();
-        return new ModelAndView("user/register","listacidades",listaCidades);
-    }
 	
 	@PostMapping(params = "form")
 	public ModelAndView save(@Valid User user, BindingResult result, RedirectAttributes redirect) {

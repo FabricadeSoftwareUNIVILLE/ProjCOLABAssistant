@@ -10,7 +10,6 @@ import br.univille.projcolabassistant.viewmodel.AssistiveAccessoryViewModel;
 
 @Repository
 public interface ConsultAccessoriesRepository extends JpaRepository<AssistiveAccessory, Long>{
-	@Query("select NEW br.univille.projcolabassistant.viewmodel.AssistiveAccessoryViewModel(a,cor) from AssistiveAccessory a, IN(a.colorList) cor order by a.category.name")
+	@Query("select NEW br.univille.projcolabassistant.viewmodel.AssistiveAccessoryViewModel(a,photo) from AssistiveAccessory a, IN(a.photoList) photo order by a.category.name")
 	public List<AssistiveAccessoryViewModel> findAllAssistiveAccessoryViewModel();
-
 }

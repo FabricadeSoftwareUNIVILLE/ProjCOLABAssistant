@@ -63,8 +63,10 @@ public class OrderStatusController {
 
 		orderRequest.setUser(userDetailsService.getUserLogged());
 		newOrderStatusLog.setDate(new Date());
-		if(newOrderStatusLog.getStatusLog() == 50) {
+		if(newOrderStatusLog.getStatusLog() >= 50) {
 			orderRequest.setOrderFinshDate(new Date());
+		}else {
+			orderRequest.setOrderFinshDate(null);
 		}
 		newOrderStatusLog.setUser(userDetailsService.getUserLogged());
 		orderRequest.getOrderStatusLogList().add(newOrderStatusLog);

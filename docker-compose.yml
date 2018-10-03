@@ -17,6 +17,8 @@ services:
      depends_on:
        - db
      image: colabassistantdockerimage:latest
+     volumes:
+       - colabimages:/var/colabimages
      ports:
        - "80:80"
      restart: always
@@ -24,3 +26,4 @@ services:
        DATABASE_URL: jdbc:mysql://db:3306/colabassistant?reconnect=true&user=bob&password=bob
 volumes:
     dbdata:
+    colabimages:

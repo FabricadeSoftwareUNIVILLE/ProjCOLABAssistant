@@ -15,10 +15,11 @@
 					
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href="/MyList"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span></a></li>
+					<li><a href="/mylist"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span><span class="badge badge-light" th:text="${#lists.size(shoppingCart.itensList)}"></span></a></li>
 				</ul>
 			</div>
 			<a class="nav-link" href="/register">Registrar Usuário</a>
+			<a class="nav-link" href="/orderstatususer">Ordem de Serviço</a>
 			<a class="nav-link" href="/admin">Admin</a>
 			<a class="nav-link" href="/about">Sobre</a>
 			<form th:action="@{/logout}" method="post">
@@ -35,12 +36,12 @@
 			
 			<div class="row">
 				<div class="card col-xs-12 col-sm-4 col-md-3 col-lg-2"  th:each="umaccessory : ${umitem.value}">
-					<img class="card-img-top" src="/image/item.png" alt="Card image cap"/>
+					<img class="card-img-top" th:src="${'/image-byte-array/' + umaccessory.accessoryPhoto.URI}" th:alt="${umaccessory.accessoryPhoto.description}"/>
 					<div class="card-body">
 						<h5 class="card-text" th:text="${umaccessory.assistiveAccessory.name}"></h5>
 						<p class="card-title" th:text="${umaccessory.assistiveAccessory.description}"></p>
-						<p class="card-title" th:text="${umaccessory.accessoryColor.name}"></p>
-						<a th:href="@{'/additem/' + ${umaccessory.assistiveAccessory.id} + '/'+ ${umaccessory.accessoryColor.id}}"  class="btn btn-success">Adicionar</a>
+						<p class="card-title" th:text="'Cor: '+${umaccessory.accessoryPhoto.accessoryColor.name}"></p>
+						<a th:href="@{'/additem/' + ${umaccessory.assistiveAccessory.id} + '/'+ ${umaccessory.accessoryPhoto.id}}"  class="btn btn-success">Adicionar</a>
 					</div>
 				</div>
 			</div>

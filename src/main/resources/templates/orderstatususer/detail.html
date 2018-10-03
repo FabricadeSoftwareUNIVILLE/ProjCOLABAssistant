@@ -2,7 +2,23 @@
 <html xmlns:th="http://www.thymeleaf.org">
 	<head th:include="layout :: htmlhead"><meta charset="UTF-8"></head>
     <body>
-        <nav th:replace="layout :: menu">(menu)</nav>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+		<img src="/image/logoColabmini.jpg">
+			<div class="container-fluid" id="navbarNav">
+				<ul class="navbar-nav">
+					<li class="nav-item active"></li>
+					<li class="navbar-brand">Catálogo de Acessórios</li>
+					
+				</ul>
+			</div>
+			<a class="nav-link" href="/register">Registrar Usuário</a>
+			<a class="nav-link" href="/orderstatususer">Ordem de Serviço</a>
+			<a class="nav-link" href="/admin">Admin</a>
+			<a class="nav-link" href="/about">Sobre</a>
+			<form th:action="@{/logout}" method="post">
+		            <input type="submit" value="Sair" class="btn"/>
+		        </form>	
+		</nav>
         <div class="container">
         	<h2>Ordem de Serviço</h2>
             <div class="border border-dark" th:object="${orderRequest}">
@@ -99,7 +115,7 @@
 				    </div>
 				</div>
 					    
-                <a href="/orderstatus" class="btn btn-primary">Retornar</a>
+                <a href="/orderstatususer" class="btn btn-primary">Retornar</a>
             </div>
         </div>	
         <div th:include="layout :: footer" id="footer">(footer)</div>
