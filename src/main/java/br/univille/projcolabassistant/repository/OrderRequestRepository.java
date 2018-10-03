@@ -79,4 +79,7 @@ public interface OrderRequestRepository extends JpaRepository<OrderRequest, Long
 	
 	public List<OrderRequest> findByUserRequestAndOrderFinshDateNotNullOrderByOrderDateAsc(User userRequest);
 	public List<OrderRequest> findByUserRequestAndOrderFinshDateNullOrderByOrderDateAsc(User userRequest);
+	
+	public Long countByorderFinshDateNull();
+	public Long countByorderFinshDateNullAndUserNull();
 }
