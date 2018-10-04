@@ -12,6 +12,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.firewall.HttpFirewall;
+import org.springframework.security.web.firewall.StrictHttpFirewall;
 
 import br.univille.projcolabassistant.service.MyUserDetailsService;
 
@@ -48,7 +50,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		.csrf().disable()
 		.authorizeRequests()
 			.anyRequest().authenticated()
-			.antMatchers(resources).permitAll()
 		.and()
 			.formLogin()
             .loginPage("/login")
@@ -66,6 +67,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	public void configure(WebSecurity web) throws Exception {
 		web.ignoring().antMatchers(resources);
+		web.httpFirewall(allowUrlEncodedSlashHttpFirewall());
 	}
 
 	@Bean
@@ -73,6 +75,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		//return NoOpPasswordEncoder.getInstance();
 		return new BCryptPasswordEncoder();
 	}
-	
+	@Bean
+	public HttpFirewall allowUrlEncodedSlashHttpFirewall() {
+	    StrictHttpFirewall firewall = new StrictHttpFirewall();
+	    firewall.setAllowUrlEncodedSlash(true);
+	    firewall.setAllowSemicolon(true);
+	    return firewall;
+	}
 	
 }
