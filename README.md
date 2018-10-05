@@ -9,7 +9,7 @@ https://colabassistant.herokuapp.com
 
 ## Rodando app no Docker
 
-mvn -DskipTests clean package docker:build -P prod
+mvn -DskipTests clean package docker:build
 
 docker-compose up -d
 

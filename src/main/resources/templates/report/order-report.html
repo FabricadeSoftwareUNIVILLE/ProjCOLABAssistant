@@ -65,7 +65,14 @@
 		       			<div class="form-group">
 						  <label for="status" class="col col-form-label">Status do pedido</label>
 						  <div class="col">
-						    <input class="form-control" type="number" name="status" id="status">
+						    <select class="form-control" id="statusLog" name="status">
+					            <option th:value="10">Em análise equipe COLAB</option>
+					            <option th:value="20">Em Produção</option>
+					            <option th:value="30">Pronto</option>
+					            <option th:value="40">Entregue</option>
+					            <option th:value="50">Finalizado</option>
+					            <option th:value="90">Recusado pelo COLAB</option>
+					        </select>
 						  </div>
 						</div>
 	       			</div>

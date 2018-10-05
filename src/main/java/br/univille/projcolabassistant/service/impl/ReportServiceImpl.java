@@ -14,18 +14,20 @@ import java.util.List;
 import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.ITemplateEngine;
 import org.thymeleaf.context.Context;
 import org.xhtmlrenderer.pdf.ITextRenderer;
 
 import br.univille.projcolabassistant.model.AbstractReportObject;
-import br.univille.projcolabassistant.model.AssistiveAccessory;
-import br.univille.projcolabassistant.repository.AssistiveAccessoryRepository;
 import br.univille.projcolabassistant.model.Category;
 import br.univille.projcolabassistant.model.Institution;
 import br.univille.projcolabassistant.model.OrderRequest;
 import br.univille.projcolabassistant.model.User;
+import br.univille.projcolabassistant.repository.AssistiveAccessoryRepository;
 import br.univille.projcolabassistant.repository.CategoryRepository;
 import br.univille.projcolabassistant.repository.InstitutionRepository;
 import br.univille.projcolabassistant.repository.OrderRequestRepository;
@@ -48,7 +50,8 @@ public class ReportServiceImpl implements ReportService {
 	private AssistiveAccessoryRepository AssistiveAccessoryRepository;
 	@Autowired
 	private CategoryRepository categoryRepository;
-
+	@Autowired
+	private ResourceLoader resourceLoader;
 	
 	@Autowired
 	private ITemplateEngine templateEngine;
@@ -136,7 +139,11 @@ public class ReportServiceImpl implements ReportService {
 			List<AbstractReportObject> objects = (List<AbstractReportObject>) reportObjects;
 			
 			if(objects.size() == 0) {
-				return new File(RESULT_NOT_FOUND_FILE);
+				
+				//Resource resource = new ClassPathResource(RESULT_NOT_FOUND_FILE);
+				//return resource.getFile();
+				//return new File(RESULT_NOT_FOUND_FILE);
+				return null;
 			}
 			
 			String reportType = objects.get(0).getReportType();
