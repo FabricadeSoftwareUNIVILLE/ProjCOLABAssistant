@@ -176,6 +176,8 @@ public class AssistiveAccessoryController {
 
 		assistiveaccessory.getPhotoList().remove(accessoryPhoto);
 		
+		this.accessoryRepository.save(assistiveaccessory);
+		
 		HashMap<String, Object> dados = new HashMap<String, Object>();
 		dados.put("assistiveaccessory", assistiveaccessory);
 		dados.put("categories",categories);

@@ -35,13 +35,15 @@
 			</div>
 			
 			<div class="row">
-				<div class="card col-xs-12 col-sm-4 col-md-3 col-lg-2"  th:each="umaccessory : ${umitem.value}">
+				<div class="card col-xs-12 col-sm-4 col-md-3 col-lg-2"  th:each="umaccessory : ${umitem.value}" th:if="${#lists.contains(umaccessory.assistiveAccessory.colorList,umaccessory.accessoryPhoto.accessoryColor)}">
+					<div >
 					<img class="card-img-top" th:src="${'/image-byte-array/' + umaccessory.accessoryPhoto.URI}" th:alt="${umaccessory.accessoryPhoto.description}"/>
 					<div class="card-body">
 						<h5 class="card-text" th:text="${umaccessory.assistiveAccessory.name}"></h5>
 						<p class="card-title" th:text="${umaccessory.assistiveAccessory.description}"></p>
 						<p class="card-title" th:text="'Cor: '+${umaccessory.accessoryPhoto.accessoryColor.name}"></p>
 						<a th:href="@{'/additem/' + ${umaccessory.assistiveAccessory.id} + '/'+ ${umaccessory.accessoryPhoto.id}}"  class="btn btn-success">Adicionar</a>
+					</div>
 					</div>
 				</div>
 			</div>

@@ -88,9 +88,9 @@
 							<th></th>
 						</tr>
 	 					<tr class="form-group multiple-form-group input-group" style="display: table-row" th:each="oneimage, stat : *{photoList}">
-	 						<input type="hidden" th:field="*{photoList[__${stat.index}__]}"/>
+	 						<input type="hidden" th:field="*{photoList[__${stat.index}__]}" >
 	 						<td width="40%" style="text-align: center;">
-		                        <img th:src="${'/assistiveaccessory/image-byte-array/'+oneimage.URI}">
+		                        <img style="max-width:128px" th:src="${'/assistiveaccessory/image-byte-array/'+oneimage.URI}">
 	                        </td>
 	                        <td width="25%">
 		                        <select class="form-control" th:field="*{photoList[__${stat.index}__].accessoryColor}">
